@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/tanyapyndiah/.gradle/daemon/8.0/com.example.appointwell.app-mergeDebugResources-31:/layout/activity_main.xml",
+        "source": "/Users/tanyapyndiah/.gradle/daemon/8.0/com.example.appointwell.app-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.appointwell.app-mergeDebugResources-31:/layout/activity_main.xml",
+        "source": "com.example.appointwell.app-main-34:/layout/activity_main.xml"
+    }
+]
