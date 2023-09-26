@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/tertiary">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="772dp"
-        android:fillViewport="true"
-
-        >
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,37 +21,51 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:paddingLeft="35dp">
 
                 <TextView
+                    android:id="@+id/signuptxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Sign up"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textSize="35dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary"/>
 
                 <TextView
+                    android:id="@+id/createaccounttxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-5dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="Create your account"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:textColor="@color/primary"/>
             </LinearLayout>
-
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/layout_bg"
+                >
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                >
 
                 <RadioButton
+                    android:textColor="@color/tertiary"
+                    android:id="@+id/patientbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:fontFamily="@font/poppins_regular"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
@@ -60,6 +73,8 @@
                     android:textSize="17.5dp" />
 
                 <RadioButton
+                    android:textColor="@color/tertiary"
+                    android:id="@+id/doctorbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="37dp"
@@ -68,16 +83,19 @@
                     android:scaleY="0.8"
                     android:text="Doctor"
                     android:textSize="17.5dp" />
+            </RadioGroup>
 
-            </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/fieldslayout"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="30dp">
 
                 <TextView
+                    android:id="@+id/emailtxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
@@ -88,6 +106,7 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:id="@+id/emailinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/input_style"
@@ -103,6 +122,7 @@
 
 
                     <TextView
+                        android:id="@+id/firstnametxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="123dp"
@@ -113,6 +133,7 @@
 
 
                     <TextView
+                        android:id="@+id/lastnametxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="13dp"
@@ -130,6 +151,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/firstnameinput"
                         android:layout_width="130dp"
                         android:layout_height="53dp"
                         android:layout_marginRight="30dp"
@@ -137,6 +159,7 @@
                         android:paddingLeft="10dp" />
 
                     <EditText
+                        android:id="@+id/lastnameinput"
                         android:layout_width="130dp"
                         android:layout_height="53dp"
                         android:background="@drawable/input_style"
@@ -154,6 +177,7 @@
 
 
                     <TextView
+                        android:id="@+id/areacodetxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="102dp"
@@ -164,6 +188,7 @@
 
 
                     <TextView
+                        android:id="@+id/phonenumbertxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
@@ -180,6 +205,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/areacodeinput"
                         android:layout_width="90dp"
                         android:layout_height="53dp"
                         android:layout_marginRight="9.5dp"
@@ -187,6 +213,7 @@
                         android:paddingLeft="10dp" />
 
                     <EditText
+                        android:id="@+id/phonenumberinput"
                         android:layout_width="190dp"
                         android:layout_height="53dp"
                         android:background="@drawable/input_style"
@@ -195,6 +222,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/addresstxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
@@ -206,12 +234,14 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:id="@+id/addressinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/input_style"
                     android:paddingLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/healthcardnumbertxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
@@ -223,12 +253,14 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:id="@+id/healthcardinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/input_style"
                     android:paddingLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/passwordtxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
@@ -240,12 +272,14 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:id="@+id/passwordinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/input_style"
                     android:paddingLeft="10dp" />
 
                 <TextView
+                    android:id="@+id/specialtiestxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
@@ -254,18 +288,38 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="Specialties"
                     android:textColor="@color/text"
-                    android:textSize="12.5dp" />
+                    android:textSize="12.5dp"
+                    android:visibility="gone" />
 
                 <EditText
+                    android:id="@+id/specialtiesinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:background="@drawable/input_style"
-                    android:paddingLeft="10dp" />
+                    android:enabled="false"
+                    android:paddingLeft="10dp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity = "right"
+                    android:layout_marginTop="40dp">
+
+                    <Button
+                        android:backgroundTint="@color/secondary"
+                        android:text="Sign Up"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_width="105dp"
+                        android:layout_height="match_parent">
+                    </Button>
+                </LinearLayout>
 
 
             </LinearLayout>
-
-
+            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
