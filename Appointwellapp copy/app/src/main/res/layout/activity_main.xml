@@ -70,7 +70,8 @@
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:text="Patient"
-                    android:textSize="17.5dp" />
+                    android:textSize="17.5dp"
+                    />
 
                 <RadioButton
                     android:textColor="@color/tertiary"
