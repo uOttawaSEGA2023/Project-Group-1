@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "35565647561",
+    "project_id": "appointwell-app",
+    "storage_bucket": "appointwell-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35565647561:android:75f1c802a00cab2f4fbf18",
+        "android_client_info": {
+          "package_name": "com.example.appointwellapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoamLMsQtPrTIM6lHcE9D7w31TXI-ehuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

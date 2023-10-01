@@ -1,26 +1,17 @@
 package com.example.appointwellapp;
 
-public class Patient {
-    private String email, firstName, lastName, password,address, areaCode;
+public class Patient extends Account{
+    private String firstName, lastName,address, areaCode;
     private int healthCardNumber, phoneNumber;
 
     public Patient(String email, String firstName, String lastName, String password, String address, String areaCode, int healthCardNumber, int phoneNumber) {
-        this.email = email;
+        super(email, password);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
         this.address = address;
         this.areaCode = areaCode;
         this.healthCardNumber = healthCardNumber;
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFirstName() {
@@ -37,14 +28,6 @@ public class Patient {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getAddress() {
