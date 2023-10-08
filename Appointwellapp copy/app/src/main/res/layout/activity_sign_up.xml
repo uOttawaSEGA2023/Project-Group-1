@@ -107,6 +107,9 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:inputType="textEmailAddress"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/tertiary"
                     android:id="@+id/emailinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
@@ -152,6 +155,8 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/tertiary"
                         android:id="@+id/firstnameinput"
                         android:layout_width="130dp"
                         android:layout_height="53dp"
@@ -160,6 +165,8 @@
                         android:paddingLeft="10dp" />
 
                     <EditText
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/tertiary"
                         android:id="@+id/lastnameinput"
                         android:layout_width="130dp"
                         android:layout_height="53dp"
@@ -206,6 +213,11 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:text="      +1"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/tertiary"
                         android:id="@+id/areacodeinput"
                         android:layout_width="90dp"
                         android:layout_height="53dp"
@@ -214,6 +226,9 @@
                         android:paddingLeft="10dp" />
 
                     <EditText
+                        android:inputType="number"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/tertiary"
                         android:id="@+id/phonenumberinput"
                         android:layout_width="190dp"
                         android:layout_height="53dp"
@@ -235,6 +250,8 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/tertiary"
                     android:id="@+id/addressinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
@@ -254,6 +271,9 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:inputType="number"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/tertiary"
                     android:id="@+id/healthcardinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
@@ -273,6 +293,8 @@
                     android:textSize="12.5dp" />
 
                 <EditText
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/tertiary"
                     android:id="@+id/passwordinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
@@ -293,6 +315,8 @@
                     android:visibility="gone" />
 
                 <EditText
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/tertiary"
                     android:id="@+id/specialtiesinput"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
@@ -308,6 +332,7 @@
                     android:layout_marginTop="40dp">
 
                     <Button
+                        android:id="@+id/signup"
                         android:backgroundTint="@color/secondary"
                         android:text="Sign Up"
                         android:textColor="@color/white"
@@ -316,8 +341,6 @@
                         android:layout_height="match_parent">
                     </Button>
                 </LinearLayout>
-
-
             </LinearLayout>
             </LinearLayout>
         </LinearLayout>

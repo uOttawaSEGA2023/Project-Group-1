@@ -1,15 +1,22 @@
 package com.example.appointwellapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,12 +34,14 @@ public class SignUpActivity extends AppCompatActivity {
     EditText areaCodeInput;
     EditText healthCardNumberInput;
     EditText phoneNumberInput;
-    TextView healthcardno;
-    EditText specialtiesinput;
-    TextView specialtiestext;
+    TextView healthCardNo;
+    EditText specialtiesInput;
+    TextView specialtiesText;
+    Button signUpBtn;
     boolean allFieldsValid;
     FirebaseDatabase db;
     DatabaseReference reference;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +49,8 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         radioButtonPatient = findViewById(R.id.patientbtn);
         radioButtonDoctor = findViewById(R.id.doctorbtn);
-        healthcardno = findViewById(R.id.healthcardnumbertxt);
-        specialtiestext = findViewById(R.id.specialtiestxt);
+        healthCardNo = findViewById(R.id.healthcardnumbertxt);
+        specialtiesText = findViewById(R.id.specialtiestxt);
         emailInput = findViewById(R.id.emailinput);
         firstNameInput = findViewById(R.id.firstnameinput);
         lastNameInput = findViewById(R.id.lastnameinput);
@@ -50,24 +59,34 @@ public class SignUpActivity extends AppCompatActivity {
         areaCodeInput = findViewById(R.id.areacodeinput);
         phoneNumberInput = findViewById(R.id.phonenumberinput);
         healthCardNumberInput = findViewById(R.id.healthcardinput);
-        specialtiesinput = findViewById(R.id.specialtiesinput);
+        specialtiesInput = findViewById(R.id.specialtiesinput);
+        signUpBtn = findViewById(R.id.signup);
+        auth = FirebaseAuth.getInstance();
+
 
         radioButtonPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                healthcardno.setText("Health Card Number");
-                specialtiestext.setVisibility(View.GONE);
-                specialtiesinput.setVisibility(View.GONE);
-                specialtiesinput.setEnabled(false);
+                healthCardNo.setText("Health Card Number");
+                specialtiesText.setVisibility(View.GONE);
+                specialtiesInput.setVisibility(View.GONE);
+                specialtiesInput.setEnabled(false);
                 emailInput.setText("");
                 firstNameInput.setText("");
                 lastNameInput.setText("");
                 passwordInput.setText("");
                 addressInput.setText("");
-                areaCodeInput.setText("");
                 phoneNumberInput.setText("");
                 healthCardNumberInput.setText("");
-                specialtiesinput.setText("");
+                specialtiesInput.setText("");
+                emailInput.setError(null);
+                firstNameInput.setError(null);
+                lastNameInput.setError(null);
+                passwordInput.setError(null);
+                addressInput.setError(null);
+                phoneNumberInput.setError(null);
+                healthCardNumberInput.setError(null);
+                specialtiesInput.setError(null);
 
             }
         });
@@ -75,21 +94,30 @@ public class SignUpActivity extends AppCompatActivity {
         radioButtonDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                healthcardno.setText("Employee Number");
-                specialtiestext.setVisibility(View.VISIBLE);
-                specialtiesinput.setVisibility(View.VISIBLE);
-                specialtiesinput.setEnabled(true);
+                healthCardNo.setText("Employee Number");
+                specialtiesText.setVisibility(View.VISIBLE);
+                specialtiesInput.setVisibility(View.VISIBLE);
+                specialtiesInput.setEnabled(true);
                 emailInput.setText("");
                 firstNameInput.setText("");
                 lastNameInput.setText("");
                 passwordInput.setText("");
                 addressInput.setText("");
-                areaCodeInput.setText("");
                 phoneNumberInput.setText("");
                 healthCardNumberInput.setText("");
-                specialtiesinput.setText("");
+                specialtiesInput.setText("");
+                emailInput.setError(null);
+                firstNameInput.setError(null);
+                lastNameInput.setError(null);
+                passwordInput.setError(null);
+                addressInput.setError(null);
+                phoneNumberInput.setError(null);
+                healthCardNumberInput.setError(null);
+                specialtiesInput.setError(null);
             }
         });
+
+
 
 
 
@@ -101,7 +129,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                NumberIsValid(phoneNumberInput);
+                numberIsValid(phoneNumberInput);
             }
 
             @Override
@@ -135,7 +163,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                NumberIsValid(healthCardNumberInput);
+                numberIsValid(healthCardNumberInput);
             }
 
             @Override
@@ -193,6 +221,66 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
+        addressInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                addressIsValid(addressInput);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        specialtiesInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    specialtiesIsValid(specialtiesInput);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(nameIsValid(firstNameInput)&&nameIsValid(lastNameInput)&&emailIsValid(emailInput)&&passwordIsValid(passwordInput)&&numberIsValid(phoneNumberInput)&&numberIsValid(healthCardNumberInput)){
+                    if (radioButtonDoctor.isChecked() && specialtiesIsValid(specialtiesInput) || radioButtonPatient.isChecked()) {
+
+                        String email = emailInput.getText().toString().trim();
+                        String password = passwordInput.getText().toString().trim();
+                        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        });
+                    }
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Field(s) invalid. Unable to register.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     private boolean nameIsValid(EditText input){
         boolean valid = true;
@@ -217,7 +305,7 @@ public class SignUpActivity extends AppCompatActivity {
         return valid;
     }
 
-    private boolean NumberIsValid(EditText input ){
+    private boolean numberIsValid(EditText input ){
         boolean valid= true;
 
 
@@ -267,6 +355,10 @@ public class SignUpActivity extends AppCompatActivity {
 
             String password= String.valueOf(input.getText());
             if (password.length()<9){
+                if(password.trim().length()==0){
+                    input.setError("Field cannot be empty.");
+                    return false;
+                }
                 valid=false;
                 input.setError("Password consist of at least 8 characters.");
             } else {
@@ -318,6 +410,20 @@ public class SignUpActivity extends AppCompatActivity {
         return valid;
     }
 
+    private boolean addressIsValid(EditText input){
+        if (input.getText().toString().trim().length()==0){
+            input.setError("Field cannot be empty.");
+            return false;
+        }
+        return true;
+    }
 
+    private boolean specialtiesIsValid(EditText input){
+        if (input.getText().toString().trim().length()==0){
+            input.setError("Field cannot be empty.");
+            return false;
+        }
+        return true;
+    }
 
 }
