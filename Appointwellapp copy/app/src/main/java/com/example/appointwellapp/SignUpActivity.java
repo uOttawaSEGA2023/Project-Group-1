@@ -2,7 +2,7 @@ package com.example.appointwellapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -268,7 +268,12 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+
+                                    Intent intent = new Intent(SignUpActivity.this, mainpage_logoff.class);
+                                    startActivity(intent);
+
+                                    // Finish the current activity to prevent the user from going back.
+                                    finish();
                                 } else {
                                     Toast.makeText(SignUpActivity.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
                                 }
