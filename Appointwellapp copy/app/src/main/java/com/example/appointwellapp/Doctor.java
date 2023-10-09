@@ -1,5 +1,7 @@
 package com.example.appointwellapp;
 
+import java.util.List;
+
 public class Doctor extends Account{
     private String firstName, lastName, address, areaCode;
     private int employeeNumber, phoneNumber;
