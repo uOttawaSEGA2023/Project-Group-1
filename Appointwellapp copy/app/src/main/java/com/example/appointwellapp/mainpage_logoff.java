@@ -1,4 +1,4 @@
-package Karen.app;
+package com.example.appointwellapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 
 
-public class mainpage_logoff extends AppCompatActivity{
+public class mainpage_logoff extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage_logoff);
     }
-
 }
+
 
