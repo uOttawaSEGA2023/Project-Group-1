@@ -33,7 +33,6 @@
         app:layout_constraintVertical_bias="0.271">
 
         <TextView
-            android:id="@+id/Welcome"
             android:layout_width="291dp"
             android:layout_height="65dp"
             android:layout_marginLeft="20dp"
@@ -46,11 +45,11 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/welcomeMessageTextView"
             android:layout_width="291dp"
             android:layout_height="54dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="95dp"
             android:fontFamily="sans-serif-medium"
             android:textColor="#70A9A1"
             android:text="FirstName, LastName"
@@ -61,13 +60,13 @@
         <TextView
             android:id="@+id/logintext"
             android:layout_width="291dp"
-            android:layout_height="54dp"
+            android:layout_height="55dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="155dp"
             android:fontFamily="sans-serif-medium"
             android:text="You are logged in as a "
             android:textColor="#70A9A1"
-            android:textSize="15sp"
+            android:textSize="18sp"
             tools:ignore="MissingConstraints" />
 
     </RelativeLayout>
@@ -87,20 +86,20 @@
 
     <TextView
         android:id="@+id/updatepersonalinfo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="137dp"
+        android:layout_height="136dp"
         android:fontFamily="sans-serif-medium"
         android:text="Update Personal Information"
         android:textAlignment="center"
         android:textColor="#1F363D"
-        android:textSize="20sp"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintVertical_bias="0.803" />
 
     <ImageButton
         android:id="@+id/logout"
@@ -125,14 +124,14 @@
         android:text="Log out"
         android:textAlignment="center"
         android:textColor="#1F363D"
-        android:textSize="20sp"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.798" />
+        app:layout_constraintVertical_bias="0.812" />
 
     <ImageButton
         android:id="@+id/calendar"

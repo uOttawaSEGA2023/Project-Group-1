@@ -2,7 +2,7 @@ package com.example.appointwellapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +12,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioGroup;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference reference;
     FirebaseAuth auth;
-
+    private RadioGroup userTypeRadioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +68,6 @@ public class SignUpActivity extends AppCompatActivity {
         specialtiesInput = findViewById(R.id.specialtiesinput);
         signUpBtn = findViewById(R.id.signup);
         auth = FirebaseAuth.getInstance();
-
 
         radioButtonPatient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,314 +121,377 @@ public class SignUpActivity extends AppCompatActivity {
                 specialtiesInput.setError(null);
             }
         });
-
-
-
-
-
-        phoneNumberInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                numberIsValid(phoneNumberInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        emailInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                emailIsValid(emailInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        healthCardNumberInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                numberIsValid(healthCardNumberInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        passwordInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                passwordIsValid(passwordInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        firstNameInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nameIsValid(firstNameInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        lastNameInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nameIsValid(lastNameInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        addressInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                addressIsValid(addressInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        specialtiesInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    specialtiesIsValid(specialtiesInput);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
+        userTypeRadioGroup = findViewById(R.id.userTypeRadioGroup);
+        // Set an OnClickListener for the sign-in button
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nameIsValid(firstNameInput)&&nameIsValid(lastNameInput)&&emailIsValid(emailInput)&&passwordIsValid(passwordInput)&&numberIsValid(phoneNumberInput)&&numberIsValid(healthCardNumberInput)){
-                    if (radioButtonDoctor.isChecked() && specialtiesIsValid(specialtiesInput) || radioButtonPatient.isChecked()) {
+                int selectedRadioButtonId = userTypeRadioGroup.getCheckedRadioButtonId();
+                String userType = "";
 
-                        String email = emailInput.getText().toString().trim();
-                        String password = passwordInput.getText().toString().trim();
-                        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(SignUpActivity.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
-                                }
+                if (selectedRadioButtonId == R.id.patientbtn) {
+                    // Patient RadioButton is selected
+                    userType = "Patient";
+                } else if (selectedRadioButtonId == R.id.doctorbtn) {
+                    // Doctor RadioButton is selected
+                    userType = "Doctor";
+                }
+                // Store the selected user type in SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("userType", userType);
+                editor.apply();
+
+                phoneNumberInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        numberIsValid(phoneNumberInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                emailInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        emailIsValid(emailInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                healthCardNumberInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        numberIsValid(healthCardNumberInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                passwordInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        passwordIsValid(passwordInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+                firstNameInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        nameIsValid(firstNameInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                lastNameInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        nameIsValid(lastNameInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                addressInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        addressIsValid(addressInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+
+                specialtiesInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        specialtiesIsValid(specialtiesInput);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+                signUpBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (nameIsValid(firstNameInput) && nameIsValid(lastNameInput) && emailIsValid(emailInput) && passwordIsValid(passwordInput) && numberIsValid(phoneNumberInput) && numberIsValid(healthCardNumberInput)) {
+                            if (radioButtonDoctor.isChecked() && specialtiesIsValid(specialtiesInput) || radioButtonPatient.isChecked()) {
+
+                                String email = emailInput.getText().toString().trim();
+                                String password = passwordInput.getText().toString().trim();
+                                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                            DatabaseReference usersRef = database.getReference("users"); // "users" is the name of the database node where you want to store user information
+
+                                            String firstName = firstNameInput.getText().toString();
+                                            String lastName = lastNameInput.getText().toString();
+                                            // Get the authenticated user's UID
+                                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                                            // Create a User object with the first name and last name
+                                            User user = new User(firstName, lastName);
+
+                                            // Store the user's information under their UID
+                                            usersRef.child(userId).setValue(user);
+
+                                            Intent intent = new Intent(SignUpActivity.this, mainpage_logoff.class);
+                                            startActivity(intent);
+
+                                            // Finish the current activity to prevent the user from going back.
+                                            finish();
+                                        } else {
+                                            Toast.makeText(SignUpActivity.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                });
                             }
-
-                        });
-                    }
-                } else {
-                    Toast.makeText(SignUpActivity.this, "Field(s) invalid. Unable to register.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-    private boolean nameIsValid(EditText input){
-        boolean valid = true;
-
-            String firstName = String.valueOf(input.getText());
-            if (firstName.matches("")) {
-                input.setError("Field cannot be empty.");
-                valid = false;
-            } else if (!(firstName.charAt(0) >= 'A' && firstName.charAt(0) <= 'Z')) {
-                input.setError("Name has to start with an Uppercase alphabet");
-                valid = false;
-            } else {
-                for (int i = 0; i < firstName.length(); i++) {
-                    if (!((firstName.charAt(i) >= 'A' && firstName.charAt(i) <= 'Z') || (firstName.charAt(i) >= 'a' && firstName.charAt(i) <= 'z') || (firstName.charAt(i) == ' ') || (firstName.charAt(i) == '-') || (firstName.charAt(i) == '\''))) {
-                        input.setError("Name has to contain alphabets, dash(-), single quote(') or space( ) only.");
-                        valid = false;
-                    }
-                }
-            }
-
-
-        return valid;
-    }
-
-    private boolean numberIsValid(EditText input ){
-        boolean valid= true;
-
-
-
-            String phoneNum= String.valueOf(input.getText());
-            if (phoneNum.length()!= 10){
-                valid=false;
-                if (phoneNum.length()==0){
-                    input.setError("Field cannot be empty.");
-                } else {
-                    input.setError("Number should consist of 10 numbers.");
-                }
-            } else {
-                for (int i=0; i<10; i++){
-                    if (phoneNum.charAt(i)<48 || phoneNum.charAt(i)>57){
-                        valid=false;
-                        input.setError("Number can only consist of numerical characters.");
-                        break;
-                    }
-                }
-            }
-
-
-
-        return valid;
-    }
-
-    private boolean emailIsValid(EditText input){
-        boolean valid;
-        String regex="^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-            String email= String.valueOf( input.getText());
-            valid= (Pattern.compile(regex).matcher(email).matches());
-            if (!valid){
-                input.setError("Email address format is incorrect.");
-            }
-
-        return valid;
-    }
-    private boolean passwordIsValid(EditText input){
-            boolean valid=true;
-            char c;
-            boolean specialChar=false;
-            boolean uppercase=false;
-            boolean lowercase=false;
-            boolean num=false;
-
-            String password= String.valueOf(input.getText());
-            if (password.length()<9){
-                if(password.trim().length()==0){
-                    input.setError("Field cannot be empty.");
-                    return false;
-                }
-                valid=false;
-                input.setError("Password consist of at least 8 characters.");
-            } else {
-                for (int i=0; i<password.length();i++){
-                    c=password.charAt(i);
-                    if (c>= 65 && c<=90){
-                        uppercase=true;
-                    } else {
-                        if (c>=97 && c<=122){
-                            lowercase=true;
                         } else {
-                            if (c>=48 && c<=57){
-                                num=true;
+                            Toast.makeText(SignUpActivity.this, "Field(s) invalid. Unable to register.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+            private boolean nameIsValid(EditText input) {
+                boolean valid = true;
+
+                String firstName = String.valueOf(input.getText());
+                if (firstName.matches("")) {
+                    input.setError("Field cannot be empty.");
+                    valid = false;
+                } else if (!(firstName.charAt(0) >= 'A' && firstName.charAt(0) <= 'Z')) {
+                    input.setError("Name has to start with an Uppercase alphabet");
+                    valid = false;
+                } else {
+                    for (int i = 0; i < firstName.length(); i++) {
+                        if (!((firstName.charAt(i) >= 'A' && firstName.charAt(i) <= 'Z') || (firstName.charAt(i) >= 'a' && firstName.charAt(i) <= 'z') || (firstName.charAt(i) == ' ') || (firstName.charAt(i) == '-') || (firstName.charAt(i) == '\''))) {
+                            input.setError("Name has to contain alphabets, dash(-), single quote(') or space( ) only.");
+                            valid = false;
+                        }
+                    }
+                }
+
+
+                return valid;
+            }
+
+            private boolean numberIsValid(EditText input) {
+                boolean valid = true;
+
+
+                String phoneNum = String.valueOf(input.getText());
+                if (phoneNum.length() != 10) {
+                    valid = false;
+                    if (phoneNum.length() == 0) {
+                        input.setError("Field cannot be empty.");
+                    } else {
+                        input.setError("Number should consist of 10 numbers.");
+                    }
+                } else {
+                    for (int i = 0; i < 10; i++) {
+                        if (phoneNum.charAt(i) < 48 || phoneNum.charAt(i) > 57) {
+                            valid = false;
+                            input.setError("Number can only consist of numerical characters.");
+                            break;
+                        }
+                    }
+                }
+
+
+                return valid;
+            }
+
+            private boolean emailIsValid(EditText input) {
+                boolean valid;
+                String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+                String email = String.valueOf(input.getText());
+                valid = (Pattern.compile(regex).matcher(email).matches());
+                if (!valid) {
+                    input.setError("Email address format is incorrect.");
+                }
+
+                return valid;
+            }
+
+            private boolean passwordIsValid(EditText input) {
+                boolean valid = true;
+                char c;
+                boolean specialChar = false;
+                boolean uppercase = false;
+                boolean lowercase = false;
+                boolean num = false;
+
+                String password = String.valueOf(input.getText());
+                if (password.length() < 9) {
+                    if (password.trim().length() == 0) {
+                        input.setError("Field cannot be empty.");
+                        return false;
+                    }
+                    valid = false;
+                    input.setError("Password consist of at least 8 characters.");
+                } else {
+                    for (int i = 0; i < password.length(); i++) {
+                        c = password.charAt(i);
+                        if (c >= 65 && c <= 90) {
+                            uppercase = true;
+                        } else {
+                            if (c >= 97 && c <= 122) {
+                                lowercase = true;
                             } else {
-                                if ((c>=33 && c<=47)|| (c>=58 && c<= 64)|| (c>=91 && c<=96)|| (c>=123 && c<=126)){
-                                    specialChar=true;
+                                if (c >= 48 && c <= 57) {
+                                    num = true;
                                 } else {
-                                    valid = false;
-                                    input.setError("Password can only consist of numbers, uppercase or lowercase characters and symbols (~`!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/)");
-                                    break;
+                                    if ((c >= 33 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 96) || (c >= 123 && c <= 126)) {
+                                        specialChar = true;
+                                    } else {
+                                        valid = false;
+                                        input.setError("Password can only consist of numbers, uppercase or lowercase characters and symbols (~`!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/)");
+                                        break;
+                                    }
                                 }
                             }
                         }
-                    }
 
+                    }
+                    if (!(uppercase && lowercase && specialChar && num)) {
+                        valid = false;
+                        String errorMessage = "";
+                        if (!uppercase) {
+                            errorMessage = errorMessage + "Password should contain an uppercase alphabet. ";
+                        }
+                        if (!lowercase) {
+                            errorMessage = errorMessage + "Password should contain a lowercase alphabet. ";
+                        }
+                        if (!num) {
+                            errorMessage = errorMessage + "Password should contain a number. ";
+                        }
+                        if (!specialChar) {
+                            errorMessage = errorMessage + "Password should contain a symbol.";
+                        }
+                        input.setError(errorMessage);
+                    }
                 }
-                if (!(uppercase && lowercase && specialChar && num)){
-                    valid=false;
-                    String errorMessage="";
-                    if (!uppercase){
-                        errorMessage=errorMessage+"Password should contain an uppercase alphabet. ";
-                    }
-                    if (!lowercase){
-                        errorMessage=errorMessage+"Password should contain a lowercase alphabet. ";
-                    }
-                    if (!num){
-                        errorMessage=errorMessage+"Password should contain a number. ";
-                    }
-                    if (!specialChar){
-                        errorMessage=errorMessage+"Password should contain a symbol.";
-                    }
-                    input.setError(errorMessage);
-                }
+
+
+                return valid;
             }
 
+            private boolean addressIsValid(EditText input) {
+                if (input.getText().toString().trim().length() == 0) {
+                    input.setError("Field cannot be empty.");
+                    return false;
+                }
+                return true;
+            }
 
+            private boolean specialtiesIsValid(EditText input) {
+                if (input.getText().toString().trim().length() == 0) {
+                    input.setError("Field cannot be empty.");
+                    return false;
+                }
+                return true;
+            }
+        });
 
-
-        return valid;
     }
-
-    private boolean addressIsValid(EditText input){
-        if (input.getText().toString().trim().length()==0){
-            input.setError("Field cannot be empty.");
-            return false;
-        }
-        return true;
     }
+//store user information in the database to retrieve the user first name and last name.
+          class User {
+                private String firstName;
+                private String lastName;
 
-    private boolean specialtiesIsValid(EditText input){
-        if (input.getText().toString().trim().length()==0){
-            input.setError("Field cannot be empty.");
-            return false;
-        }
-        return true;
-    }
+                public User() {
+                    // Default constructor required for Firebase Realtime Database
+                }
 
-}
+                public User(String firstName, String lastName) {
+                    this.firstName = firstName;
+                    this.lastName = lastName;
+                }
+
+                public String getFirstName() {
+                    return firstName;
+                }
+
+                public void setFirstName(String firstName) {
+                    this.firstName = firstName;
+                }
+
+                public String getLastName() {
+                    return lastName;
+                }
+
+                public void setLastName(String lastName) {
+                    this.lastName = lastName;
+                }
+          }
+
