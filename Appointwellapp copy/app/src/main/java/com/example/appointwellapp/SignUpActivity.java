@@ -136,7 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
                     // Doctor RadioButton is selected
                     userType = "Doctor";
                 }
-                // Store the selected user type in SharedPreferences
+                // Store the selected user type in SharedPreferences to specify the exact role on the welcome page
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("userType", userType);
@@ -288,18 +288,18 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                            DatabaseReference usersRef = database.getReference("users"); // "users" is the name of the database node where you want to store user information
+                                            FirebaseDatabase database = FirebaseDatabase.getInstance(); //create a realtime database on firebase called "users"-is the key for reference
+                                            DatabaseReference usersRef = database.getReference("users"); 
 
-                                            String firstName = firstNameInput.getText().toString();
+                                            String firstName = firstNameInput.getText().toString(); //get the first and last name after the user entering it
                                             String lastName = lastNameInput.getText().toString();
-                                            // Get the authenticated user's UID
+                                            // Get the authenticated user's UID 
                                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                                             // Create a User object with the first name and last name
                                             User user = new User(firstName, lastName);
 
-                                            // Store the user's information under their UID
+                                            // Store the user's information under their unique id (UID)in the database
                                             usersRef.child(userId).setValue(user);
 
                                             Intent intent = new Intent(SignUpActivity.this, mainpage_logoff.class);
