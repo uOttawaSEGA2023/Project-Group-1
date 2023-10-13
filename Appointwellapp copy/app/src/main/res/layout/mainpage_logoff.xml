@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/newbacks"
-    tools:context=".mainpage_logoff">
+    tools:context=".mainpagePatient">
     <TextView
         android:id="@+id/myaccount"
         android:layout_width="207dp"

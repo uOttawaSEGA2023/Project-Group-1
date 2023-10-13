@@ -6,4 +6,7 @@
     <color name="secondary">#70A9A1</color>
     <color name="tertiary">#40798C</color>
     <color name="text">#939393</color>
+    <color name="purple">#CFE0C3</color>
+    <color name="btn_color">#70A9A1</color>
+    <color name="background_color">#40798C</color>
 </resources>
