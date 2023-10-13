@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
+import java.util.*;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -45,8 +46,8 @@ public class SignUpActivity extends AppCompatActivity {
     TextView specialtiesText;
     Button signUpBtn;
     boolean allFieldsValid;
-    FirebaseDatabase db;
-    DatabaseReference reference;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://appointwell-app-default-rtdb.firebaseio.com/"); //create a realtime database on firebase called "users"-is the key for reference
+    DatabaseReference userdatabase = database.child("Users");
     FirebaseAuth auth;
     private RadioGroup userTypeRadioGroup;
     @Override
@@ -291,35 +292,53 @@ public class SignUpActivity extends AppCompatActivity {
                                             FirebaseDatabase database = FirebaseDatabase.getInstance(); //create a realtime database on firebase called "users"-is the key for reference
                                             DatabaseReference usersRef = database.getReference("users"); 
 
-                                            String firstName = firstNameInput.getText().toString(); //get the first and last name after the user entering it
-                                            String lastName = lastNameInput.getText().toString();
-                                            // Get the authenticated user's UID 
-                                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                            String firstName = firstNameInput.getText().toString().trim(); //get the first and last name after the user entering it
+                                            String lastName = lastNameInput.getText().toString().trim();
+                                            String address = addressInput.getText().toString().trim();
+                                            int healthcardNumber = Integer.parseInt(healthCardNumberInput.getText().toString());
+                                            int phoneNumber = Integer.parseInt(phoneNumberInput.getText().toString());
 
-                                            // Create a User object with the first name and last name
-                                            User user = new User(firstName, lastName);
 
-                                            // Store the user's information under their unique id (UID)in the database
-                                            usersRef.child(userId).setValue(user);
+                                            if (radioButtonDoctor.isChecked()){
+                                                List<String> specialties = textToList(specialtiesInput);
 
-                                            Intent intent = new Intent(SignUpActivity.this, mainpage_logoff.class);
-                                            startActivity(intent);
+                                                // create the Doctor object that will be stored in the database
+                                                Doctor doctorRegistrator = new Doctor (email, firstName, lastName, password, address,specialties,healthcardNumber,phoneNumber);
+
+                                                // we use username as unique identifier
+                                                userdatabase.child("Doctors").child(email).setValue(doctorRegistrator);
+
+                                                // Swap Activity to main page
+                                                Intent intent = new Intent(SignUpActivity.this, mainpageDoctor.class);
+                                                startActivity(intent);
+
+                                            } else {
+                                                // create the Patient object that will be stored in the database
+                                                Patient patientRegistrator = new Patient (email, firstName, lastName, password, address,healthcardNumber,phoneNumber);
+
+                                                // we use username as unique identifier
+                                                userdatabase.child("Patients").child(email).setValue(patientRegistrator);
+
+                                                // Swap Activity to main page
+                                                Intent intent = new Intent(SignUpActivity.this, mainpagePatient.class);
+                                                startActivity(intent);
+                                            }
 
                                             // Finish the current activity to prevent the user from going back.
                                             finish();
-                                        } else {
+                                    } else {
                                             Toast.makeText(SignUpActivity.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
-                                        }
                                     }
-
-                                });
-                            }
-                        } else {
-                            Toast.makeText(SignUpActivity.this, "Field(s) invalid. Unable to register.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Field(s) invalid. Unable to register.", Toast.LENGTH_SHORT).show();
                     }
-                });
-            }
+                }
+            });
+        }
+
             private boolean nameIsValid(EditText input) {
                 boolean valid = true;
 
@@ -460,38 +479,26 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
+            private List<String> textToList(EditText input){  // passes specialty text as parameter and returns a list of the specialties
+                String special = specialtiesInput.getText().toString().trim();
+                String specialty = "" ;
+                List<String> specialtiesList = new ArrayList<>();
+
+                for (int i = 0 ; i < special.length() ; i ++ ) {
+                    if (Character.valueOf(special.charAt(i)).equals(",")) {
+                        specialty = specialty + special.charAt(i);
+                    } else {
+                        specialtiesList.add(specialty.trim());
+                        specialty = "";
+                    }
+                }
+                return specialtiesList;
+            }
+
         });
 
     }
     }
-//store user information in the database to retrieve the user first name and last name.
-          class User {
-                private String firstName;
-                private String lastName;
 
-                public User() {
-                    // Default constructor required for Firebase Realtime Database
-                }
-
-                public User(String firstName, String lastName) {
-                    this.firstName = firstName;
-                    this.lastName = lastName;
-                }
-
-                public String getFirstName() {
-                    return firstName;
-                }
-
-                public void setFirstName(String firstName) {
-                    this.firstName = firstName;
-                }
-
-                public String getLastName() {
-                    return lastName;
-                }
-
-                public void setLastName(String lastName) {
-                    this.lastName = lastName;
-                }
-          }
 
