@@ -4,9 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 import android.content.SharedPreferences;
 
-public class mainpage_logoff extends AppCompatActivity {
+public class mainpageDoctor extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
 
@@ -27,34 +26,32 @@ public class mainpage_logoff extends AppCompatActivity {
         // Initialize the TextView
         welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
 
-        // Get the authenticated user's UID
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Get a reference to the user's data in the Firebase Realtime Database
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+
+        String username = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://appointwell-app-default-rtdb.firebaseio.com/");
+
 
         // Attach a ValueEventListener to retrieve the user's data
-        usersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        database.child("Users").child("Doctors").child(username).addListenerForSingleValueEvent(new ValueEventListener(){
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
                 if (dataSnapshot.exists()) {
-                    // Retrieve the user object
-                    User user = dataSnapshot.getValue(User.class);
+                    Doctor doctor = dataSnapshot.getValue(Doctor.class);
 
-                    // Check if user is not null
-                    if (user != null) {
+                    if (doctor != null) {
                         // Set the welcome message with the user's first name and last name
-                        String welcomeMessage = user.getFirstName() + " " + user.getLastName();
+                        String welcomeMessage = doctor.getFirstName() + " " + doctor.getLastName();
                         welcomeMessageTextView.setText(welcomeMessage);
                     }
                 }
             }
 
-            @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle any errors here
             }
+
         });
+
 
         userTypeTextView = findViewById(R.id.logintext);
 
@@ -66,12 +63,3 @@ public class mainpage_logoff extends AppCompatActivity {
         userTypeTextView.setText("You are logged in as a " + userType);
     }
 }
-
-
-
-
-
-
-
-
-

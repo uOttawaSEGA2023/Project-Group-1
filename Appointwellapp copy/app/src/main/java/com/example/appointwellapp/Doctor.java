@@ -7,12 +7,11 @@ public class Doctor extends Account{
     private int employeeNumber, phoneNumber;
     private List<String> specialties;
 
-    public Doctor(String email, String firstName, String lastName, String password, String address, String areaCode, List<String> specialties, int employeeNumber, int phoneNumber) {
+    public Doctor(String email, String firstName, String lastName, String password, String address, List<String> specialties, int employeeNumber, int phoneNumber) {
         super(email, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.areaCode = areaCode;
         this.specialties = specialties;
         this.employeeNumber = employeeNumber;
         this.phoneNumber = phoneNumber;

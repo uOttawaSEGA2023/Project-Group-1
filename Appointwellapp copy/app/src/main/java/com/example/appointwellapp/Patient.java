@@ -4,12 +4,11 @@ public class Patient extends Account{
     private String firstName, lastName,address, areaCode;
     private int healthCardNumber, phoneNumber;
 
-    public Patient(String email, String firstName, String lastName, String password, String address, String areaCode, int healthCardNumber, int phoneNumber) {
+    public Patient(String email, String firstName, String lastName, String password, String address, int healthCardNumber, int phoneNumber) {
         super(email, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.areaCode = areaCode;
         this.healthCardNumber = healthCardNumber;
         this.phoneNumber = phoneNumber;
     }
