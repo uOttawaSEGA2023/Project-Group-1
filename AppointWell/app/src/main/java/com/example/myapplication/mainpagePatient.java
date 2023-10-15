@@ -61,12 +61,7 @@ public class mainpagePatient extends AppCompatActivity {
 
         userTypeTextView = findViewById(R.id.logintext);
 
-        // Retrieve the selected user type from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String userType = sharedPreferences.getString("userType", "");
-
-        // Display the user type in the TextView
-        userTypeTextView.setText("You are logged in as a " + userType);
+        userTypeTextView.setText("You are logged in as a Patient");
 
         logOutBtn = findViewById(R.id.logout);
 

@@ -261,25 +261,6 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int selectedRadioButtonId = userTypeRadioGroup.getCheckedRadioButtonId();
-                String userType = "";
-
-                if (selectedRadioButtonId == R.id.patientbtn) {
-                    // Patient RadioButton is selected
-                    userType = "Patient";
-                } else if (selectedRadioButtonId == R.id.doctorbtn) {
-                    // Doctor RadioButton is selected
-                    userType = "Doctor";
-                }
-                // Store the selected user type in SharedPreferences to specify the exact role on the welcome page
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("userType", userType);
-                editor.apply();
-
-
-
-
                 if (nameIsValid(firstNameInput) && nameIsValid(lastNameInput) && emailIsValid(emailInput) && passwordIsValid(passwordInput) && numberIsValid(phoneNumberInput) && numberIsValid(healthCardNumberInput)) {
                     if (radioButtonDoctor.isChecked() && specialtiesIsValid(specialtiesInput) || radioButtonPatient.isChecked()) {
 

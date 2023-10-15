@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 public class mainpageDoctor extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
+    private ImageButton logOutBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +60,17 @@ public class mainpageDoctor extends AppCompatActivity {
 
         userTypeTextView = findViewById(R.id.logintext);
 
-        // Retrieve the selected user type from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String userType = sharedPreferences.getString("userType", "");
+        userTypeTextView.setText("You are logged in as a Doctor");
 
-        // Display the user type in the TextView
-        userTypeTextView.setText("You are logged in as a " + userType);
+        logOutBtn = findViewById(R.id.logout);
+
+        logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(mainpageDoctor.this, login.class);
+                startActivity(intent);
+            }
+        });
     }
 }

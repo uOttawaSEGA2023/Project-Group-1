@@ -98,25 +98,25 @@
         android:textColor="#1F363D"
         android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803" />
+        app:layout_constraintBottom_toBottomOf="@+id/personalinfo"
+        app:layout_constraintEnd_toEndOf="@+id/personalinfo"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="@+id/personalinfo"
+        app:layout_constraintTop_toTopOf="@+id/personalinfo"
+        app:layout_constraintVertical_bias="0.791" />
 
     <ImageButton
         android:id="@+id/logout"
         android:layout_width="155dp"
         android:layout_height="203dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/border"
         android:backgroundTint="#DDECD3"
         android:src="@drawable/icon"
-        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/personalinfo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.793" />
 
