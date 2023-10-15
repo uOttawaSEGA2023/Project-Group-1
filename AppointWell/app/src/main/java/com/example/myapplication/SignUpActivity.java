@@ -271,11 +271,7 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     FirebaseDatabase database = FirebaseDatabase.getInstance(); //create a realtime database on firebase called "users"-is the key for reference
-                                    DatabaseReference usersRef = database.getReference("users");
-                                    DatabaseReference patientDB = userdatabase.child("Patient");
-                                    DatabaseReference doctorDB = userdatabase.child("Doctor");
-                                    //patientDB.push().setValue("Hello Patient");
-                                    //doctorDB.push().setValue("Hello Doctor");
+                                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
                                     String firstName = firstNameInput.getText().toString().trim(); //get the first and last name after the user entering it
@@ -294,7 +290,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         // we use username as unique identifier
                                         //I ADDED .PUSH IT MIGHTBE WRONG CHECK
                                         //userdatabase.child("Doctors").child(email).push().setValue(doctorRegistrator);
-                                        doctorDB.push().setValue(doctorRegistrator);
+                                        userdatabase.child(userID).setValue(doctorRegistrator);
 
                                         // Swap Activity to main page
                                         Intent intent = new Intent(SignUpActivity.this, mainpageDoctor.class);
@@ -306,7 +302,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                         // we use username as unique identifier
                                         //I ADDED .PUSH IT MIGHTBE WRONG CHECK
-                                        patientDB.push().setValue(patientRegistrator);
+                                        userdatabase.child(userID).setValue(patientRegistrator);
 
                                         // Swap Activity to main page
                                         Intent intent = new Intent(SignUpActivity.this, mainpagePatient.class);
