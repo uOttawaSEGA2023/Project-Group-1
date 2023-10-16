@@ -91,11 +91,11 @@ public class SignUpActivity extends AppCompatActivity {
                 addressInput.setError(null);
                 phoneNumberInput.setError(null);
                 healthCardNumberInput.setError(null);
-                specialtiesInput.setError(null);
+                //specialtiesInput.setError(null);
 
             }
         });
-
+        userTypeRadioGroup=findViewById(R.id.userTypeRadioGroup);
         radioButtonDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +118,7 @@ public class SignUpActivity extends AppCompatActivity {
                 addressInput.setError(null);
                 phoneNumberInput.setError(null);
                 healthCardNumberInput.setError(null);
-                specialtiesInput.setError(null);
+                //specialtiesInput.setError(null);
             }
         });
         userTypeRadioGroup = findViewById(R.id.userTypeRadioGroup);
@@ -262,10 +262,24 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (nameIsValid(firstNameInput) && nameIsValid(lastNameInput) && emailIsValid(emailInput) && passwordIsValid(passwordInput) && numberIsValid(phoneNumberInput) && numberIsValid(healthCardNumberInput)) {
-                    if (radioButtonDoctor.isChecked() && specialtiesIsValid(specialtiesInput) || radioButtonPatient.isChecked()) {
+                    if (radioButtonDoctor.isChecked() || radioButtonPatient.isChecked()) {
 
                         String email = emailInput.getText().toString().trim();
                         String password = passwordInput.getText().toString().trim();
+
+                        int selectedRadioGroupButtonId=userTypeRadioGroup.getCheckedRadioButtonId();
+                        String userType="";
+
+                        if (selectedRadioGroupButtonId==R.id.patientbtn){
+                            userType="Patient";
+                        } else {
+                            userType="Doctor";
+                        }
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("userType", userType);
+                        editor.apply();
                         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -285,17 +299,15 @@ public class SignUpActivity extends AppCompatActivity {
                                         List<String> specialties = textToList(specialtiesInput);
 
                                         // create the Doctor object that will be stored in the database
-                                        Doctor doctorRegistrator = new Doctor (email, firstName, lastName, password, address,specialties,healthcardNumber,phoneNumber);
+                                        Doctor doctorRegistrator = new Doctor(email, password, firstName, lastName, address, healthcardNumber, phoneNumber, specialties);
 
-                                        // we use username as unique identifier
-                                        //I ADDED .PUSH IT MIGHTBE WRONG CHECK
-                                        //userdatabase.child("Doctors").child(email).push().setValue(doctorRegistrator);
                                         userdatabase.child(userID).setValue(doctorRegistrator);
 
                                         // Swap Activity to main page
-                                        Intent intent = new Intent(SignUpActivity.this, mainpageDoctor.class);
-                                        startActivity(intent);
+                                        Intent intent = new Intent(SignUpActivity.this, mainpagePatient.class);
 
+                                        startActivity(intent);
+                                        finish();
                                     } else {
                                         // create the Patient object that will be stored in the database
                                         Patient patientRegistrator = new Patient (email, firstName, lastName, password, address,healthcardNumber,phoneNumber);
@@ -471,13 +483,14 @@ public class SignUpActivity extends AppCompatActivity {
         List<String> specialtiesList = new ArrayList<>();
 
         for (int i = 0 ; i < special.length() ; i ++ ) {
-            if (Character.valueOf(special.charAt(i)).equals(",")) {
+            if (!(String.valueOf(special.charAt(i)).equals(","))) {
                 specialty = specialty + special.charAt(i);
             } else {
                 specialtiesList.add(specialty.trim());
                 specialty = "";
             }
         }
+        specialtiesList.add(specialty.trim());
         return specialtiesList;
     }
 

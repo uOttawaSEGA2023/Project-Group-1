@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 public class mainpagePatient extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
-
     private ImageButton logOutBtn;
 
     @Override
@@ -57,10 +56,12 @@ public class mainpagePatient extends AppCompatActivity {
             }
         });
 
+        SharedPreferences sharedPreferences=getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String userType = sharedPreferences.getString("userType","");
 
         userTypeTextView = findViewById(R.id.logintext);
 
-        userTypeTextView.setText("You are logged in as a Patient");
+        userTypeTextView.setText("You are logged in as a "+userType);
 
         logOutBtn = findViewById(R.id.logout);
 

@@ -3,18 +3,18 @@ package com.example.myapplication;
 import java.util.List;
 
 public class Doctor extends Account{
-    private String firstName, lastName, address, areaCode;
+    private String firstName, lastName, address;
     private int employeeNumber, phoneNumber;
     private List<String> specialties;
 
-    public Doctor(String email, String firstName, String lastName, String password, String address, List<String> specialties, int employeeNumber, int phoneNumber) {
+    public Doctor(String email, String password, String firstName, String lastName, String address, int employeeNumber, int phoneNumber, List<String> specialties) {
         super(email, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.specialties = specialties;
         this.employeeNumber = employeeNumber;
         this.phoneNumber = phoneNumber;
+        this.specialties = specialties;
     }
 
     public String getFirstName() {
@@ -41,14 +41,6 @@ public class Doctor extends Account{
         this.address = address;
     }
 
-    public String getAreaCode() {
-        return areaCode;
-    }
-
-    public void setAreaCode(String areaCode) {
-        this.areaCode = areaCode;
-    }
-
     public int getEmployeeNumber() {
         return employeeNumber;
     }
@@ -64,6 +56,7 @@ public class Doctor extends Account{
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     public List<String> getSpecialties() {
         return specialties;
     }

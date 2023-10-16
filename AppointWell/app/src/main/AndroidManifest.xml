@@ -30,7 +30,7 @@
 
         </activity>
         <activity
-            android:name=".mainpageDoctor">
+            android:name=".MainPageDoctor">
         </activity>
         <activity
             android:name=".mainpagePatient">

@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class mainpageDoctor extends AppCompatActivity {
+public class MainPageDoctor extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
     private ImageButton logOutBtn;
@@ -33,28 +33,27 @@ public class mainpageDoctor extends AppCompatActivity {
 
 
 
-        String username = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(userID);
 
 
         // Attach a ValueEventListener to retrieve the user's data
-        database.child("Users").child("Doctors").child(username).addListenerForSingleValueEvent(new ValueEventListener(){
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-                if (dataSnapshot.exists()) {
-                    Doctor doctor = dataSnapshot.getValue(Doctor.class);
-
-                    if (doctor != null) {
-                        // Set the welcome message with the user's first name and last name
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Doctor doctor = snapshot.getValue(Doctor.class);
+                    if(doctor!=null){
                         String welcomeMessage = doctor.getFirstName() + " " + doctor.getLastName();
                         welcomeMessageTextView.setText(welcomeMessage);
                     }
                 }
             }
 
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle any errors here
-            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
         });
 
 
@@ -68,7 +67,7 @@ public class mainpageDoctor extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(mainpageDoctor.this, login.class);
+                Intent intent = new Intent(MainPageDoctor.this, login.class);
                 startActivity(intent);
             }
         });
