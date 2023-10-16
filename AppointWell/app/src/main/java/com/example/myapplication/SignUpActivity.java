@@ -267,19 +267,6 @@ public class SignUpActivity extends AppCompatActivity {
                         String email = emailInput.getText().toString().trim();
                         String password = passwordInput.getText().toString().trim();
 
-                        int selectedRadioGroupButtonId=userTypeRadioGroup.getCheckedRadioButtonId();
-                        String userType="";
-
-                        if (selectedRadioGroupButtonId==R.id.patientbtn){
-                            userType="Patient";
-                        } else {
-                            userType="Doctor";
-                        }
-
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("userType", userType);
-                        editor.apply();
                         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {

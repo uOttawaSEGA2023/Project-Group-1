@@ -22,6 +22,8 @@ public class mainpagePatient extends AppCompatActivity {
     private TextView userTypeTextView;
     private ImageButton logOutBtn;
 
+    String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class mainpagePatient extends AppCompatActivity {
         // Attach a ValueEventListener to retrieve the user's data
         String userEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
+
         if (!(userEmail.equals("admin@gmail.com"))){
             database.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -47,7 +50,9 @@ public class mainpagePatient extends AppCompatActivity {
                         Patient patient = snapshot.getValue(Patient.class);
                         if(patient!=null){
                             String welcomeMessage = patient.getFirstName() + " " + patient.getLastName();
+                            type = patient.getType();
                             welcomeMessageTextView.setText(welcomeMessage);
+                            userTypeTextView.setText("You are logged in as a " + type);
                         }
                     }
                 }
@@ -67,10 +72,7 @@ public class mainpagePatient extends AppCompatActivity {
 
         if (userEmail.equals("admin@gmail.com")){
             userTypeTextView.setText("You are logged in as an administrator");
-        } else {
-            userTypeTextView.setText("You are logged in as a ");
         }
-
         logOutBtn = findViewById(R.id.logout);
 
         logOutBtn.setOnClickListener(new View.OnClickListener() {

@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
 public class Account {
+    protected String email, password, type;
     public Account(){}
-    protected String email, password;
-    public Account(String email, String password) {
+
+    public Account(String email, String password, String type) {
+        this.type = type;
         this.email = email;
         this.password = password;
     }
@@ -21,5 +23,13 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

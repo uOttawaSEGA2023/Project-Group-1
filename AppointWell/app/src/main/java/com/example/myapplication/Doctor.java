@@ -8,7 +8,7 @@ public class Doctor extends Account{
     private List<String> specialties;
 
     public Doctor(String email, String password, String firstName, String lastName, String address, int employeeNumber, int phoneNumber, List<String> specialties) {
-        super(email, password);
+        super(email, password, "Doctor");
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

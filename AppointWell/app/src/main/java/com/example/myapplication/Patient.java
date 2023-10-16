@@ -7,7 +7,7 @@ public class Patient extends Account{
     }
 
     public Patient(String email, String firstName, String lastName, String password, String address, int healthCardNumber, int phoneNumber) {
-        super(email, password);
+        super(email, password, "Patient");
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
