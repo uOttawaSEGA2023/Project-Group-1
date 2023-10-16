@@ -37,31 +37,39 @@ public class mainpagePatient extends AppCompatActivity {
 
 
         // Attach a ValueEventListener to retrieve the user's data
+        String userEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    Patient patient = snapshot.getValue(Patient.class);
-                    if(patient!=null){
-                        String welcomeMessage = patient.getFirstName() + " " + patient.getLastName();
-                        welcomeMessageTextView.setText(welcomeMessage);
+        if (!(userEmail.equals("admin@gmail.com"))){
+            database.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        Patient patient = snapshot.getValue(Patient.class);
+                        if(patient!=null){
+                            String welcomeMessage = patient.getFirstName() + " " + patient.getLastName();
+                            welcomeMessageTextView.setText(welcomeMessage);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
-        SharedPreferences sharedPreferences=getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String userType = sharedPreferences.getString("userType","");
+
+
 
         userTypeTextView = findViewById(R.id.logintext);
 
-        userTypeTextView.setText("You are logged in as a "+userType);
+
+        if (userEmail.equals("admin@gmail.com")){
+            userTypeTextView.setText("You are logged in as an administrator");
+        } else {
+            userTypeTextView.setText("You are logged in as a ");
+        }
 
         logOutBtn = findViewById(R.id.logout);
 
