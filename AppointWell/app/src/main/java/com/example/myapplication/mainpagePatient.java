@@ -33,29 +33,28 @@ public class mainpagePatient extends AppCompatActivity {
 
 
 
-        String username = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com//");
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(userID);
 
 
         // Attach a ValueEventListener to retrieve the user's data
-        database.child("Users").child("Patients").child(username).addListenerForSingleValueEvent(new ValueEventListener(){
 
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-                if (dataSnapshot.exists()) {
-                    Patient patient = dataSnapshot.getValue(Patient.class);
-
-                    if (patient != null) {
-                        // Set the welcome message with the user's first name and last name
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Patient patient = snapshot.getValue(Patient.class);
+                    if(patient!=null){
                         String welcomeMessage = patient.getFirstName() + " " + patient.getLastName();
                         welcomeMessageTextView.setText(welcomeMessage);
                     }
                 }
             }
 
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle any errors here
-            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
         });
 
 
