@@ -28,7 +28,7 @@ public class MainPageAdmin extends AppCompatActivity {
             }
         });
 
-        pendingBtn.setOnClickListener(new View.OnClickListener() {
+        pendingBtn.setOnClickListener(new View.OnClickListener() {      // changes color on click
             @Override
             public void onClick(View v) {
                 pendingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
