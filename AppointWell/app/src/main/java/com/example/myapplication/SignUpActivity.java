@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,9 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
     EditText specialtiesInput;
     TextView specialtiesText;
     Button signUpBtn;
-    boolean allFieldsValid;
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/"); //create a realtime database on firebase called "users"-is the key for reference
-    DatabaseReference userdatabase = database.child("Users");
+    DatabaseReference userDatabase = database.child("Users");
     FirebaseAuth auth;
     private RadioGroup userTypeRadioGroup;
 
@@ -91,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
                 addressInput.setError(null);
                 phoneNumberInput.setError(null);
                 healthCardNumberInput.setError(null);
-                //specialtiesInput.setError(null);
+                specialtiesInput.setError(null);
 
             }
         });
@@ -118,7 +116,7 @@ public class SignUpActivity extends AppCompatActivity {
                 addressInput.setError(null);
                 phoneNumberInput.setError(null);
                 healthCardNumberInput.setError(null);
-                //specialtiesInput.setError(null);
+                specialtiesInput.setError(null);
             }
         });
         userTypeRadioGroup = findViewById(R.id.userTypeRadioGroup);
@@ -278,7 +276,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     String firstName = firstNameInput.getText().toString().trim(); //get the first and last name after the user entering it
                                     String lastName = lastNameInput.getText().toString().trim();
                                     String address = addressInput.getText().toString().trim();
-                                    int healthcardNumber = Integer.parseInt(healthCardNumberInput.getText().toString());
+                                    int healthCardNumber = Integer.parseInt(healthCardNumberInput.getText().toString());
                                     int phoneNumber = Integer.parseInt(phoneNumberInput.getText().toString());
 
 
@@ -286,25 +284,25 @@ public class SignUpActivity extends AppCompatActivity {
                                         List<String> specialties = textToList(specialtiesInput);
 
                                         // create the Doctor object that will be stored in the database
-                                        Doctor doctorRegistrator = new Doctor(email, password, firstName, lastName, address, healthcardNumber, phoneNumber, specialties);
+                                        Doctor doctorRegistrant = new Doctor(email, password, firstName, lastName, address, healthCardNumber, phoneNumber, specialties);
 
-                                        userdatabase.child(userID).setValue(doctorRegistrator);
+                                        // we use userID as unique identifier
+                                        userDatabase.child(userID).setValue(doctorRegistrant);
 
                                         // Swap Activity to main page
-                                        Intent intent = new Intent(SignUpActivity.this, mainpagePatient.class);
+                                        Intent intent = new Intent(SignUpActivity.this, MainPagePatient.class);
 
                                         startActivity(intent);
                                         finish();
                                     } else {
                                         // create the Patient object that will be stored in the database
-                                        Patient patientRegistrator = new Patient (email, firstName, lastName, password, address,healthcardNumber,phoneNumber);
+                                        Patient patientRegistrant = new Patient (email, firstName, lastName, password, address,healthCardNumber,phoneNumber);
 
-                                        // we use username as unique identifier
-                                        //I ADDED .PUSH IT MIGHTBE WRONG CHECK
-                                        userdatabase.child(userID).setValue(patientRegistrator);
+                                        // we use userID as unique identifier
+                                        userDatabase.child(userID).setValue(patientRegistrant);
 
                                         // Swap Activity to main page
-                                        Intent intent = new Intent(SignUpActivity.this, mainpagePatient.class);
+                                        Intent intent = new Intent(SignUpActivity.this, MainPagePatient.class);
                                         startActivity(intent);
                                     }
 

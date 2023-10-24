@@ -5,6 +5,7 @@
     <color name="primary">#CFE0C3</color>
     <color name="secondary">#70A9A1</color>
     <color name="tertiary">#40798C</color>
+    <color name="toggle">#DDECD3</color>
     <color name="text">#939393</color>
     <color name="purple">#CFE0C3</color>
     <color name="btn_color">#70A9A1</color>

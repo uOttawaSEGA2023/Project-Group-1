@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -67,7 +66,7 @@ public class MainPageDoctor extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(MainPageDoctor.this, login.class);
+                Intent intent = new Intent(MainPageDoctor.this, Login.class);
                 startActivity(intent);
             }
         });
