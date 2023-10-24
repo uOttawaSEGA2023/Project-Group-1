@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/newbacks"
+    tools:context=".MainPageDoctor">
+    <TextView
+        android:id="@+id/myaccount"
+        android:layout_width="207dp"
+        android:layout_height="58dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Hello"
+        android:textColor="#CFE0C3"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <RelativeLayout
+        android:layout_width="315dp"
+        android:layout_height="248dp"
+        android:background="@drawable/border1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.271">
+
+        <TextView
+            android:textAlignment="center"
+            android:layout_width="291dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Welcome to AppointWell"
+            android:textColor="#1F363D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/welcomeMessageTextView"
+            android:layout_width="291dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="95dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Administrator"
+            android:textAlignment="center"
+            android:textColor="#70A9A1"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/logintext"
+            android:textAlignment="center"
+            android:layout_width="291dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="155dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="You are logged in as a "
+            android:textColor="#70A9A1"
+            android:textSize="15sp"
+            tools:ignore="MissingConstraints" />
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/personalinfo"
+        android:layout_width="155dp"
+        android:layout_height="203dp"
+        android:background="@drawable/border"
+        android:backgroundTint="#DDECD3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
+
+    <TextView
+        android:id="@+id/updatepersonalinfo"
+        android:layout_width="137dp"
+        android:layout_height="136dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Update Personal Information"
+        android:textAlignment="center"
+        android:textColor="#1F363D"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/personalinfo"
+        app:layout_constraintEnd_toEndOf="@+id/personalinfo"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="@+id/personalinfo"
+        app:layout_constraintTop_toTopOf="@+id/personalinfo"
+        app:layout_constraintVertical_bias="0.791" />
+
+    <ImageButton
+        android:id="@+id/logout"
+        android:layout_width="155dp"
+        android:layout_height="203dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/border"
+        android:backgroundTint="#DDECD3"
+        android:src="@drawable/icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintStart_toEndOf="@+id/personalinfo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
+
+
+    <TextView
+        android:id="@+id/logouttext"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Log out"
+        android:textAlignment="center"
+        android:textColor="#1F363D"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.860"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.812" />
+
+    <ImageButton
+        android:id="@+id/calendar"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        android:background="@drawable/calendar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
+
+    <ImageButton
+        android:id="@+id/home"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        android:background="@drawable/home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
+
+    <ImageButton
+        android:id="@+id/backbuttom"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        android:background="@drawable/backbuttom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

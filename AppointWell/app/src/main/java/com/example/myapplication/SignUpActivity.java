@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,7 +47,6 @@ public class SignUpActivity extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/"); //create a realtime database on firebase called "users"-is the key for reference
     DatabaseReference userDatabase = database.child("Users");
     FirebaseAuth auth;
-    private RadioGroup userTypeRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,9 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn = findViewById(R.id.signup);
         auth = FirebaseAuth.getInstance();
 
+        radioButtonDoctor.setChecked(false);
+        radioButtonPatient.setChecked(true);
+
         radioButtonPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +78,8 @@ public class SignUpActivity extends AppCompatActivity {
                 specialtiesText.setVisibility(View.GONE);
                 specialtiesInput.setVisibility(View.GONE);
                 specialtiesInput.setEnabled(false);
+                radioButtonDoctor.setChecked(false);
+                radioButtonPatient.setChecked(true);
                 emailInput.setText("");
                 firstNameInput.setText("");
                 lastNameInput.setText("");
@@ -93,7 +99,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
-        userTypeRadioGroup=findViewById(R.id.userTypeRadioGroup);
         radioButtonDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +106,8 @@ public class SignUpActivity extends AppCompatActivity {
                 specialtiesText.setVisibility(View.VISIBLE);
                 specialtiesInput.setVisibility(View.VISIBLE);
                 specialtiesInput.setEnabled(true);
+                radioButtonPatient.setChecked(false);
+                radioButtonDoctor.setChecked(true);
                 emailInput.setText("");
                 firstNameInput.setText("");
                 lastNameInput.setText("");
@@ -119,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                 specialtiesInput.setError(null);
             }
         });
-        userTypeRadioGroup = findViewById(R.id.userTypeRadioGroup);
+
 
         phoneNumberInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -269,7 +276,6 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance(); //create a realtime database on firebase called "users"-is the key for reference
                                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
@@ -281,6 +287,8 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                                     if (radioButtonDoctor.isChecked()){
+                                        Log.d("doctor", "doctor was checked");
+
                                         List<String> specialties = textToList(specialtiesInput);
 
                                         // create the Doctor object that will be stored in the database
@@ -290,11 +298,14 @@ public class SignUpActivity extends AppCompatActivity {
                                         userDatabase.child(userID).setValue(doctorRegistrant);
 
                                         // Swap Activity to main page
-                                        Intent intent = new Intent(SignUpActivity.this, MainPagePatient.class);
+                                        Intent intentD = new Intent(SignUpActivity.this, MainPageDoctor.class);
 
-                                        startActivity(intent);
+                                        startActivity(intentD);
                                         finish();
+
                                     } else {
+                                        Log.d("patient", "patient was checked");
+
                                         // create the Patient object that will be stored in the database
                                         Patient patientRegistrant = new Patient (email, firstName, lastName, password, address,healthCardNumber,phoneNumber);
 
@@ -302,8 +313,10 @@ public class SignUpActivity extends AppCompatActivity {
                                         userDatabase.child(userID).setValue(patientRegistrant);
 
                                         // Swap Activity to main page
-                                        Intent intent = new Intent(SignUpActivity.this, MainPagePatient.class);
-                                        startActivity(intent);
+                                        Intent intentP = new Intent(SignUpActivity.this, MainPagePatient.class);
+
+                                        startActivity(intentP);
+                                        finish();
                                     }
 
                                     // Finish the current activity to prevent the user from going back.

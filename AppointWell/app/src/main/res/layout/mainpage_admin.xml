@@ -91,18 +91,20 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:textSize="11dp"/>
         </LinearLayout>
-        <LinearLayout
+        <ScrollView
             android:layout_width="320dp"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp">
 
-            <ScrollView
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/requestsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </ScrollView>
+            </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

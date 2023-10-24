@@ -21,57 +21,45 @@ public class MainPagePatient extends AppCompatActivity {
     private TextView userTypeTextView;
     private ImageButton logOutBtn;
 
-    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainpage_logoff);
+        setContentView(R.layout.mainpage_patient);
 
         // Initialize the TextView
         welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
-
-
-
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(userID);
-
-
-        // Attach a ValueEventListener to retrieve the user's data
-        String userEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-
-        if (!(userEmail.equals("admin@gmail.com"))){
-            database.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        Patient patient = snapshot.getValue(Patient.class);
-                        if(patient!=null){
-                            String welcomeMessage = patient.getFirstName() + " " + patient.getLastName();
-                            type = patient.getType();
-                            welcomeMessageTextView.setText(welcomeMessage);
-                            userTypeTextView.setText("You are logged in as a " + type);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-
-
-
-
         userTypeTextView = findViewById(R.id.logintext);
 
 
-        if (userEmail.equals("admin@gmail.com")){
-            userTypeTextView.setText("You are logged in as an administrator");
-        }
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child(userID);
+
+
+        // Attach a ValueEventListener to retrieve the user's data
+
+
+        accountRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                    if(userAccount!=null){
+                        String welcomeMessage = userAccount.getFirstName() + " " + userAccount.getLastName();
+                        welcomeMessageTextView.setText(welcomeMessage);
+                        userTypeTextView.setText("You are logged in as a Patient" );
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
         logOutBtn = findViewById(R.id.logout);
 
         logOutBtn.setOnClickListener(new View.OnClickListener() {

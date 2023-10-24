@@ -25,26 +25,28 @@ public class MainPageDoctor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainpage_logoff);
+        setContentView(R.layout.mainpage_doctor);
 
         // Initialize the TextView
         welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
+        userTypeTextView = findViewById(R.id.logintext);
 
 
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(userID);
+        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child(userID);
 
 
         // Attach a ValueEventListener to retrieve the user's data
-        database.addValueEventListener(new ValueEventListener() {
+        accountRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Doctor doctor = snapshot.getValue(Doctor.class);
-                    if(doctor!=null){
-                        String welcomeMessage = doctor.getFirstName() + " " + doctor.getLastName();
+                    UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                    if(userAccount!=null){
+                        String welcomeMessage = userAccount.getFirstName() + " " + userAccount.getLastName();
                         welcomeMessageTextView.setText(welcomeMessage);
+                        userTypeTextView.setText("You are logged in as a Doctor");
                     }
                 }
             }
@@ -56,9 +58,7 @@ public class MainPageDoctor extends AppCompatActivity {
         });
 
 
-        userTypeTextView = findViewById(R.id.logintext);
 
-        userTypeTextView.setText("You are logged in as a Doctor");
 
         logOutBtn = findViewById(R.id.logout);
 
