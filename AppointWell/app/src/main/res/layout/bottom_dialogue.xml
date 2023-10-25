@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/slidedialogbox"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/slidedownline"/>
+
+            <TextView
+                android:id="@+id/slideInName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Jane Doe"
+                android:textColor="@color/secondary"
+                android:textSize="40dp" />
+
+
+            <TextView
+                android:id="@+id/slideInType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textStyle="bold"
+                android:text="Patient"
+                android:textColor="@color/tertiary"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/slideInAddressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Address: 200 Metcalfe Street"
+                android:textColor="@color/dark_green"
+                android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/slideInPhoneNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Phone number: 1234567890"
+            android:textColor="@color/dark_green"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/slideInEmailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Email: patient@me.com"
+            android:textColor="@color/dark_green"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/slideInHealthCardNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Health card number: 0987654321"
+            android:textColor="@color/dark_green"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/slideInSpecialtiesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Specialties:  TO BE REMOVED FOR PATIENT"
+            android:textColor="@color/dark_green"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:layout_width="265dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp">
+
+
+            <Button
+                android:id="@+id/approveButton"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:text="Approve"
+                android:textColor="@color/tertiary"
+                android:fontFamily="@font/poppins_semibold"
+                android:textStyle="bold"
+                android:backgroundTint="@color/primary"
+                android:textSize="16dp"/>
+
+            <Button
+                android:id="@+id/rejectButton"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="28dp"
+                android:layout_weight="1"
+                android:text="Reject"
+                android:fontFamily="@font/poppins_semibold"
+                android:textStyle="bold"
+                android:textColor="@color/tertiary"
+                android:backgroundTint="@color/primary"
+                android:textSize="16dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

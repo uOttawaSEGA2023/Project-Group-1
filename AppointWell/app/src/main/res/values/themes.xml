@@ -9,4 +9,10 @@
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication">
         <item name="android:textColorHint">@color/black</item>
     </style>
+
+    <style name = "DialogAnimation">
+        <item name="android:windowEnterAnimation"> @anim/slide_in_dialog</item>
+        <item name="android:windowExitAnimation"> @anim/slide_out_dialog</item>
+    </style>
+
 </resources>
