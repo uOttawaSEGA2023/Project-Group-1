@@ -2,11 +2,11 @@ package com.example.myapplication;
 
 public class UserAccount extends Account{
     private String firstName, lastName, address;
-    private int  phoneNumber;
+    private long  phoneNumber;
 
     public UserAccount() {}
 
-    public UserAccount(String email, String password, String type, String status, String firstName, String lastName, String address, int phoneNumber) {
+    public UserAccount(String email, String password, String type, String status, String firstName, String lastName, String address, long phoneNumber) {
         super(email, password, type, status);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,11 +38,11 @@ public class UserAccount extends Account{
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

@@ -3,21 +3,21 @@ package com.example.myapplication;
 import java.util.List;
 
 public class Doctor extends UserAccount{
-    private int employeeNumber;
+    private long employeeNumber;
     private List<String> specialties;
 
     public Doctor(){}
-    public Doctor(String email, String password, String firstName, String lastName, String address, int employeeNumber, int phoneNumber, List<String> specialties) {
+    public Doctor(String email, String password, String firstName, String lastName, String address, long employeeNumber, long phoneNumber, List<String> specialties) {
         super(email, password, "Doctor", "Pending", firstName, lastName, address, phoneNumber);
         this.employeeNumber = employeeNumber;
         this.specialties = specialties;
     }
 
-    public int getEmployeeNumber() {
+    public long getEmployeeNumber() {
         return employeeNumber;
     }
 
-    public void setEmployeeNumber(int employeeNumber) {
+    public void setEmployeeNumber(long employeeNumber) {
         this.employeeNumber = employeeNumber;
     }
 

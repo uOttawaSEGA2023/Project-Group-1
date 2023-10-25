@@ -282,8 +282,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     String firstName = firstNameInput.getText().toString().trim(); //get the first and last name after the user entering it
                                     String lastName = lastNameInput.getText().toString().trim();
                                     String address = addressInput.getText().toString().trim();
-                                    int healthCardNumber = Integer.parseInt(healthCardNumberInput.getText().toString());
-                                    int phoneNumber = Integer.parseInt(phoneNumberInput.getText().toString());
+                                    long healthCardNumber = Long.parseLong(healthCardNumberInput.getText().toString());
+                                    long phoneNumber = Long.parseLong(phoneNumberInput.getText().toString());
 
 
                                     if (radioButtonDoctor.isChecked()){
