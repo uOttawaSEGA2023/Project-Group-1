@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
     Button buttonLogin;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView textView;
+    TextView signUp;
     DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/").child("Users");
 
     // Firebase
@@ -57,27 +57,14 @@ public class Login extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
         progressBar = findViewById(R.id.progressBar);
-        textView = findViewById(R.id.registerNow);
+        signUp = findViewById(R.id.registerNow);
 
-        textView.setOnClickListener(new View.OnClickListener() {
+        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
-
-
-        TextView notYetSignUp = (TextView) findViewById(R.id.registerNow);
-        notYetSignUp.setPaintFlags(notYetSignUp.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        notYetSignUp.setText("Sign Up!");
-
-        notYetSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
             }
         });
 

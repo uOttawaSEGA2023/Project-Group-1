@@ -68,8 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn = findViewById(R.id.signup);
         auth = FirebaseAuth.getInstance();
 
-        radioButtonDoctor.setChecked(false);
-        radioButtonPatient.setChecked(true);
+
 
         radioButtonPatient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +77,6 @@ public class SignUpActivity extends AppCompatActivity {
                 specialtiesText.setVisibility(View.GONE);
                 specialtiesInput.setVisibility(View.GONE);
                 specialtiesInput.setEnabled(false);
-                radioButtonDoctor.setChecked(false);
-                radioButtonPatient.setChecked(true);
                 emailInput.setText("");
                 firstNameInput.setText("");
                 lastNameInput.setText("");
@@ -106,8 +103,6 @@ public class SignUpActivity extends AppCompatActivity {
                 specialtiesText.setVisibility(View.VISIBLE);
                 specialtiesInput.setVisibility(View.VISIBLE);
                 specialtiesInput.setEnabled(true);
-                radioButtonPatient.setChecked(false);
-                radioButtonDoctor.setChecked(true);
                 emailInput.setText("");
                 firstNameInput.setText("");
                 lastNameInput.setText("");
@@ -266,8 +261,8 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameIsValid(firstNameInput) && nameIsValid(lastNameInput) && emailIsValid(emailInput) && passwordIsValid(passwordInput) && numberIsValid(phoneNumberInput) && numberIsValid(healthCardNumberInput)) {
-                    if (radioButtonDoctor.isChecked() || radioButtonPatient.isChecked()) {
+                if (nameIsValid(firstNameInput) && nameIsValid(lastNameInput) && emailIsValid(emailInput) && passwordIsValid(passwordInput) && numberIsValid(phoneNumberInput) && numberIsValid(healthCardNumberInput) && addressIsValid(addressInput)) {
+                    if (radioButtonDoctor.isChecked() && specialtiesIsValid(specialtiesInput)|| radioButtonPatient.isChecked()) {
 
                         String email = emailInput.getText().toString().trim();
                         String password = passwordInput.getText().toString().trim();
@@ -287,7 +282,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                                     if (radioButtonDoctor.isChecked()){
-                                        Log.d("doctor", "doctor was checked");
 
                                         List<String> specialties = textToList(specialtiesInput);
 
@@ -304,7 +298,6 @@ public class SignUpActivity extends AppCompatActivity {
                                         finish();
 
                                     } else {
-                                        Log.d("patient", "patient was checked");
 
                                         // create the Patient object that will be stored in the database
                                         Patient patientRegistrant = new Patient (email, firstName, lastName, password, address,healthCardNumber,phoneNumber);
@@ -326,6 +319,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                    }else {
+                        Toast.makeText(SignUpActivity.this, "Field(s) invalid. Unable to register.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(SignUpActivity.this, "Field(s) invalid. Unable to register.", Toast.LENGTH_SHORT).show();
