@@ -27,6 +27,7 @@
             android:textColor="@color/tertiary"/>
 
         <ImageButton
+            android:id="@+id/logOutAdmin"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"

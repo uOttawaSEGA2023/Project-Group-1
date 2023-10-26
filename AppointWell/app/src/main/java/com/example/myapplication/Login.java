@@ -40,9 +40,33 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(Login.this, MainPagePatient.class);
-            startActivity(intent);
-            finish();
+            String uID = currentUser.getUid();
+            userDatabase.child(uID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        Account account = snapshot.getValue(Account.class);
+                        if(account!=null) {
+                            if (account.getType().equals("Patient")) {
+                                Intent intent = new Intent(Login.this, MainPagePatient.class);
+                                startActivity(intent);
+                            } else if (account.getType().equals("Doctor")) {
+                                Intent intent = new Intent(Login.this, MainPageDoctor.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(Login.this, MainPageAdmin.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
     }
 
