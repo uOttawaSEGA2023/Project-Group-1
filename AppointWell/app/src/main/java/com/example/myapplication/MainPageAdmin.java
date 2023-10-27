@@ -9,6 +9,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainPageAdmin extends AppCompatActivity {
+
+    ArrayList<UserAccount> usersList;
     Dialog dialog;
     Button pendingBtn;
     Button rejectedBtn;
@@ -110,7 +115,58 @@ public class MainPageAdmin extends AppCompatActivity {
         name.setText(firstName+" "+lastname);
         requestView.setOnClickListener(requestOnClick);
         requestList.addView(requestView);
+        ImageButton approveBtn = (ImageButton) requestView.findViewById(R.id.approveBtn);
+        ImageButton rejectBtn = (ImageButton) requestView.findViewById(R.id.rejectBtn);
 
+        approveBtn.setTag(uID);
+        rejectBtn.setTag(uID);
+        approveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+                public void onClick(View v) {
+                    String uID = v.getTag().toString();
+                    String databasePath = "Pending Users";
+                    if(!pendingSelected){
+                        databasePath = "Rejected Users";
+                    }
+                    String finalDatabasePath = databasePath;
+                    userDatabase.child(databasePath).child(uID).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                                admin.approveRegistrant(userAccount, uID);
+                                refreshList(finalDatabasePath);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+        });
+        rejectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uID = v.getTag().toString();
+                userDatabase.child("Pending Users").child(uID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                            admin.rejectRegistrant(userAccount, uID);
+                            refreshList("Pending Users");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
     }
 
     View.OnClickListener requestOnClick= new View.OnClickListener() {
@@ -126,18 +182,12 @@ public class MainPageAdmin extends AppCompatActivity {
             TextView type = (TextView) slideView.findViewById(R.id.slideInType);
             TextView specialties = (TextView) slideView.findViewById(R.id.slideInSpecialtiesText);
 
-            Button approveBtn = (Button) slideView.findViewById(R.id.approveButton);
-            Button rejectBtn = (Button) slideView.findViewById(R.id.rejectButton);
 
 
 
             String uID = v.getTag().toString();
 
-            approveBtn.setTag(uID);
-            rejectBtn.setTag(uID);
 
-            approveBtn.setOnClickListener(approve);
-            rejectBtn.setOnClickListener(reject);
             String databasePath = "Pending Users";
             if(!pendingSelected){
                 databasePath = "Rejected Users";
@@ -224,48 +274,19 @@ public class MainPageAdmin extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    View.OnClickListener approve = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String uID = v.getTag().toString();
-            String databasePath = "Pending Users";
-            if(!pendingSelected){
-                databasePath = "Rejected Users";
-            }
-            String finalDatabasePath = databasePath;
-            userDatabase.child(databasePath).child(uID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        UserAccount userAccount = snapshot.getValue(UserAccount.class);
-                        admin.approveRegistrant(userAccount, uID);
-                        dialog.dismiss();
-                        refreshList(finalDatabasePath);
 
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            
-        }
-    };
 
     private void refreshList(String databasePath) {
-        requestList.removeAllViews();
+
         userDatabase.child(databasePath).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                requestList.removeAllViews();
                 if (snapshot.exists()){
                     for (DataSnapshot child: snapshot.getChildren()){
-                        UserAccount userAccount = child.getValue(Patient.class);
+                        UserAccount userAccount = child.getValue(UserAccount.class);
                         if (userAccount!=null){
-                            addRequest(userAccount.getFirstName(), userAccount.getLastName(), userAccount.type,child.getKey());
+                                    addRequest(userAccount.getFirstName(), userAccount.getLastName(), userAccount.type,child.getKey());
                         }
                     }
                 }
@@ -279,27 +300,4 @@ public class MainPageAdmin extends AppCompatActivity {
     }
 
 
-    View.OnClickListener reject = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String uID = v.getTag().toString();
-            userDatabase.child("Pending Users").child(uID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        UserAccount userAccount = snapshot.getValue(UserAccount.class);
-                        admin.rejectRegistrant(userAccount, uID);
-                        dialog.dismiss();
-                        refreshList("Pending Users");
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-    };
 }

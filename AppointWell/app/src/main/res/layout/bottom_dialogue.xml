@@ -112,7 +112,6 @@
 
 
             <Button
-                android:id="@+id/approveButton"
                 android:layout_width="110dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
@@ -124,7 +123,6 @@
                 android:textSize="16dp"/>
 
             <Button
-                android:id="@+id/rejectButton"
                 android:layout_width="110dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="28dp"
