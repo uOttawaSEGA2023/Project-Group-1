@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public class Login extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         Account account = snapshot.getValue(Account.class);
-                        if(account!=null) {
+                        if(account!=null && account.getStatus().equals("Approved")) {
                             if (account.getType().equals("Patient")) {
                                 Intent intent = new Intent(Login.this, MainPagePatient.class);
                                 startActivity(intent);
@@ -118,7 +119,7 @@ public class Login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (task.isSuccessful()) {
-//
+
                                     //gets userID of current user
                                     String userID = mAuth.getCurrentUser().getUid();
                                     //navigates to node of current user in REALTIME DATABASE
@@ -128,7 +129,8 @@ public class Login extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if(snapshot.exists()){
                                                 Account account = snapshot.getValue(Account.class);
-                                                if(account!=null){
+                                                if(account!=null && account.getStatus().equals("Approved")){
+                                                    Log.d("LOGIN", "kok ");
                                                     switch (account.type){
                                                         case "Patient":
                                                             Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
@@ -145,6 +147,7 @@ public class Login extends AppCompatActivity {
                                                         case "Administrator":
                                                             Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
                                                             Intent intentA = new Intent(getApplicationContext(), MainPageAdmin.class);
+                                                            intentA.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                                                             startActivity(intentA);
                                                             finish();
                                                             break;
@@ -170,8 +173,6 @@ public class Login extends AppCompatActivity {
                                 }
                             }
                         });
-
-
             }
         });
 

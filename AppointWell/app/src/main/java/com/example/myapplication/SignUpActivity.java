@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,8 +22,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,8 @@ import java.util.regex.Pattern;
 public class SignUpActivity extends AppCompatActivity {
 
     RadioButton radioButtonPatient;
+
+    //boolean successful=false;
     RadioButton radioButtonDoctor;
     EditText emailInput;
     EditText firstNameInput;
@@ -46,7 +52,10 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpBtn;
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/"); //create a realtime database on firebase called "users"-is the key for reference
     DatabaseReference userDatabase = database.child("Users");
+    DatabaseReference adminRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/").child("Users").child("yI1CawhPyYfRHJe6eSLFeRzxi553");
+
     FirebaseAuth auth;
+    Administrator admin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -258,6 +267,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        admin = new Administrator();
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,11 +278,14 @@ public class SignUpActivity extends AppCompatActivity {
                         String email = emailInput.getText().toString().trim();
                         String password = passwordInput.getText().toString().trim();
 
+
                         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    //successful=true;
                                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
 
                                     String firstName = firstNameInput.getText().toString().trim(); //get the first and last name after the user entering it
@@ -289,13 +303,16 @@ public class SignUpActivity extends AppCompatActivity {
                                         Doctor doctorRegistrant = new Doctor(email, password, firstName, lastName, address, healthCardNumber, phoneNumber, specialties);
 
                                         // we use userID as unique identifier
-                                        userDatabase.child(userID).setValue(doctorRegistrant);
+                                        userDatabase.child("Pending Users").child(userID).setValue(doctorRegistrant);
 
-                                        // Swap Activity to main page
-                                        Intent intentD = new Intent(SignUpActivity.this, MainPageDoctor.class);
+
+                                        Intent intentD = new Intent(view.getContext(), Login.class);
 
                                         startActivity(intentD);
                                         finish();
+
+                                        Toast.makeText(getApplicationContext(), "Registration waiting to be processed by administrator", Toast.LENGTH_SHORT).show();
+
 
                                     } else {
 
@@ -303,17 +320,22 @@ public class SignUpActivity extends AppCompatActivity {
                                         Patient patientRegistrant = new Patient (email, firstName, lastName, password, address,healthCardNumber,phoneNumber);
 
                                         // we use userID as unique identifier
-                                        userDatabase.child(userID).setValue(patientRegistrant);
+                                        userDatabase.child("Pending Users").child(userID).setValue(patientRegistrant);
 
-                                        // Swap Activity to main page
-                                        Intent intentP = new Intent(SignUpActivity.this, MainPagePatient.class);
 
-                                        startActivity(intentP);
+                                        Intent intentP = new Intent(view.getContext(), Login.class);
+
+
+                                        view.getContext().startActivity(intentP);
                                         finish();
+
+                                        Toast.makeText(getApplicationContext(), "Registration waiting to be processed by administrator", Toast.LENGTH_SHORT).show();
+
+
                                     }
 
                                     // Finish the current activity to prevent the user from going back.
-                                    finish();
+                                    //finish();
                                 } else {
                                     Toast.makeText(SignUpActivity.this, "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
                                 }

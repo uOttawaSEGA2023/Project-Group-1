@@ -4,25 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainPageAdmin extends AppCompatActivity {
+    Dialog dialog;
     Button pendingBtn;
     Button rejectedBtn;
     ImageButton logOutBtn;
@@ -39,6 +34,28 @@ public class MainPageAdmin extends AppCompatActivity {
 
     LinearLayout requestList;
     String nameMsg, emailMsg, addressMsg, phoneNumMsg, typeMsg, specialtiesMsg, healthCardMsg;
+    Administrator admin = new Administrator();
+
+    boolean pendingSelected = true;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        pendingBtn = findViewById(R.id.pending);
+        pendingBtn.callOnClick();
+
+        pendingBtn.setOnClickListener(new View.OnClickListener() {      // changes color on click
+            @Override
+            public void onClick(View v) {
+                pendingSelected = true;
+                pendingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+                rejectedBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
+
+                refreshList("Pending Users");
+
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,52 +66,37 @@ public class MainPageAdmin extends AppCompatActivity {
         pendingBtn = findViewById(R.id.pending);
         rejectedBtn = findViewById(R.id.rejected);
 
-        userDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot child: snapshot.getChildren()){
-                        UserAccount userAccount = child.getValue(Patient.class);
-                        if (userAccount!=null){
-                            if (userAccount.getStatus().equals("Pending")){
-                                addRequest(userAccount.getFirstName(), userAccount.getLastName(), userAccount.type,child.getKey());
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
         rejectedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pendingSelected = false;
                 pendingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
                 rejectedBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+
+                refreshList("Rejected Users");
+
             }
         });
 
-        pendingBtn.setOnClickListener(new View.OnClickListener() {      // changes color on click
+        pendingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pendingSelected = true;
                 pendingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
                 rejectedBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
+
+                refreshList("Pending Users");
             }
         });
 
         logOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                auth.signOut();
-                Intent intent = new Intent(MainPageAdmin.this, Login.class);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
+                finish();
+
             }
         });
 
@@ -115,6 +117,7 @@ public class MainPageAdmin extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             View slideView = getLayoutInflater().inflate(R.layout.bottom_dialogue, null, false);
+
             TextView name = (TextView) slideView.findViewById(R.id.slideInName);
             TextView address = (TextView) slideView.findViewById(R.id.slideInAddressText);
             TextView healthCard = (TextView) slideView.findViewById(R.id.slideInHealthCardNumberText);
@@ -122,14 +125,31 @@ public class MainPageAdmin extends AppCompatActivity {
             TextView phoneNum = (TextView) slideView.findViewById(R.id.slideInPhoneNumberText);
             TextView type = (TextView) slideView.findViewById(R.id.slideInType);
             TextView specialties = (TextView) slideView.findViewById(R.id.slideInSpecialtiesText);
+
+            Button approveBtn = (Button) slideView.findViewById(R.id.approveButton);
+            Button rejectBtn = (Button) slideView.findViewById(R.id.rejectButton);
+
+
+
             String uID = v.getTag().toString();
-            userDatabase.child(uID).addValueEventListener(new ValueEventListener() {
+
+            approveBtn.setTag(uID);
+            rejectBtn.setTag(uID);
+
+            approveBtn.setOnClickListener(approve);
+            rejectBtn.setOnClickListener(reject);
+            String databasePath = "Pending Users";
+            if(!pendingSelected){
+                databasePath = "Rejected Users";
+            }
+            userDatabase.child(databasePath).child(uID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
-                        UserAccount account = snapshot.getValue(UserAccount.class);
-                        if (account!=null){
-                            if (account.getType().equals("Patient")){
+                        UserAccount userAccount = snapshot.getValue(UserAccount.class);
+
+                        if (userAccount!=null){
+                            if (userAccount.getType().equals("Patient")){
 
                                 Patient patient=snapshot.getValue(Patient.class);
 
@@ -148,17 +168,6 @@ public class MainPageAdmin extends AppCompatActivity {
                                 specialtiesMsg = "";
 
 
-
-
-                                name.setText(nameMsg);
-                                address.setText(addressMsg);
-                                healthCard.setText(healthCardMsg);
-                                email.setText(emailMsg);
-                                phoneNum.setText(phoneNumMsg);
-                                type.setText(typeMsg);
-                                specialties.setText(specialtiesMsg);
-
-
                             } else {
 
                                 Doctor doctor=snapshot.getValue(Doctor.class);
@@ -167,7 +176,7 @@ public class MainPageAdmin extends AppCompatActivity {
 
                                 addressMsg = "Address: "+doctor.getAddress();
 
-                                healthCardMsg = "Health Card Number: " + doctor.getEmployeeNumber();
+                                healthCardMsg = "Employee Number: " + doctor.getEmployeeNumber();
 
                                 emailMsg = "Email: "+doctor.getEmail();
 
@@ -181,15 +190,14 @@ public class MainPageAdmin extends AppCompatActivity {
                                 }
 
 
-                                name.setText(nameMsg);
-                                address.setText(addressMsg);
-                                healthCard.setText(healthCardMsg);
-                                email.setText(emailMsg);
-                                phoneNum.setText(phoneNumMsg);
-                                type.setText(typeMsg);
-                                specialties.setText(specialtiesMsg);
-
                             }
+                            name.setText(nameMsg);
+                            address.setText(addressMsg);
+                            healthCard.setText(healthCardMsg);
+                            email.setText(emailMsg);
+                            phoneNum.setText(phoneNumMsg);
+                            type.setText(typeMsg);
+                            specialties.setText(specialtiesMsg);
                         }
                     }
                 }
@@ -203,8 +211,10 @@ public class MainPageAdmin extends AppCompatActivity {
         }
     };
 
+
+
     private void showSlide(View slideView){
-        final Dialog dialog = new Dialog(this);
+        dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(slideView);
         dialog.show();
@@ -212,8 +222,84 @@ public class MainPageAdmin extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-
     }
 
+    View.OnClickListener approve = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String uID = v.getTag().toString();
+            String databasePath = "Pending Users";
+            if(!pendingSelected){
+                databasePath = "Rejected Users";
+            }
+            String finalDatabasePath = databasePath;
+            userDatabase.child(databasePath).child(uID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                        admin.approveRegistrant(userAccount, uID);
+                        dialog.dismiss();
+                        refreshList(finalDatabasePath);
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            
+        }
+    };
+
+    private void refreshList(String databasePath) {
+        requestList.removeAllViews();
+        userDatabase.child(databasePath).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot child: snapshot.getChildren()){
+                        UserAccount userAccount = child.getValue(Patient.class);
+                        if (userAccount!=null){
+                            addRequest(userAccount.getFirstName(), userAccount.getLastName(), userAccount.type,child.getKey());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+    View.OnClickListener reject = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String uID = v.getTag().toString();
+            userDatabase.child("Pending Users").child(uID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                        admin.rejectRegistrant(userAccount, uID);
+                        dialog.dismiss();
+                        refreshList("Pending Users");
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+    };
 }
