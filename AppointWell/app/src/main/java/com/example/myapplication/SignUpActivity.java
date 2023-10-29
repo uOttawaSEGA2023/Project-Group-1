@@ -311,7 +311,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         startActivity(intentD);
                                         finish();
 
-                                        Toast.makeText(getApplicationContext(), "Registration waiting to be processed by administrator", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Your registration is being processed", Toast.LENGTH_LONG).show();
 
 
                                     } else {
@@ -329,7 +329,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         view.getContext().startActivity(intentP);
                                         finish();
 
-                                        Toast.makeText(getApplicationContext(), "Registration waiting to be processed by administrator", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Your registration is being processed", Toast.LENGTH_SHORT).show();
 
 
                                     }

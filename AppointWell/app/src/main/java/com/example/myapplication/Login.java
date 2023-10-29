@@ -48,16 +48,16 @@ public class Login extends AppCompatActivity {
                     if(snapshot.exists()){
                         Account account = snapshot.getValue(Account.class);
                         if(account!=null && account.getStatus().equals("Approved")) {
-                            if (account.getType().equals("Patient")) {
-                                Intent intent = new Intent(Login.this, MainPagePatient.class);
-                                startActivity(intent);
-                            } else if (account.getType().equals("Doctor")) {
-                                Intent intent = new Intent(Login.this, MainPageDoctor.class);
-                                startActivity(intent);
-                            } else {
-                                Intent intent = new Intent(Login.this, MainPageAdmin.class);
-                                startActivity(intent);
-                            }
+                                if (account.getType().equals("Patient")) {
+                                    Intent intent = new Intent(Login.this, MainPagePatient.class);
+                                    startActivity(intent);
+                                } else if (account.getType().equals("Doctor")) {
+                                    Intent intent = new Intent(Login.this, MainPageDoctor.class);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(Login.this, MainPageAdmin.class);
+                                    startActivity(intent);
+                                }
                         }
                     }
                 }
@@ -117,7 +117,6 @@ public class Login extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-
                                 if (task.isSuccessful()) {
 
                                     //gets userID of current user
@@ -129,30 +128,39 @@ public class Login extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if(snapshot.exists()){
                                                 Account account = snapshot.getValue(Account.class);
-                                                if(account!=null && account.getStatus().equals("Approved")){
-                                                    Log.d("LOGIN", "kok ");
-                                                    switch (account.type){
-                                                        case "Patient":
-                                                            Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
-                                                            Intent intentP = new Intent(getApplicationContext(), MainPagePatient.class);
-                                                            startActivity(intentP);
-                                                            finish();
-                                                            break;
-                                                        case "Doctor":
-                                                            Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
-                                                            Intent intentD = new Intent(getApplicationContext(), MainPageDoctor.class);
-                                                            startActivity(intentD);
-                                                            finish();
-                                                            break;
-                                                        case "Administrator":
-                                                            Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
-                                                            Intent intentA = new Intent(getApplicationContext(), MainPageAdmin.class);
-                                                            intentA.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                                                            startActivity(intentA);
-                                                            finish();
-                                                            break;
-                                                        default:
-                                                            break;
+                                                if(account!=null){
+                                                    if(account.getStatus().equals("Approved")){
+                                                        switch (account.type) {
+                                                            case "Patient":
+                                                                Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                                                                Intent intentP = new Intent(getApplicationContext(), MainPagePatient.class);
+                                                                startActivity(intentP);
+                                                                finish();
+                                                                break;
+                                                            case "Doctor":
+                                                                Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                                                                Intent intentD = new Intent(getApplicationContext(), MainPageDoctor.class);
+                                                                startActivity(intentD);
+                                                                finish();
+                                                                break;
+                                                            case "Administrator":
+                                                                Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                                                                Intent intentA = new Intent(getApplicationContext(), MainPageAdmin.class);
+                                                                intentA.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                                                startActivity(intentA);
+                                                                finish();
+                                                                break;
+                                                            default:
+                                                                break;
+                                                        }
+                                                    }
+                                                    else if(account.getStatus().equals("Pending")){
+                                                        Toast.makeText(getApplicationContext(), "Your registration has not yet been processed.", Toast.LENGTH_LONG).show();
+                                                        mAuth.signOut();
+                                                    }
+                                                    else{
+                                                        Toast.makeText(getApplicationContext(), "Your registration has been rejected.", Toast.LENGTH_LONG).show();
+                                                        mAuth.signOut();
                                                     }
                                                 }
                                             }

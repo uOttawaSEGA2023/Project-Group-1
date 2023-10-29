@@ -118,6 +118,11 @@ public class MainPageAdmin extends AppCompatActivity {
         ImageButton approveBtn = (ImageButton) requestView.findViewById(R.id.approveBtn);
         ImageButton rejectBtn = (ImageButton) requestView.findViewById(R.id.rejectBtn);
 
+        if(!pendingSelected){
+            rejectBtn.setVisibility(View.GONE);
+            ((View) approveBtn.getParent()).setTranslationX(90);
+        }
+
         approveBtn.setTag(uID);
         rejectBtn.setTag(uID);
         approveBtn.setOnClickListener(new View.OnClickListener() {
@@ -132,10 +137,11 @@ public class MainPageAdmin extends AppCompatActivity {
                     userDatabase.child(databasePath).child(uID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            requestList.removeAllViews();
                             if(snapshot.exists()){
                                 UserAccount userAccount = snapshot.getValue(UserAccount.class);
                                 admin.approveRegistrant(userAccount, uID);
-                                refreshList(finalDatabasePath);
+                                //refreshList(finalDatabasePath);
                             }
                         }
 
@@ -144,6 +150,13 @@ public class MainPageAdmin extends AppCompatActivity {
 
                         }
                     });
+
+                    requestList.removeView((View) v.getParent().getParent().getParent());
+//                    if (!pendingSelected){
+//                        rejectedBtn.callOnClick();
+//                    } else {
+//                        pendingBtn.callOnClick();
+//                    }
                 }
         });
         rejectBtn.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +169,7 @@ public class MainPageAdmin extends AppCompatActivity {
                         if(snapshot.exists()){
                             UserAccount userAccount = snapshot.getValue(UserAccount.class);
                             admin.rejectRegistrant(userAccount, uID);
-                            refreshList("Pending Users");
+
                         }
                     }
 
