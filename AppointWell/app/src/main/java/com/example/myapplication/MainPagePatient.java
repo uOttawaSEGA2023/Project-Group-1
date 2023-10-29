@@ -33,7 +33,7 @@ public class MainPagePatient extends AppCompatActivity {
 
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child(userID);
+        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
 
 
         // Attach a ValueEventListener to retrieve the user's data

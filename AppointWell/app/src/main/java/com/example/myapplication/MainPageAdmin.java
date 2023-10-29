@@ -171,11 +171,9 @@ public class MainPageAdmin extends AppCompatActivity {
                     userDatabase.child(databasePath).child(uID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            //requestList.removeAllViews();
                             if(snapshot.exists()){
                                 UserAccount userAccount = snapshot.getValue(UserAccount.class);
                                 admin.approveRegistrant(userAccount, uID);
-                                //refreshList(finalDatabasePath);
                             }
                         }
 
@@ -188,34 +186,9 @@ public class MainPageAdmin extends AppCompatActivity {
                     requestList.removeView((View) v.getParent().getParent().getParent());
                     refreshList(databasePath);
 
-//                    if (!pendingSelected){
-//                        rejectedBtn.callOnClick();
-//                    } else {
-//                        pendingBtn.callOnClick();
-//                    }
                 }
         });
-//        rejectBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String uID = v.getTag().toString();
-//                userDatabase.child("Pending Users").child(uID).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if(snapshot.exists()){
-//                            UserAccount userAccount = snapshot.getValue(UserAccount.class);
-//                            admin.rejectRegistrant(userAccount, uID);
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//            }
-//        });
+
         requestList.addView(requestView);
     }
 
@@ -327,7 +300,6 @@ public class MainPageAdmin extends AppCompatActivity {
 
 
     private void refreshList(String databasePath) {
-        Toast.makeText(MainPageAdmin.this, "Refresh called", Toast.LENGTH_SHORT).show();
         requestList.removeAllViews();
         userDatabase.child(databasePath).addValueEventListener(new ValueEventListener() {
             @Override

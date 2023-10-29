@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -121,48 +122,55 @@ public class Login extends AppCompatActivity {
 
                                     //gets userID of current user
                                     String userID = mAuth.getCurrentUser().getUid();
-                                    //navigates to node of current user in REALTIME DATABASE
-                                    DatabaseReference accountRef = userDatabase.child(userID);
-                                    accountRef.addValueEventListener(new ValueEventListener() {
+
+
+                                    DatabaseReference approvedRef = userDatabase.child("Approved Users").child(userID);
+
+                                    approvedRef.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if(snapshot.exists()){
                                                 Account account = snapshot.getValue(Account.class);
                                                 if(account!=null){
-                                                    if(account.getStatus().equals("Approved")){
                                                         switch (account.type) {
                                                             case "Patient":
-                                                                Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getApplicationContext(), "Logged In As Patient", Toast.LENGTH_SHORT).show();
                                                                 Intent intentP = new Intent(getApplicationContext(), MainPagePatient.class);
                                                                 startActivity(intentP);
                                                                 finish();
                                                                 break;
                                                             case "Doctor":
-                                                                Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getApplicationContext(), "Logged In As Doctor", Toast.LENGTH_SHORT).show();
                                                                 Intent intentD = new Intent(getApplicationContext(), MainPageDoctor.class);
                                                                 startActivity(intentD);
                                                                 finish();
                                                                 break;
                                                             case "Administrator":
-                                                                Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getApplicationContext(), "Logged In As Administrator", Toast.LENGTH_SHORT).show();
                                                                 Intent intentA = new Intent(getApplicationContext(), MainPageAdmin.class);
-                                                                intentA.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                                                                 startActivity(intentA);
                                                                 finish();
                                                                 break;
-                                                            default:
+                                                                default:
                                                                 break;
-                                                        }
-                                                    }
-                                                    else if(account.getStatus().equals("Pending")){
-                                                        Toast.makeText(getApplicationContext(), "Your registration has not yet been processed.", Toast.LENGTH_LONG).show();
-                                                        mAuth.signOut();
-                                                    }
-                                                    else{
-                                                        Toast.makeText(getApplicationContext(), "Your registration has been rejected.", Toast.LENGTH_LONG).show();
-                                                        mAuth.signOut();
                                                     }
                                                 }
+                                            }
+                                        }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+                                    DatabaseReference pendingRef = userDatabase.child("Pending Users").child(userID);
+
+                                    pendingRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if(snapshot.exists()){
+                                                Toast.makeText(getApplicationContext(), "Your registration has not yet been processed. Try again later.", Toast.LENGTH_LONG).show();
+                                                mAuth.signOut();
                                             }
                                         }
 
@@ -173,6 +181,23 @@ public class Login extends AppCompatActivity {
                                     });
 
 
+                                    DatabaseReference rejectedRef = userDatabase.child("Rejected Users").child(userID);
+
+                                    rejectedRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if(snapshot.exists()){
+                                                Toast.makeText(getApplicationContext(), "Your registration has been rejected.", Toast.LENGTH_LONG).show();
+                                                mAuth.signOut();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
                                 } else {
 
                                     Toast.makeText(Login.this, "Authentication failed.",
@@ -181,7 +206,7 @@ public class Login extends AppCompatActivity {
                                 }
                             }
                         });
-            }
+                }
         });
 
     }
