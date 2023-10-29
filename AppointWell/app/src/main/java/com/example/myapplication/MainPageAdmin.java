@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -114,17 +115,50 @@ public class MainPageAdmin extends AppCompatActivity {
         accType.setText(type);
         name.setText(firstName+" "+lastname);
         requestView.setOnClickListener(requestOnClick);
-        requestList.addView(requestView);
+        //requestList.addView(requestView);
         ImageButton approveBtn = (ImageButton) requestView.findViewById(R.id.approveBtn);
         ImageButton rejectBtn = (ImageButton) requestView.findViewById(R.id.rejectBtn);
 
         if(!pendingSelected){
             rejectBtn.setVisibility(View.GONE);
             ((View) approveBtn.getParent()).setTranslationX(90);
+        } else {
+            rejectBtn.setTag(uID);
+            rejectBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String uID = v.getTag().toString();
+                    userDatabase.child("Pending Users").child(uID).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            //requestList.removeAllViews();
+                            if(snapshot.exists()){
+                                UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                                admin.rejectRegistrant(userAccount, uID);
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    //refreshList("Pending Users");
+                    requestList.removeView((View) v.getParent().getParent().getParent());
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshList("Pending Users");
+                        }
+                    }, 270);
+                }
+            });
         }
 
         approveBtn.setTag(uID);
-        rejectBtn.setTag(uID);
         approveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
@@ -137,7 +171,7 @@ public class MainPageAdmin extends AppCompatActivity {
                     userDatabase.child(databasePath).child(uID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            requestList.removeAllViews();
+                            //requestList.removeAllViews();
                             if(snapshot.exists()){
                                 UserAccount userAccount = snapshot.getValue(UserAccount.class);
                                 admin.approveRegistrant(userAccount, uID);
@@ -152,6 +186,8 @@ public class MainPageAdmin extends AppCompatActivity {
                     });
 
                     requestList.removeView((View) v.getParent().getParent().getParent());
+                    refreshList(databasePath);
+
 //                    if (!pendingSelected){
 //                        rejectedBtn.callOnClick();
 //                    } else {
@@ -159,27 +195,28 @@ public class MainPageAdmin extends AppCompatActivity {
 //                    }
                 }
         });
-        rejectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String uID = v.getTag().toString();
-                userDatabase.child("Pending Users").child(uID).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            UserAccount userAccount = snapshot.getValue(UserAccount.class);
-                            admin.rejectRegistrant(userAccount, uID);
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
+//        rejectBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String uID = v.getTag().toString();
+//                userDatabase.child("Pending Users").child(uID).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.exists()){
+//                            UserAccount userAccount = snapshot.getValue(UserAccount.class);
+//                            admin.rejectRegistrant(userAccount, uID);
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//            }
+//        });
+        requestList.addView(requestView);
     }
 
     View.OnClickListener requestOnClick= new View.OnClickListener() {
@@ -290,7 +327,8 @@ public class MainPageAdmin extends AppCompatActivity {
 
 
     private void refreshList(String databasePath) {
-
+        Toast.makeText(MainPageAdmin.this, "Refresh called", Toast.LENGTH_SHORT).show();
+        requestList.removeAllViews();
         userDatabase.child(databasePath).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
