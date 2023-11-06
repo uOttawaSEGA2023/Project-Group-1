@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class shiftActivity extends AppCompatActivity {
     Shift shift = new Shift(); //Create an instance of the Shift class
@@ -44,7 +45,7 @@ public class shiftActivity extends AppCompatActivity {
     int year, month, day;
     FirebaseAuth mAuth;
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-    DatabaseReference userDatabase = database.child("Users").child("Approved Users").child("E7HA9WyeBpVBaBF58Lf5vP0Lwyw1");
+    DatabaseReference userDatabase = database.child("Users").child("Approved Users");
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -117,9 +118,9 @@ public class shiftActivity extends AppCompatActivity {
                         shift.setEndTime(eTime);
                 }
 
-                // Check if user is signed in (non-null) as doctor.
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (currentUser != null) {
+               // Check if user is signed in (non-null) as doctor.
+               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+               if (currentUser != null) {
                     String uID = currentUser.getUid();
                     userDatabase.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -149,27 +150,41 @@ public class shiftActivity extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot shiftsDataSnapshot) {
                                             boolean hasConflict = false;
 
-                                            for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
-                                                String shiftDate = shiftSnapshot.child("date").getValue(String.class);
-                                                String shiftStartTime = shiftSnapshot.child("startTime").getValue(String.class);
-                                                String shiftEndTime = shiftSnapshot.child("endTime").getValue(String.class);
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                                for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
+                                                    String shiftDate = shiftSnapshot.child("date").getValue(String.class);
+                                                    String shiftStartTime = shiftSnapshot.child("startTime").getValue(String.class);
+                                                    String shiftEndTime = shiftSnapshot.child("endTime").getValue(String.class);
 
-                                                // Compare the new shift's date and time with existing shifts
-                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                                    if (isConflict(date, startTime, endTime, LocalDate.parse(shiftDate), LocalTime.parse(shiftStartTime), LocalTime.parse(shiftEndTime))) {
-                                                        hasConflict = true;
-                                                        break;
+                                                    if (shiftDate != null && shiftStartTime != null && shiftEndTime != null) {
+                                                        try {
+                                                            LocalDate parsedDate = LocalDate.parse(shiftDate);
+                                                            LocalTime parsedStartTime = LocalTime.parse(shiftStartTime);
+                                                            LocalTime parsedEndTime = LocalTime.parse(shiftEndTime);
+
+                                                            if (isConflict(date, startTime, endTime, parsedDate, parsedStartTime, parsedEndTime)) {
+                                                                hasConflict = true;
+                                                                break;
+                                                            }
+                                                        } catch (DateTimeParseException e) {
+                                                            // Handle the parsing error, for example, by displaying an error message or logging the exception.
+                                                            Toast.makeText(shiftActivity.this, "Error parsing date or time", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    } else {
+                                                        // Handle null values appropriately (e.g., display an error message or log a message).
+                                                        Toast.makeText(shiftActivity.this, "One or more values are null", Toast.LENGTH_SHORT).show();
                                                     }
+                                                }
+
+                                                if (hasConflict) {
+                                                    Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    // Add the new shift since there are no conflicts.
+                                                    shiftsRef.push().setValue(shift);
+                                                    Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
-                                            if (hasConflict) {
-                                                Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                // Add the new shift since there are no conflicts.
-                                                shiftsRef.push().setValue(shift);
-                                                Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
-                                            }
                                         }
 
                                         @Override
@@ -185,7 +200,7 @@ public class shiftActivity extends AppCompatActivity {
                             // Handle any errors that may occur during the database operation.
                         }
                     });
-                }
+               }
             }
         });
     }
