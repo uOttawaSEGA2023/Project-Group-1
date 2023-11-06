@@ -89,8 +89,6 @@ public class shiftActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (selectedDate.isBefore(currentDate)) {
                         Toast.makeText(shiftActivity.this, "The day has already passed", Toast.LENGTH_SHORT).show();
-                    } else {
-                        shift.setSelectedDate(selectedDate);
                     }
                 }
                 //Check if startTime and endTime are valid
@@ -127,16 +125,13 @@ public class shiftActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.hasChild("shifts")) {
                                 // If it doesn't exist, create a "shift" node.
-                                LocalDate date = shift.getSelectedDate();
+                                LocalDate selectedDate = shift.getSelectedDate();
                                 LocalTime startTime = shift.getStartTime();
                                 LocalTime endTime = shift.getEndTime();
-                                Shift shifts = new Shift(date, startTime, endTime);
 
-                                // Create a "shifts" node and set individual child nodes for "date," "startTime," and "endTime."
-                                DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
-                                shiftsRef.child("date").setValue(date.toString());
-                                shiftsRef.child("startTime").setValue(startTime.toString());
-                                shiftsRef.child("endTime").setValue(endTime.toString());
+                                //create the Shift object that will be stored in the database
+                                Shift shifts = new Shift(selectedDate, startTime, endTime);
+                                userDatabase.child(uID).setValue(shifts);
                             } else {
                                     // Check for conflicts
                                     LocalDate date = shift.getSelectedDate();
