@@ -172,7 +172,7 @@ public class shiftActivity extends AppCompatActivity {
                                             }
 
                                             if (hasConflict) {
-                                                // Handle the case where there is a conflict.
+                                                Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 // Add the new shift since there are no conflicts.
                                                 shiftsRef.push().setValue(shift);
@@ -204,16 +204,19 @@ public class shiftActivity extends AppCompatActivity {
         String timeRegex = "^(08:00|08:30|09:00|09:30|10:00|10:30|11:00|11:30|12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00)$";
         return time.matches(timeRegex);
     }
-    private boolean isConflict(LocalDate date, LocalTime startTime, LocalTime endTime, LocalDate parse, LocalTime parse1, LocalTime parse2) {
+    private boolean isConflict(LocalDate date, LocalTime startTime, LocalTime endTime, LocalDate parseDate, LocalTime parseStartTime, LocalTime parseEndTime) {
         // Check for date conflict
-        if (date.isEqual(existingDate)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && date.isEqual(parseDate)) {
             // If the dates are the same, check for time conflict
-            if ((startTime.isBefore(existingEndTime) && newEndTime.isAfter(existingStartTime)) ||
-                    (newStartTime.isEqual(existingStartTime) || newEndTime.isEqual(existingEndTime))) {
+            if (startTime.isBefore(parseEndTime) && endTime.isAfter(parseStartTime)) {
+                // There is a conflict
+                return true;
+            } else if (startTime.equals(parseStartTime) || endTime.equals(parseEndTime)) {
                 // There is a conflict
                 return true;
             }
         }
         return false;
     }
+
 }
