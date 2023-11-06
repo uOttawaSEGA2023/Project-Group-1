@@ -14,8 +14,10 @@ public class Shift {
     public Shift() {
     }
 
-    public Shift(LocalDate date, LocalTime startTime, LocalTime endTime) {
-
+    public Shift(LocalDate selectedDate, LocalTime startTime, LocalTime endTime) {
+        this.selectedDate=selectedDate;
+        this.startTime=startTime;
+        this.endTime=endTime;
     }
 
     public void setStartTime(LocalTime startTime) {
