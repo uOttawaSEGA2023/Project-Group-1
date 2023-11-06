@@ -13,6 +13,11 @@ public class Shift {
     private LocalDate CurrentDate = null;
     public Shift() {
     }
+
+    public Shift(LocalDate date, LocalTime startTime, LocalTime endTime) {
+
+    }
+
     public void setStartTime(LocalTime startTime) {
             this.startTime = startTime;
     }
