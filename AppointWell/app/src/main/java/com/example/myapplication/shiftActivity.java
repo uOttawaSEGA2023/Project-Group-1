@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -29,10 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class shiftActivity extends AppCompatActivity {
     Shift shift = new Shift(); //Create an instance of the Shift class
@@ -49,7 +44,7 @@ public class shiftActivity extends AppCompatActivity {
     int year, month, day;
     FirebaseAuth mAuth;
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-    DatabaseReference userDatabase = database.child("Users").child("Approved Users");
+    DatabaseReference userDatabase = database.child("Users").child("Approved Users").child("E7HA9WyeBpVBaBF58Lf5vP0Lwyw1");
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -121,30 +116,27 @@ public class shiftActivity extends AppCompatActivity {
                     } else
                         shift.setEndTime(eTime);
                 }
+
                 // Check if user is signed in (non-null) as doctor.
-                FirebaseUser currentUser = mAuth.getCurrentUser();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
                     String uID = currentUser.getUid();
-                    DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-
                     userDatabase.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                // Check if the "shifts" node exists in the user's data.
-                                if (!dataSnapshot.hasChild("shifts")) {
-                                    // If it doesn't exist, create a "shift" node.
-                                    LocalDate date = shift.getSelectedDate();
-                                    LocalTime startTime = shift.getStartTime();
-                                    LocalTime endTime = shift.getEndTime();
-                                    Shift shift = new Shift(date, startTime, endTime);
+                            if (!dataSnapshot.hasChild("shifts")) {
+                                // If it doesn't exist, create a "shift" node.
+                                LocalDate date = shift.getSelectedDate();
+                                LocalTime startTime = shift.getStartTime();
+                                LocalTime endTime = shift.getEndTime();
+                                Shift shifts = new Shift(date, startTime, endTime);
 
-                                    // Create a "shifts" node and set individual child nodes for "date," "startTime," and "endTime."
-                                    DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
-                                    shiftsRef.child("date").setValue(date.toString());
-                                    shiftsRef.child("startTime").setValue(startTime.toString());
-                                    shiftsRef.child("endTime").setValue(endTime.toString());
-                                } else {
+                                // Create a "shifts" node and set individual child nodes for "date," "startTime," and "endTime."
+                                DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
+                                shiftsRef.child("date").setValue(date.toString());
+                                shiftsRef.child("startTime").setValue(startTime.toString());
+                                shiftsRef.child("endTime").setValue(endTime.toString());
+                            } else {
                                     // Check for conflicts
                                     LocalDate date = shift.getSelectedDate();
                                     LocalTime startTime = shift.getStartTime();
@@ -176,6 +168,7 @@ public class shiftActivity extends AppCompatActivity {
                                             } else {
                                                 // Add the new shift since there are no conflicts.
                                                 shiftsRef.push().setValue(shift);
+                                                Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
@@ -186,7 +179,6 @@ public class shiftActivity extends AppCompatActivity {
                                     });
                                 }
                             }
-                        }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
