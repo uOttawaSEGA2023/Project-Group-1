@@ -167,12 +167,9 @@ public class shiftActivity extends AppCompatActivity {
                                                                 break;
                                                             }
                                                         } catch (DateTimeParseException e) {
-                                                            // Handle the parsing error, for example, by displaying an error message or logging the exception.
+                                                            // Handle the parsing error.
                                                             Toast.makeText(shiftActivity.this, "Error parsing date or time", Toast.LENGTH_SHORT).show();
                                                         }
-                                                    } else {
-                                                        // Handle null values appropriately (e.g., display an error message or log a message).
-                                                        Toast.makeText(shiftActivity.this, "One or more values are null", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
 
