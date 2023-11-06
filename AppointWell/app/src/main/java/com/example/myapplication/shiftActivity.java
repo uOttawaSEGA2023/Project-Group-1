@@ -2,6 +2,7 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,8 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -41,8 +47,9 @@ public class shiftActivity extends AppCompatActivity {
     ArrayAdapter<String> adapterItems2;
     Button create;
     int year, month, day;
+    FirebaseAuth mAuth;
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-    DatabaseReference doctorDatabase = database.child("Users").child("Approved Users");
+    DatabaseReference userDatabase = database.child("Users").child("Approved Users");
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -86,7 +93,7 @@ public class shiftActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (selectedDate.isBefore(currentDate)) {
                         Toast.makeText(shiftActivity.this, "The day has already passed", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         shift.setSelectedDate(selectedDate);
                     }
                 }
@@ -94,7 +101,7 @@ public class shiftActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (isValidTimeFormat(startTime)) {
                         autoCompleteTextView1.setText(startTime);
-                        sTime=LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
+                        sTime = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
                         shift.setStartTime(sTime);
                     } else {
                         // Invalid time format, display a message to the user
@@ -109,18 +116,104 @@ public class shiftActivity extends AppCompatActivity {
                         // Invalid time format, display a message to the user
                         Toast.makeText(shiftActivity.this, "Invalid EndTime format (HH:MM) worked hours between 08:00-17:00", Toast.LENGTH_SHORT).show();
                     }
-                    if (sTime != null && eTime != null && eTime.isBefore(sTime)){
+                    if (sTime != null && eTime != null && eTime.isBefore(sTime)) {
                         Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
-                    }else
+                    } else
                         shift.setEndTime(eTime);
+                }
+                // Check if user is signed in (non-null) as doctor.
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null) {
+                    String uID = currentUser.getUid();
+                    DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+
+                    userDatabase.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                // Check if the "shifts" node exists in the user's data.
+                                if (!dataSnapshot.hasChild("shifts")) {
+                                    // If it doesn't exist, create a "shift" node.
+                                    LocalDate date = shift.getSelectedDate();
+                                    LocalTime startTime = shift.getStartTime();
+                                    LocalTime endTime = shift.getEndTime();
+                                    Shift shift = new Shift(date, startTime, endTime);
+
+                                    // Create a "shifts" node and set individual child nodes for "date," "startTime," and "endTime."
+                                    DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
+                                    shiftsRef.child("date").setValue(date.toString());
+                                    shiftsRef.child("startTime").setValue(startTime.toString());
+                                    shiftsRef.child("endTime").setValue(endTime.toString());
+                                } else {
+                                    // Check for conflicts
+                                    LocalDate date = shift.getSelectedDate();
+                                    LocalTime startTime = shift.getStartTime();
+                                    LocalTime endTime = shift.getEndTime();
+
+                                    DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
+
+                                    shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot shiftsDataSnapshot) {
+                                            boolean hasConflict = false;
+
+                                            for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
+                                                String shiftDate = shiftSnapshot.child("date").getValue(String.class);
+                                                String shiftStartTime = shiftSnapshot.child("startTime").getValue(String.class);
+                                                String shiftEndTime = shiftSnapshot.child("endTime").getValue(String.class);
+
+                                                // Compare the new shift's date and time with existing shifts
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                                    if (isConflict(date, startTime, endTime, LocalDate.parse(shiftDate), LocalTime.parse(shiftStartTime), LocalTime.parse(shiftEndTime))) {
+                                                        hasConflict = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+                                            if (hasConflict) {
+                                                // Handle the case where there is a conflict.
+                                            } else {
+                                                // Add the new shift since there are no conflicts.
+                                                shiftsRef.push().setValue(shift);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            // Handle any errors that may occur during the database operation.
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle any errors that may occur during the database operation.
+                        }
+                    });
                 }
             }
         });
     }
+
     //Method to validate the time format
     private boolean isValidTimeFormat(String time) {
         // Use regular expression to check for valid HH:mm format
         String timeRegex = "^(08:00|08:30|09:00|09:30|10:00|10:30|11:00|11:30|12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00)$";
         return time.matches(timeRegex);
+    }
+    private boolean isConflict(LocalDate date, LocalTime startTime, LocalTime endTime, LocalDate parse, LocalTime parse1, LocalTime parse2) {
+        // Check for date conflict
+        if (date.isEqual(existingDate)) {
+            // If the dates are the same, check for time conflict
+            if ((startTime.isBefore(existingEndTime) && newEndTime.isAfter(existingStartTime)) ||
+                    (newStartTime.isEqual(existingStartTime) || newEndTime.isEqual(existingEndTime))) {
+                // There is a conflict
+                return true;
+            }
+        }
+        return false;
     }
 }
