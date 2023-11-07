@@ -10,7 +10,7 @@ public class Shift {
     private LocalTime startTime;
     private LocalTime endTime;
     private LocalDate selectedDate;
-    LocalDate CurrentDate=null;
+
     public Shift() {
     }
     public Shift(LocalDate selectedDate, LocalTime startTime, LocalTime endTime) {
@@ -37,13 +37,6 @@ public class Shift {
 
     public LocalDate getSelectedDate() {
         return selectedDate;
-    }
-    public LocalDate getCurrentDate() {
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            CurrentDate = LocalDate.now();
-        }
-        return CurrentDate;
     }
 }
 
