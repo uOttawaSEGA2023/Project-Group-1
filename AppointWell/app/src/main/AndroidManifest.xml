@@ -28,6 +28,7 @@
         <activity android:name=".MainPageDoctor"></activity>
         <activity android:name=".MainPagePatient"></activity>
         <activity android:name=".MainPageAdmin"></activity>
+<!--        <activity android:name=".shiftActivity"></activity>-->
 
     </application>
 
