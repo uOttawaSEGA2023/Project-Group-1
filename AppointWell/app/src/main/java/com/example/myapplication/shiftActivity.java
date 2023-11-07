@@ -116,7 +116,7 @@ public class shiftActivity extends AppCompatActivity {
                         shift.setEndTime(eTime);
                 }
 
-               // Check if user is signed in (non-null) as doctor.
+               // get userId
                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                if (currentUser != null) {
                     String uID = currentUser.getUid();
