@@ -45,7 +45,7 @@ public class shiftActivity extends AppCompatActivity {
     int year, month, day;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-    DatabaseReference userDatabase = database.child("Users").child("Approved Users");
+    DatabaseReference userDatabase = database.child("Users").child("Approved Users").child("XvxJMNsAE1NNJGXsxZCE6xVz2dL2");
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -78,11 +78,14 @@ public class shiftActivity extends AppCompatActivity {
             public void onClick(View v) {
                 LocalTime sTime = null;
                 LocalTime eTime = null;
+                LocalDate currentDate= null;
                 String startTime = autoCompleteTextView1.getText().toString();
                 String endTime = autoCompleteTextView2.getText().toString();
-                LocalDate currentDate = shift.getCurrentDate();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    currentDate=LocalDate.now();
+                }
                 LocalDate selectedDate = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     selectedDate = LocalDate.of(year, month, day);
                 }
                 // Check if the selected date has passed
@@ -117,9 +120,10 @@ public class shiftActivity extends AppCompatActivity {
                 }
 
                // get userId
-               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-               if (currentUser != null) {
-                    String uID = currentUser.getUid();
+//               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//               if (currentUser != null) {
+//                    String uID = currentUser.getUid();
+                String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
                     userDatabase.child(uID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -182,7 +186,7 @@ public class shiftActivity extends AppCompatActivity {
                         }
                     });
                }
-            }
+//            }
         });
     }
 
