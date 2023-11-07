@@ -43,7 +43,7 @@ public class shiftActivity extends AppCompatActivity {
     ArrayAdapter<String> adapterItems2;
     Button create;
     int year, month, day;
-    FirebaseAuth mAuth;
+
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
     DatabaseReference userDatabase = database.child("Users").child("Approved Users");
 
@@ -120,15 +120,14 @@ public class shiftActivity extends AppCompatActivity {
                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                if (currentUser != null) {
                     String uID = currentUser.getUid();
-                    userDatabase.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    userDatabase.child(uID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.hasChild("shifts")) {
-                                // If it doesn't exist, create a "shift" node.
+                                // If it doesn't exist, create a "shifts" node.
                                 LocalDate selectedDate = shift.getSelectedDate();
                                 LocalTime startTime = shift.getStartTime();
                                 LocalTime endTime = shift.getEndTime();
-
                                 //create the Shift object that will be stored in the database
                                 Shift shifts = new Shift(selectedDate, startTime, endTime);
                                 userDatabase.child(uID).setValue(shifts);
@@ -137,7 +136,6 @@ public class shiftActivity extends AppCompatActivity {
                                     LocalDate date = shift.getSelectedDate();
                                     LocalTime startTime = shift.getStartTime();
                                     LocalTime endTime = shift.getEndTime();
-
                                     DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
 
                                     shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
