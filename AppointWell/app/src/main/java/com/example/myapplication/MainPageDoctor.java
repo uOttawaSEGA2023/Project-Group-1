@@ -19,8 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainPageDoctor extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
-    private ImageButton logOutBtn;
-
+    private View shiftbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +57,12 @@ public class MainPageDoctor extends AppCompatActivity {
         });
 
 
+        shiftbtn = findViewById(R.id.shiftBtn);
 
-
-        logOutBtn = findViewById(R.id.logout);
-
-        logOutBtn.setOnClickListener(new View.OnClickListener() {
+        shiftbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(MainPageDoctor.this, Login.class);
+                Intent intent = new Intent(MainPageDoctor.this, shiftActivity.class);
                 startActivity(intent);
             }
         });
