@@ -111,36 +111,14 @@ public class shiftActivity extends AppCompatActivity {
                 if (endTime.compareTo(startTime)<0){
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }
 }
 
 
-//                //Check if startTime and endTime are valid
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    if (isValidTimeFormat(startTime)) {
-//                        autoCompleteTextView1.setText(startTime);
-//                        sTime = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
-//                        shift.setStartTime(sTime);
-//                    } else {
-//                        // Invalid time format, display a message to the user
-//                        Toast.makeText(shiftActivity.this, "Invalid StartTime format (HH:MM) worked hours between 08:00-17:00", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    if (isValidTimeFormat(endTime)) {
-//                        autoCompleteTextView2.setText(endTime);
-//                        eTime = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"));
-//                    } else {
-//                        // Invalid time format, display a message to the user
-//                        Toast.makeText(shiftActivity.this, "Invalid EndTime format (HH:MM) worked hours between 08:00-17:00", Toast.LENGTH_SHORT).show();
-//                    }
-//                    if (sTime != null && eTime != null && eTime.isBefore(sTime)) {
-//                        Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
-//                    } else
-//                        shift.setEndTime(eTime);
-//                }
+
 
                // get userId
 //               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -212,13 +190,8 @@ public class shiftActivity extends AppCompatActivity {
 ////            }
 //        });
 //    }
-//
-////    //Method to validate the time format
-////    private boolean isValidTimeFormat(String time) {
-////        // Use regular expression to check for valid HH:mm format
-////        String timeRegex = "^(08:00|08:30|09:00|09:30|10:00|10:30|11:00|11:30|12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00)$";
-////        return time.matches(timeRegex);
-////    }
+
+
 //    private boolean isConflict(LocalDate date, LocalTime startTime, LocalTime endTime, LocalDate existingDate, LocalTime existingStartTime, LocalTime existingEndTime) {
 //        // Check for date conflict
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && date.isEqual(existingDate)) {
