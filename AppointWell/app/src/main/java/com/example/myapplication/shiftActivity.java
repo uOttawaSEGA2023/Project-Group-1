@@ -43,7 +43,7 @@ public class shiftActivity extends AppCompatActivity {
     String dateString;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-    DatabaseReference userDatabase = database.child("Users").child("Approved Users").child("XvxJMNsAE1NNJGXsxZCE6xVz2dL2");
+    DatabaseReference userDatabase = database.child("Users").child("Approved Users");
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -72,8 +72,9 @@ public class shiftActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //store the startTime in variable startTime
-                startTime= spinner1.getSelectedItem().toString();
+                startTime = spinner1.getSelectedItem().toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -82,8 +83,9 @@ public class shiftActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //store the endTime in variable endTime
-                endTime= spinner2.getSelectedItem().toString();
+                endTime = spinner2.getSelectedItem().toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -104,107 +106,84 @@ public class shiftActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (selectedDate.isBefore(currentDate)) {
                         Toast.makeText(shiftActivity.this, "The day has already passed", Toast.LENGTH_SHORT).show();
-                    }else{
-                      dateString = selectedDate.toString();
+                    } else {
+                        dateString = selectedDate.toString();
                     }
                 }//check if endTime is before startTime
-                if (endTime.compareTo(startTime)<0){
+                if (endTime.compareTo(startTime) < 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
                 }
-
-            }
-        });
-    }
-}
-
-
-
-
-               // get userId
+                // get userId
 //               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 //               if (currentUser != null) {
-//                    String uID = currentUser.getUid();
-//                String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
-//                    userDatabase.child(uID).addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            if (!dataSnapshot.hasChild("shifts")) {
-//                                // If it doesn't exist, create a "shifts" node.
-//                                LocalDate selectedDate = shift.getSelectedDate();
-//                                LocalTime startTime = shift.getStartTime();
-//                                LocalTime endTime = shift.getEndTime();
-//                                // Create the Shift object that will be stored in the database
-//                                Shift newShift = new Shift(selectedDate, startTime, endTime);
-//                                userDatabase.child(uID).child("shifts").push().setValue(newShift);
-//                            } else {
-//                                // Check for conflicts
-//                                LocalDate date = shift.getSelectedDate();
-//                                LocalTime startTime = shift.getStartTime();
-//                                LocalTime endTime = shift.getEndTime();
-//                                DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
-//
-//                                shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                    @Override
-//                                    public void onDataChange(@NonNull DataSnapshot shiftsDataSnapshot) {
-//                                        boolean hasConflict = false;
-//
-//                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                                            for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
-//                                                Shift existingShift = shiftSnapshot.getValue(Shift.class);
-//
-//                                                if (existingShift != null) {
-//                                                    LocalDate shiftDate = existingShift.getSelectedDate();
-//                                                    LocalTime shiftStartTime = existingShift.getStartTime();
-//                                                    LocalTime shiftEndTime = existingShift.getEndTime();
-//
-//                                                    if (isConflict(date, startTime, endTime, shiftDate, shiftStartTime, shiftEndTime)) {
-//                                                        hasConflict = true;
-//                                                        break;
-//                                                    }
-//                                                }
-//                                            }
-//
-//                                            if (hasConflict) {
-//                                                Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
-//                                            } else {
-//                                                // Add the new shift since there are no conflicts.
-//                                                Shift newShift = new Shift(date, startTime, endTime);
-//                                                shiftsRef.push().setValue(newShift);
-//                                                Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
-//                                            }
-//                                            }
-//                                        }
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//                                            // Handle any errors that may occur during the database operation.
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//                            // Handle any errors that may occur during the database operation.
-//                        }
-//                    });
-//               }
-////            }
-//        });
-//    }
+//               String uID = currentUser.getUid();
+                String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
+                userDatabase.child(uID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.hasChild("shifts")) {
+                            // If it doesn't exist, create a "shifts" node.
+                            // Create the Shift object that will be stored in the database
+                            Shift newShift = new Shift(dateString, startTime, endTime);
+                            userDatabase.child(uID).child("shifts").push().setValue(newShift);
+                        } else {
+                            // Check for conflicts
+                            DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
+                            shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot shiftsDataSnapshot) {
+                                    boolean hasConflict = false;
 
+                                        for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
+                                            Shift existingShift = shiftSnapshot.getValue(Shift.class);
 
-//    private boolean isConflict(LocalDate date, LocalTime startTime, LocalTime endTime, LocalDate existingDate, LocalTime existingStartTime, LocalTime existingEndTime) {
-//        // Check for date conflict
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && date.isEqual(existingDate)) {
-//            // If the dates are the same, check for time conflict
-//            if (startTime.isBefore(existingEndTime) && endTime.isAfter(existingStartTime)) {
-//                // There is a conflict
-//                return true;
-//            } else if (startTime.equals(existingStartTime) || endTime.equals(existingEndTime)) {
-//                // There is a conflict
-//                return true;
+                                            if (existingShift != null) {
+                                                String shiftDate = existingShift.getSelectedDate();
+                                                String shiftStartTime = existingShift.getStartTime();
+                                                String shiftEndTime = existingShift.getEndTime();
+                                                isConflict(dateString, startTime, endTime, shiftDate, shiftStartTime, shiftEndTime);
+                                            }
+                                        if (hasConflict) {
+                                            Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            // Add the new shift since there are no conflicts.
+                                            Shift newShift = new Shift(dateString, startTime, endTime);
+                                            shiftsRef.push().setValue(newShift);
+                                            Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Handle any errors that may occur during the database operation.
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle any errors that may occur during the database operation.
+                    }
+                });
+            }
 //            }
-//        }
-//        return false;
-//    }
-//
-//}
+        });
+    }
+
+    private boolean isConflict(String dateString, String startTime, String endTime, String existingDate, String existingStartTime, String existingEndTime) {
+        // Check for date conflict
+        if (dateString.compareTo(existingDate)==0) {
+            // If the dates are the same, check for time conflict
+            if (startTime.compareTo(existingEndTime)<0&& endTime.compareTo(existingStartTime)>0) {
+                // There is a conflict
+                return true;
+            } else if (startTime.equals(existingStartTime) || endTime.equals(existingEndTime)) {
+                // There is a conflict
+                return true;
+            }
+        }
+        return false;
+    }
+
+}
