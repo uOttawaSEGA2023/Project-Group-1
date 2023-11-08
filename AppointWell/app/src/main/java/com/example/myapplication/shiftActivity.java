@@ -105,13 +105,15 @@ public class shiftActivity extends AppCompatActivity {
                 // Check if the selected date has passed
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (selectedDate.isBefore(currentDate)) {
-                        Toast.makeText(shiftActivity.this, "The day has already passed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
+                        return;//avoid the app terminating
                     } else {
                         dateString = selectedDate.toString();
                     }
                 }//check if endTime is before startTime
                 if (endTime.compareTo(startTime) < 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 // get userId
 //               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -126,6 +128,7 @@ public class shiftActivity extends AppCompatActivity {
                             // Create the Shift object that will be stored in the database
                             Shift newShift = new Shift(dateString, startTime, endTime);
                             userDatabase.child(uID).child("shifts").push().setValue(newShift);
+                            Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
                         } else {
                             // Check for conflicts
                             DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
@@ -133,26 +136,29 @@ public class shiftActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot shiftsDataSnapshot) {
                                     boolean hasConflict = false;
-
-                                        for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
-                                            Shift existingShift = shiftSnapshot.getValue(Shift.class);
-
-                                            if (existingShift != null) {
-                                                String shiftDate = existingShift.getSelectedDate();
-                                                String shiftStartTime = existingShift.getStartTime();
-                                                String shiftEndTime = existingShift.getEndTime();
-                                                isConflict(dateString, startTime, endTime, shiftDate, shiftStartTime, shiftEndTime);
+                                    for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
+                                        Shift existingShift = shiftSnapshot.getValue(Shift.class);
+                                        if (existingShift != null) {
+                                            String shiftDate = existingShift.getSelectedDate();
+                                            String shiftStartTime = existingShift.getStartTime();
+                                            String shiftEndTime = existingShift.getEndTime();
+                                            hasConflict = isConflict(dateString, startTime, endTime, shiftDate, shiftStartTime, shiftEndTime);
+                                            // If a conflict is found, break out of the loop
+                                            if (hasConflict) {
+                                                break;
                                             }
-                                        if (hasConflict) {
-                                            Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            // Add the new shift since there are no conflicts.
-                                            Shift newShift = new Shift(dateString, startTime, endTime);
-                                            shiftsRef.push().setValue(newShift);
-                                            Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
                                         }
                                     }
+                                    // Add the new shift if there are no conflicts
+                                    if (!hasConflict) {
+                                        Shift newShift = new Shift(dateString, startTime, endTime);
+                                        shiftsRef.push().setValue(newShift);
+                                        Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
                                     // Handle any errors that may occur during the database operation.
@@ -160,17 +166,16 @@ public class shiftActivity extends AppCompatActivity {
                             });
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         // Handle any errors that may occur during the database operation.
                     }
                 });
-            }
+
 //            }
+            }
         });
     }
-
     private boolean isConflict(String dateString, String startTime, String endTime, String existingDate, String existingStartTime, String existingEndTime) {
         // Check for date conflict
         if (dateString.compareTo(existingDate)==0) {
