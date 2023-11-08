@@ -7,35 +7,35 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 public class Shift {
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private LocalDate selectedDate;
+    private String startTime;
+    private String endTime;
+    private String selectedDate;
 
     public Shift() {
     }
-    public Shift(LocalDate selectedDate, LocalTime startTime, LocalTime endTime) {
+    public Shift(String selectedDate, String startTime, String endTime) {
         this.selectedDate=selectedDate;
         this.startTime=startTime;
         this.endTime=endTime;
     }
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(String startTime) {
             this.startTime = startTime;
     }
-    public LocalTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(String endTime) {
             this.endTime= endTime ;
     }
-    public LocalTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setSelectedDate(LocalDate selectedDate) {
+    public void setSelectedDate(String selectedDate) {
         this.selectedDate =  selectedDate;
     }
 
-    public LocalDate getSelectedDate() {
+    public String getSelectedDate() {
         return selectedDate;
     }
 }
