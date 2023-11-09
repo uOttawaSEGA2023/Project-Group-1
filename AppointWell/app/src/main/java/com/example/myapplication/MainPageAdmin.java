@@ -55,9 +55,7 @@ public class MainPageAdmin extends AppCompatActivity {
                 pendingSelected = true;
                 pendingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
                 rejectedBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
-
                 refreshList("Pending Users");
-
             }
         });
     }
