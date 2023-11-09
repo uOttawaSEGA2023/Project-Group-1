@@ -48,7 +48,6 @@ public class shiftActivity extends AppCompatActivity {
     String dateString;
     String shiftId;
     LinearLayout shiftList;
-    Context appContext;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
     DatabaseReference userDatabase = database.child("Users").child("Approved Users");
@@ -59,8 +58,6 @@ public class shiftActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addshift);
         shiftList = findViewById(R.id.shiftslist);
-        // Initialize appContext
-        appContext = getApplicationContext();
         //set up the calendar
         calendarView = findViewById(R.id.calendarview);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -209,7 +206,8 @@ public class shiftActivity extends AppCompatActivity {
         return false;
     }
     private void addShift(String dateString, String startTime, String endTime, String shiftId) {
-        View requestView = LayoutInflater.from(appContext).inflate(R.layout.newshift, null, false);
+        upcomingShiftActivity object= new upcomingShiftActivity();
+        View requestView = LayoutInflater.from(object.appContext).inflate(R.layout.newshift, null, false);
         requestView.setTag(shiftId);
         TextView date = requestView.findViewById(R.id.Date);
 
