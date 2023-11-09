@@ -61,22 +61,28 @@ public class upcomingShiftActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
     private void addShift(Shift shift, String shiftId) {
         View shiftView = getLayoutInflater().inflate(R.layout.newshift, null, false);
-        TextView date = shiftView.findViewById(R.id.Date);
+        TextView Date = shiftView.findViewById(R.id.Date);
 
-        DateTimeFormatter formatter = null;
+        DateTimeFormatter inputFormatter = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         }
-        LocalDate dateFormat = null;
+        DateTimeFormatter outputFormatter = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            dateFormat = LocalDate.parse(shift.getSelectedDate(), formatter);
+            outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
         }
-        date.setText(dateFormat.toString());
+        LocalDate date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = LocalDate.parse(shift.getSelectedDate(), inputFormatter);
+        }
+        String formattedDate = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formattedDate = date.format(outputFormatter);
+        }
+        Date.setText(formattedDate);
 
         TextView time = shiftView.findViewById(R.id.time);
         time.setText(shift.getStartTime() + " - " + shift.getEndTime());
