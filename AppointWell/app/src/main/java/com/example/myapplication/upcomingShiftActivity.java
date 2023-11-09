@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class upcomingShiftActivity extends AppCompatActivity {
     ImageButton addbtn, back;
+    Context appContext;
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_shift);
+        appContext = getApplicationContext();
         addbtn = findViewById(R.id.plus);
         addbtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
