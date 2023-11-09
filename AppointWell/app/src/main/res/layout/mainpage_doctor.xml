@@ -82,7 +82,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806">
+        app:layout_constraintVertical_bias="0.806"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -117,42 +118,5 @@
                 android:textColor="@color/black" />
         </LinearLayout>
     </HorizontalScrollView>
-
-    <ImageButton
-        android:id="@+id/calendar"
-        android:layout_width="38dp"
-        android:layout_height="34dp"
-        android:background="@drawable/calendar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.958" />
-
-    <ImageButton
-        android:id="@+id/home"
-        android:layout_width="38dp"
-        android:layout_height="34dp"
-        android:background="@drawable/home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.958" />
-
-    <ImageButton
-        android:id="@+id/backbuttom"
-        android:layout_width="38dp"
-        android:layout_height="34dp"
-        android:background="@drawable/backbuttom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.871"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.958" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
