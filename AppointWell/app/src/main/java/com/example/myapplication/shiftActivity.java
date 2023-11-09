@@ -206,25 +206,5 @@ public class shiftActivity extends AppCompatActivity {
         }
         return false;
     }
-//    private void addShift(String dateString, String startTime, String endTime, String shiftId) {
-//        upcomingShiftActivity object= new upcomingShiftActivity();
-//        View requestView = LayoutInflater.from(object.appContext).inflate(R.layout.newshift, null, false);
-//        requestView.setTag(shiftId);
-//        TextView date = requestView.findViewById(R.id.Date);
-//
-//        DateTimeFormatter formatter = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-//        }
-//        LocalDate dateFormat = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//            dateFormat = LocalDate.parse(dateString, formatter);
-//        }
-//        date.setText(dateFormat.toString());
-//
-//        TextView time = requestView.findViewById(R.id.time);
-//        time.setText(startTime + " - " + endTime);
-//        shiftList.addView(requestView);
-//    }
 
 }
