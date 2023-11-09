@@ -5,12 +5,26 @@ import java.util.List;
 public class Doctor extends UserAccount{
     private long employeeNumber;
     private List<String> specialties;
+    private List<String> shifts;
+
 
     public Doctor(){}
     public Doctor(String email, String password, String firstName, String lastName, String address, long employeeNumber, long phoneNumber, List<String> specialties) {
         super(email, password, "Doctor", "Pending", firstName, lastName, address, phoneNumber);
         this.employeeNumber = employeeNumber;
         this.specialties = specialties;
+    }
+
+    public List<String> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(List<String> shifts) {
+        this.shifts = shifts;
+    }
+
+    public void deleteShift(Shift shift){
+        shifts.remove(shift);
     }
 
     public long getEmployeeNumber() {
