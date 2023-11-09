@@ -136,7 +136,7 @@ public class shiftActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot shiftsDataSnapshot) {
                                     boolean hasConflict = false;
-                                    for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) {
+                                    for (DataSnapshot shiftSnapshot : shiftsDataSnapshot.getChildren()) { //check all individual shift
                                         Shift existingShift = shiftSnapshot.getValue(Shift.class);
                                         if (existingShift != null) {
                                             String shiftDate = existingShift.getSelectedDate();
@@ -154,6 +154,7 @@ public class shiftActivity extends AppCompatActivity {
                                         Shift newShift = new Shift(dateString, startTime, endTime);
                                         shiftsRef.push().setValue(newShift);
                                         Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
+
                                     } else {
                                         Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
                                     }
