@@ -154,7 +154,7 @@ public class shiftActivity extends AppCompatActivity {
                                         Shift newShift = new Shift(dateString, startTime, endTime);
                                         shiftsRef.push().setValue(newShift);
                                         Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
-
+                                      
                                     } else {
                                         Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
                                     }
