@@ -47,21 +47,21 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-            <ScrollView
-                android:layout_width="340dp"
+        <ScrollView
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/shiftslist"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fillViewport="true"
-                android:layout_marginTop="50dp">
+                android:gravity="right"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:id="@+id/shiftslist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right">
-
-                </LinearLayout>
-            </ScrollView>
+            </LinearLayout>
+        </ScrollView>
         <ImageButton
             android:id="@+id/plus"
             android:layout_width="55dp"
