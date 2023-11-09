@@ -47,29 +47,30 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:id="@+id/shiftslist"
-                android:layout_width="match_parent"
+            <ScrollView
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:gravity="right">
+                android:fillViewport="true"
+                android:layout_marginTop="50dp">
 
-                <ImageButton
-                    android:id="@+id/plus"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/plusbutton"
-                    android:fontFamily="@font/poppins_bold"
-                    android:src="@drawable/plus"></ImageButton>
-            </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/shiftslist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right">
 
-        </ScrollView>
+                </LinearLayout>
+            </ScrollView>
+        <ImageButton
+            android:id="@+id/plus"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/plusbutton"
+            android:fontFamily="@font/poppins_bold"
+            android:src="@drawable/plus" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
