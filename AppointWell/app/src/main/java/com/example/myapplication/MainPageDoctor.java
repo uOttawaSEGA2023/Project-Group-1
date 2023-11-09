@@ -32,37 +32,37 @@ public class MainPageDoctor extends AppCompatActivity {
 
 
 
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
-
-
-        // Attach a ValueEventListener to retrieve the user's data
-        accountRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    UserAccount userAccount = snapshot.getValue(UserAccount.class);
-                    if(userAccount!=null){
-                        String welcomeMessage = userAccount.getFirstName() + " " + userAccount.getLastName();
-                        welcomeMessageTextView.setText(welcomeMessage);
-                        userTypeTextView.setText("You are logged in as a Doctor");
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+//        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
+//
+//
+//        // Attach a ValueEventListener to retrieve the user's data
+//        accountRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()){
+//                    UserAccount userAccount = snapshot.getValue(UserAccount.class);
+//                    if(userAccount!=null){
+//                        String welcomeMessage = userAccount.getFirstName() + " " + userAccount.getLastName();
+//                        welcomeMessageTextView.setText(welcomeMessage);
+//                        userTypeTextView.setText("You are logged in as a Doctor");
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
 
         shiftbtn = findViewById(R.id.shiftBtn);
 
         shiftbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPageDoctor.this, shiftActivity.class);
+                Intent intent = new Intent(MainPageDoctor.this, upcomingShiftActivity.class);
                 startActivity(intent);
             }
         });
