@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,25 +94,7 @@ public class upcomingShiftActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 approvedUserDB.child(uID).child("shifts").child(shiftId).removeValue();
-
-//                approvedUserDB.child(uID).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if(snapshot.exists()){
-//                            Doctor doctor = snapshot.getValue(Doctor.class);
-//                            if(doctor!=null){
-//                                doctor.deleteShift(shift);
-//
-//
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
+                Toast.makeText(upcomingShiftActivity.this, "Shift successfully deleted" ,Toast.LENGTH_SHORT).show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -123,7 +106,6 @@ public class upcomingShiftActivity extends AppCompatActivity {
 
         shiftList.addView(shiftView);
     }
-
     public void refreshList(){
         shiftList.removeAllViews();
         approvedUserDB.child(uID).child("shifts").addValueEventListener(new ValueEventListener() {
@@ -139,7 +121,6 @@ public class upcomingShiftActivity extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
