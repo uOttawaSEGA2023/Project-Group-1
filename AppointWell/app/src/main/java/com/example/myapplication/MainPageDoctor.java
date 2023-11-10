@@ -62,6 +62,7 @@ public class MainPageDoctor extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPageDoctor.this, upcomingShiftActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
