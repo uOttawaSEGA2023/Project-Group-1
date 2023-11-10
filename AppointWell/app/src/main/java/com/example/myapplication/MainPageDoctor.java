@@ -30,8 +30,6 @@ public class MainPageDoctor extends AppCompatActivity {
         welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
         userTypeTextView = findViewById(R.id.logintext);
 
-
-
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
 
@@ -64,8 +62,31 @@ public class MainPageDoctor extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPageDoctor.this, upcomingShiftActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
+//    // Method to display user data
+//    private void displayUserData() {
+//        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
+//
+//        accountRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    UserAccount userAccount = snapshot.getValue(UserAccount.class);
+//                    if (userAccount != null) {
+//                        String welcomeMessage = userAccount.getFirstName() + " " + userAccount.getLastName();
+//                        welcomeMessageTextView.setText(welcomeMessage);
+//                        userTypeTextView.setText("You are logged in as a Doctor");
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                // Handle errors
+//            }
+//        });
+//    }
+
 }
