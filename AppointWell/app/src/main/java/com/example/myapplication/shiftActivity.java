@@ -124,10 +124,9 @@ public class shiftActivity extends AppCompatActivity {
                     return;
                 }
                 // get userId
-//               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//               if (currentUser != null) {
-//               String uID = currentUser.getUid();
-                String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
+               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+               String uID = currentUser.getUid();
+//                String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
                 DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
 
                 shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
