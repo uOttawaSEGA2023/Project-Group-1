@@ -33,7 +33,6 @@ public class upcomingShiftActivity extends AppCompatActivity {
 
 //    String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
 
-    Context appContext;
     LinearLayout shiftList;
     DatabaseReference approvedUserDB = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/").child("Users").child("Approved Users");
 
@@ -42,7 +41,6 @@ public class upcomingShiftActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_shift);
-        appContext = getApplicationContext();
         addbtn = findViewById(R.id.plus);
         shiftList = findViewById(R.id.shiftslist);
 
@@ -99,7 +97,8 @@ public class upcomingShiftActivity extends AppCompatActivity {
                     public void run() {
                         refreshList();
                     }
-                }, 270);
+
+                }, 500);
             }
         });
 
