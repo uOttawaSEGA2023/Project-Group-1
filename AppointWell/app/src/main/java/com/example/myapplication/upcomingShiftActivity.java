@@ -29,10 +29,9 @@ import java.util.Locale;
 
 public class upcomingShiftActivity extends AppCompatActivity {
     ImageButton addbtn, back;
+    String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    //String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-    String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
+//    String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
 
     Context appContext;
     LinearLayout shiftList;
