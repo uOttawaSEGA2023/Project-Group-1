@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -136,7 +137,6 @@ public class shiftActivity extends AppCompatActivity {
                             // "shifts" node doesn't exist, create it
                             shiftsRef.setValue(""); // This will create the "shifts" node
                         }
-
                         // Check for conflicts
                         shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -158,9 +158,13 @@ public class shiftActivity extends AppCompatActivity {
                                     Shift newShift = new Shift(dateString, startTime, endTime);
                                     DatabaseReference newShiftRef = shiftsRef.push();
                                     newShiftRef.setValue(newShift);
-                                    shiftId = newShiftRef.getKey();
                                     Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), upcomingShiftActivity.class));
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            startActivity(new Intent(getApplicationContext(), upcomingShiftActivity.class));
+                                        }
+                                    }, 500); // Delayed navigation after showing the toast for 1 second
                                 } else {
                                     Toast.makeText(shiftActivity.this, "Shift conflicts", Toast.LENGTH_SHORT).show();
                                 }
