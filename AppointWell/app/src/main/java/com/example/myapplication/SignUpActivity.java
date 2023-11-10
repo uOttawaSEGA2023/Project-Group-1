@@ -298,9 +298,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     if (radioButtonDoctor.isChecked()){
 
                                         List<String> specialties = textToList(specialtiesInput);
+                                        List<String> shifts = new ArrayList<>();
 
                                         // create the Doctor object that will be stored in the database
-                                        Doctor doctorRegistrant = new Doctor(email, password, firstName, lastName, address, healthCardNumber, phoneNumber, specialties);
+                                        Doctor doctorRegistrant = new Doctor(email, password, firstName, lastName, address, healthCardNumber, phoneNumber, specialties, shifts);
 
                                         // we use userID as unique identifier
                                         userDatabase.child("Pending Users").child(userID).setValue(doctorRegistrant);
