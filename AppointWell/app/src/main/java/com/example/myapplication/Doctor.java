@@ -9,10 +9,11 @@ public class Doctor extends UserAccount{
 
 
     public Doctor(){}
-    public Doctor(String email, String password, String firstName, String lastName, String address, long employeeNumber, long phoneNumber, List<String> specialties) {
+    public Doctor(String email, String password, String firstName, String lastName, String address, long employeeNumber, long phoneNumber, List<String> specialties, List<String>shifts) {
         super(email, password, "Doctor", "Pending", firstName, lastName, address, phoneNumber);
         this.employeeNumber = employeeNumber;
         this.specialties = specialties;
+        this.shifts=shifts;
     }
 
     public List<String> getShifts() {
