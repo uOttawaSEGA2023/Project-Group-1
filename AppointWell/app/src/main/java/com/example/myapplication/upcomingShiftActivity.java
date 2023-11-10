@@ -108,7 +108,11 @@ public class upcomingShiftActivity extends AppCompatActivity {
     }
     public void refreshList(){
         shiftList.removeAllViews();
-        approvedUserDB.child(uID).child("shifts").addValueEventListener(new ValueEventListener() {
+
+        DatabaseReference shiftsRef = approvedUserDB.child(uID).child("shifts");
+
+            // Order the shifts by the "selectedDate" child in ascending order
+            shiftsRef.orderByChild("selectedDate").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 shiftList.removeAllViews();
