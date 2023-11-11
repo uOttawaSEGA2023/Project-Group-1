@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,9 @@ public class MainPageDoctor extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
     private View shiftbtn;
+    private ImageButton logOutDoctor;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +41,9 @@ public class MainPageDoctor extends AppCompatActivity {
         accountRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     UserAccount userAccount = snapshot.getValue(UserAccount.class);
-                    if(userAccount!=null){
+                    if (userAccount != null) {
                         String welcomeMessage = userAccount.getFirstName() + " " + userAccount.getLastName();
                         welcomeMessageTextView.setText(welcomeMessage);
                         userTypeTextView.setText("You are logged in as a Doctor");
@@ -65,29 +68,16 @@ public class MainPageDoctor extends AppCompatActivity {
                 finish();
             }
         });
+        logOutDoctor = findViewById(R.id.logOutDoctor);
+
+        logOutDoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPageDoctor.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
-//    // Method to display user data
-//    private void displayUserData() {
-//        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
-//
-//        accountRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    UserAccount userAccount = snapshot.getValue(UserAccount.class);
-//                    if (userAccount != null) {
-//                        String welcomeMessage = userAccount.getFirstName() + " " + userAccount.getLastName();
-//                        welcomeMessageTextView.setText(welcomeMessage);
-//                        userTypeTextView.setText("You are logged in as a Doctor");
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Handle errors
-//            }
-//        });
-//    }
 
 }
