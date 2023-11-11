@@ -51,12 +51,15 @@ public class Login extends AppCompatActivity {
                         if(account!=null && account.getStatus().equals("Approved")) {
                                 if (account.getType().equals("Patient")) {
                                     Intent intent = new Intent(Login.this, MainPagePatient.class);
+                                    Toast.makeText(Login.this, "Logged in as a Patient", Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                 } else if (account.getType().equals("Doctor")) {
                                     Intent intent = new Intent(Login.this, MainPageDoctor.class);
+                                    Toast.makeText(Login.this, "Logged in as a Doctor", Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                 } else {
                                     Intent intent = new Intent(Login.this, MainPageAdmin.class);
+                                    Toast.makeText(Login.this, "Logged in as a Admin", Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                 }
                         }
@@ -126,7 +129,7 @@ public class Login extends AppCompatActivity {
 
                                     DatabaseReference approvedRef = userDatabase.child("Approved Users").child(userID);
 
-                                    approvedRef.addValueEventListener(new ValueEventListener() {
+                                    approvedRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if(snapshot.exists()){
@@ -134,20 +137,20 @@ public class Login extends AppCompatActivity {
                                                 if(account!=null){
                                                         switch (account.type) {
                                                             case "Patient":
-                                                                Toast.makeText(getApplicationContext(), "Logged In As Patient", Toast.LENGTH_SHORT).show();
                                                                 Intent intentP = new Intent(getApplicationContext(), MainPagePatient.class);
+                                                                Toast.makeText(Login.this, "Logged in as a Patient", Toast.LENGTH_SHORT).show();
                                                                 startActivity(intentP);
                                                                 finish();
                                                                 break;
                                                             case "Doctor":
-                                                                Toast.makeText(getApplicationContext(), "Logged In As Doctor", Toast.LENGTH_SHORT).show();
                                                                 Intent intentD = new Intent(getApplicationContext(), MainPageDoctor.class);
+                                                                Toast.makeText(Login.this, "Logged in as a Doctor", Toast.LENGTH_SHORT).show();
                                                                 startActivity(intentD);
                                                                 finish();
                                                                 break;
                                                             case "Administrator":
-                                                                Toast.makeText(getApplicationContext(), "Logged In As Administrator", Toast.LENGTH_SHORT).show();
                                                                 Intent intentA = new Intent(getApplicationContext(), MainPageAdmin.class);
+                                                                Toast.makeText(Login.this, "Logged in as a Admin", Toast.LENGTH_SHORT).show();
                                                                 startActivity(intentA);
                                                                 finish();
                                                                 break;
