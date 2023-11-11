@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -80,10 +81,14 @@ public class upcomingShiftActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             formattedDate = date.format(outputFormatter);
         }
+
         Date.setText(formattedDate);
 
         TextView time = shiftView.findViewById(R.id.time);
         time.setText(shift.getStartTime() + " - " + shift.getEndTime());
+        shiftList.addView(shiftView);
+
+
 
         ImageButton delete= (ImageButton) shiftView.findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +107,11 @@ public class upcomingShiftActivity extends AppCompatActivity {
             }
         });
 
-        shiftList.addView(shiftView);
+
     }
     public void refreshList(){
-        shiftList.removeAllViews();
+
+        Log.d("Debugging message","Junho");
 
         DatabaseReference shiftsRef = approvedUserDB.child(uID).child("shifts");
 
