@@ -9,11 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MainPageAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MainPageAdmin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/upcomingShiftActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/upcomingShiftActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
