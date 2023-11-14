@@ -111,8 +111,6 @@ public class upcomingShiftActivity extends AppCompatActivity {
     }
     public void refreshList(){
 
-        Log.d("Debugging message","Junho");
-
         DatabaseReference shiftsRef = approvedUserDB.child(uID).child("shifts");
 
             // Order the shifts by the "selectedDate" child in ascending order

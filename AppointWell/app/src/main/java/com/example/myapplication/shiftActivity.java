@@ -32,10 +32,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Locale;
 
 public class shiftActivity extends AppCompatActivity {
@@ -47,7 +49,7 @@ public class shiftActivity extends AppCompatActivity {
     int year, month, day;
     String startTime, endTime;
     String dateString;
-    String shiftId;
+    LocalTime currentTime;
     LinearLayout shiftList;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
@@ -116,6 +118,16 @@ public class shiftActivity extends AppCompatActivity {
                     if (selectedDate.isBefore(currentDate)) {
                         Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
                         return;//avoid the app terminating
+                    }else if ((selectedDate.isEqual(currentDate))){
+                      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                          currentTime = LocalTime.now();
+                          DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                          String currentTimeStr = currentTime.format(dateTimeFormatter);
+                          if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr)<0) {
+                              Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
+                              return;
+                          }
+                      }
                     } else {
                         dateString = selectedDate.toString();
                     }
@@ -123,6 +135,9 @@ public class shiftActivity extends AppCompatActivity {
                 if (endTime.compareTo(startTime) < 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
                     return;
+                }
+                if (startTime.compareTo(endTime)==0) {
+                    Toast.makeText(shiftActivity.this, "EndTime can't be equal to StartTime", Toast.LENGTH_SHORT).show();
                 }
                 // get userId
                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

@@ -9,17 +9,18 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="more doctor features">
+    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/DoctorAppointmentRequestPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/DoctorAppointmentRequestPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/activity_doctor_appointment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/activity_doctor_appointment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/shiftActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/shiftActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/upcomingShiftActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/upcomingShiftActivity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/rhadeshluchmun/.android/avd/Pixel_3a_API_34_extension_level_7_arm64-v8a.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/kchankwouottawa.ca/.android/avd/Pixel_7_API_29.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/AppointWell">
       <ProjectState />
@@ -34,28 +35,6 @@
         <projects_view>
           <tree_state>
             <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Appointwell app" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Appointwell app" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Appointwell app" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Appointwell app" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="My Application" type="f1a62948:ProjectNode" />
@@ -94,7 +73,11 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Deliv_3" />
+      </map>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -103,7 +86,6 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2XmqA2Dw9B4AJVYbPTOf6Xh0P85" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -184,19 +166,6 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="My_Application" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="My_Application" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -207,26 +176,6 @@
       <option name="presentableId" value="Default" />
       <updated>1699244462772</updated>
     </task>
-    <task id="LOCAL-00001" summary="doctor features">
-      <created>1699924090357</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1699924090357</updated>
-    </task>
-    <task id="LOCAL-00002" summary="more doctor features">
-      <created>1699925138759</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1699925138759</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="doctor features" />
-    <MESSAGE value="more doctor features" />
-    <option name="LAST_COMMIT_MESSAGE" value="more doctor features" />
   </component>
 </project>
