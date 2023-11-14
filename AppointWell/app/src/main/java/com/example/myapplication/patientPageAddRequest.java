@@ -24,7 +24,7 @@ public class patientPageAddRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_page_add_request);
         DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-      reference = database.child("Users").child("Approved Users").child("uzoS3miOxgWZ0H4RJ3vBarQeJ7G2").child("Appointment");
+      reference = database.child("Users").child("Approved Users").child("uzoS3miOxgWZ0H4RJ3vBarQeJ7G2").child("Appointments");
 
 
 
