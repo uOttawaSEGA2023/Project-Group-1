@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <TextView
+                    android:id="@+id/autoApproveTextid"
                     android:layout_width="140dp"
                     android:layout_height="30dp"
                     android:text="Auto Approve Request"
@@ -43,6 +44,7 @@
                     android:textSize="20dp"
                     android:gravity="center"
                     android:textColor="@color/white"
+                    android:visibility="invisible"
                     />
 
                 <Switch
@@ -50,6 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="10dp"
                     android:showText="true"
+                    android:visibility="invisible"
 
                     />
             </LinearLayout>

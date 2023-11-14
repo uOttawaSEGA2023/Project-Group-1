@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,8 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
     boolean pendingSelected = true;
     String autoApprove;
     FirebaseAuth mAuth;
+    TextView autoApproveText;
+
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -50,6 +53,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         completed = findViewById(R.id.completed);
         mAuth = FirebaseAuth.getInstance();
         String uID = mAuth.getCurrentUser().getUid();
+        autoApproveText = findViewById(R.id.autoApproveTextid);
 
 
         String databaseUrl = "https://new-database-b712b-default-rtdb.firebaseio.com/";
@@ -70,12 +74,16 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
             }
         });
 
-        switchAutoApprove.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (compoundButton.isChecked()){
-                    autoApprove = "true";
-                    db.setValue("true");
+
+        if (pendingSelected == true){
+            switchAutoApprove.setVisibility(View.VISIBLE);
+            autoApproveText.setVisibility(View.VISIBLE);
+            switchAutoApprove.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (compoundButton.isChecked()){
+                        autoApprove = "true";
+                        db.setValue("true");
 
                         appointmentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -99,14 +107,14 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
                         });
 
 
+                    }
+                    else{
+                        autoApprove = "false";
+                        db.setValue("false");
+                    }
                 }
-                else{
-                    autoApprove = "false";
-                    db.setValue("false");
-                }
-            }
-        });
-
+            });
+        }
 
 
 
@@ -145,6 +153,8 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         pending.setOnClickListener(new View.OnClickListener() {      // changes color on click
             @Override
             public void onClick(View v) {
+                switchAutoApprove.setVisibility(View.VISIBLE);
+                autoApproveText.setVisibility(View.VISIBLE);
                 pendingSelected = true;
                 pending.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
                 approved.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
@@ -153,9 +163,12 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
             }
         });
 
-        approved.setOnClickListener(new View.OnClickListener() {      // changes color on click
+        approved.setOnClickListener(new View.OnClickListener() {
+            // changes color on click
             @Override
             public void onClick(View v) {
+                switchAutoApprove.setVisibility(View.INVISIBLE);
+                autoApproveText.setVisibility(View.INVISIBLE);
                 pendingSelected = false;
                 pending.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
                 approved.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
@@ -167,6 +180,8 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         completed.setOnClickListener(new View.OnClickListener() {      // changes color on click
             @Override
             public void onClick(View v) {
+                switchAutoApprove.setVisibility(View.INVISIBLE);
+                autoApproveText.setVisibility(View.INVISIBLE);
                 pendingSelected = false;
                 pending.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
                 approved.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.toggle)));
