@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DoctorAppointmentRequestPage"
+    android:background="@color/tertiary">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:gravity="left"
+                android:paddingLeft="35dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Appointment requests"
+                android:textColor="@color/primary"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="30dp"
+                    android:text="Auto Approve Request"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    />
+
+                <Switch
+                    android:id="@+id/switchAutoApprove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:showText="true"
+
+                    />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/appointmentbkg"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_width="340dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/toggle"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+
+                    <Button
+                        android:id="@+id/pending"
+                        android:layout_width="105dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="40dp"
+                        android:backgroundTint="@color/white"
+                        android:text="Pending"
+                        android:textColor="@color/tertiary"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="11dp" />
+                    <Button
+                        android:id="@+id/approved"
+                        android:layout_width="105dp"
+                        android:layout_height="40dp"
+                        android:backgroundTint="@color/toggle"
+                        android:text="Approved"
+                        android:textColor="@color/tertiary"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="11dp"/>
+
+                    <Button
+                        android:id="@+id/completed"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:backgroundTint="@color/toggle"
+                        android:text="Completed"
+                        android:textColor="@color/tertiary"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="11dp"/>
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+
+                    >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</LinearLayout>

@@ -22,6 +22,7 @@ public class MainPageDoctor extends AppCompatActivity {
     private TextView userTypeTextView;
     private View shiftbtn;
     private ImageButton logOutDoctor;
+    private View appointmentBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -32,6 +33,7 @@ public class MainPageDoctor extends AppCompatActivity {
         // Initialize the TextView
         welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
         userTypeTextView = findViewById(R.id.logintext);
+        appointmentBtn = findViewById(R.id.appointmentBtn);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
@@ -68,6 +70,17 @@ public class MainPageDoctor extends AppCompatActivity {
                 finish();
             }
         });
+
+        appointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPageDoctor.this, DoctorAppointmentRequestPage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         logOutDoctor = findViewById(R.id.logOutDoctor);
 
         logOutDoctor.setOnClickListener(new View.OnClickListener() {

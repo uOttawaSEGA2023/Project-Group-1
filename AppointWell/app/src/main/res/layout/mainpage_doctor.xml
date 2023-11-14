@@ -104,6 +104,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/appointmentBtn"
                 android:layout_width="200dp"
@@ -111,15 +112,6 @@
                 android:layout_marginLeft="30dp"
                 android:background="@drawable/border"
                 android:text="Appointment"
-                android:textColor="@color/black" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/AppRequestBtn"
-                android:layout_width="200dp"
-                android:layout_height="210dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/border"
-                android:text="Appointment Request"
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton

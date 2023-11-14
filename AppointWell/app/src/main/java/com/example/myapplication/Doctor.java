@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Doctor extends UserAccount{
     private long employeeNumber;
     private List<String> specialties;
     private List<String> shifts;
-
+    private boolean autoAcceptsRequests;
+    private ArrayList<AppointmentRequest> appointmentRequests;
 
     public Doctor(){}
     public Doctor(String email, String password, String firstName, String lastName, String address, long employeeNumber, long phoneNumber, List<String> specialties) {
@@ -43,5 +45,20 @@ public class Doctor extends UserAccount{
         this.specialties = specialties;
     }
 
+    public ArrayList<AppointmentRequest> getAppointmentRequests() {
+        return appointmentRequests;
+    }
+
+    public void setAppointmentRequests(ArrayList<AppointmentRequest> appointmentRequests) {
+        this.appointmentRequests = appointmentRequests;
+    }
+
+    public boolean isAutoAcceptsRequests() {
+        return autoAcceptsRequests;
+    }
+
+    public void setAutoAcceptsRequests(boolean autoAcceptsRequests) {
+        this.autoAcceptsRequests = autoAcceptsRequests;
+    }
 
 }
