@@ -88,41 +88,61 @@
     </RelativeLayout>
 
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/appointmentBtn"
+        android:layout_width="155dp"
+        android:layout_height="203dp"
+        android:background="@drawable/border"
+        android:backgroundTint="#DDECD3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806"
-        android:scrollbars="none">
+        app:layout_constraintVertical_bias="0.803" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <TextView
+        android:layout_width="137dp"
+        android:layout_height="136dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Appointment"
+        android:textAlignment="center"
+        android:textColor="#1F363D"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.873" />
 
+    <ImageButton
+        android:id="@+id/shiftBtn"
+        android:layout_width="155dp"
+        android:layout_height="203dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/border"
+        android:backgroundTint="#DDECD3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.803" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/appointmentBtn"
-                android:layout_width="200dp"
-                android:layout_height="210dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/border"
-                android:text="Appointment"
-                android:textColor="@color/black" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/shiftBtn"
-                android:layout_width="200dp"
-                android:layout_height="210dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/border"
-                android:text="Shift"
-                android:textColor="@color/black" />
-        </LinearLayout>
-    </HorizontalScrollView>
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Shift"
+        android:textAlignment="center"
+        android:textColor="#1F363D"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.895" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
