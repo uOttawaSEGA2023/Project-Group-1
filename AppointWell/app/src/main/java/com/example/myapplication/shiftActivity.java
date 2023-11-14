@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CalendarView;
 
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class shiftActivity extends AppCompatActivity {
     String dateString;
     LocalTime currentTime;
     LinearLayout shiftList;
+    ImageButton backto;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
     DatabaseReference userDatabase = database.child("Users").child("Approved Users");
@@ -70,6 +72,13 @@ public class shiftActivity extends AppCompatActivity {
                 month = Month + 1;
                 day = Day;
                 Toast.makeText(shiftActivity.this, "You select " + day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+            }
+        });
+        backto = findViewById(R.id.backto);
+        backto.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(shiftActivity.this, upcomingShiftActivity.class);
+                startActivity(intent);
             }
         });
         //set the startTime and endTime
@@ -138,6 +147,7 @@ public class shiftActivity extends AppCompatActivity {
                 }
                 if (startTime.compareTo(endTime)==0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be equal to StartTime", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 // get userId
                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

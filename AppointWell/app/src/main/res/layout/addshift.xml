@@ -23,6 +23,15 @@
             android:text="Add a new shift"
             android:textSize="35dp"
             android:textColor="@color/tertiary"/>
+        <ImageButton
+            android:id="@+id/backto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/circle_button"
+            android:fontFamily="@font/poppins_bold"
+            android:src="@drawable/left"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout" />
 
     </LinearLayout>
     <LinearLayout
