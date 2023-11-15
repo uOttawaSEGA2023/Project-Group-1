@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
     String autoApprove;
     FirebaseAuth mAuth;
     TextView autoApproveText;
+    ImageButton logoutDoctor;
 
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -54,6 +57,16 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String uID = mAuth.getCurrentUser().getUid();
         autoApproveText = findViewById(R.id.autoApproveTextid);
+        logoutDoctor = findViewById(R.id.logOutDoctor);
+
+        logoutDoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainPageDoctor.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         String databaseUrl = "https://new-database-b712b-default-rtdb.firebaseio.com/";
