@@ -54,6 +54,8 @@ public class shiftActivity extends AppCompatActivity {
     LinearLayout shiftList;
     ImageButton backto;
 
+    private String docName;
+
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
     DatabaseReference userDatabase = database.child("Users").child("Approved Users");
 
@@ -183,6 +185,8 @@ public class shiftActivity extends AppCompatActivity {
                                     Shift newShift = new Shift(dateString, startTime, endTime);
                                     DatabaseReference newShiftRef = shiftsRef.push();
                                     newShiftRef.setValue(newShift);
+                                    //ADDED FOR DELIV 4
+                                    addTimeSlots(dateString,startTime,endTime,FirebaseAuth.getInstance().getCurrentUser().getUid());
                                     Toast.makeText(shiftActivity.this, "Shift successfully created", Toast.LENGTH_SHORT).show();
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
@@ -212,7 +216,59 @@ public class shiftActivity extends AppCompatActivity {
         });
 
     }
-        private boolean isConflict(String dateString, String startTime, String endTime, String existingDate, String existingStartTime, String existingEndTime) {
+
+    private void addTimeSlots(String dateString, String startTime, String endTime, String uid) {
+        float start;
+        float end;
+        DatabaseReference tDB = database.child("Available Time Slots");
+        userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Doctor doctor=snapshot.getValue(Doctor.class);
+                    if (doctor!=null){
+                        docName=doctor.getFirstName()+" "+ doctor.getLastName();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        String timeSlotStart;
+        String timeSlotEnd;
+        start=Float.parseFloat(startTime.substring(0,2));
+        if (Integer.parseInt(startTime.substring(3,5))==30){
+            start+=0.5;
+        }
+        end=Float.parseFloat(endTime.substring(0,2));
+        if (Integer.parseInt(endTime.substring(3,5))==30){
+            end+=0.5;
+        }
+        for (float i=start;i<end;i+=0.5){
+            if (i-Math.floor(i)!=0){
+                timeSlotStart=String.valueOf((int)Math.floor(i))+":30";
+                timeSlotEnd=String.valueOf((int)i+0.5)+":00";
+            } else {
+                timeSlotStart=String.valueOf((int)i)+":00";
+                timeSlotEnd=String.valueOf((int)i)+":30";
+            }
+            if (timeSlotStart.length()!=5){
+                timeSlotStart="0"+timeSlotStart;
+            }
+            if (timeSlotEnd.length()!=5){
+                timeSlotEnd="0"+timeSlotEnd;
+            }
+
+            TimeSlot t = new TimeSlot(timeSlotStart,timeSlotEnd,dateString,uid,docName);
+            tDB.child(dateString+"-"+timeSlotStart+"-"+uid).setValue(t);
+        }
+
+    }
+
+    private boolean isConflict(String dateString, String startTime, String endTime, String existingDate, String existingStartTime, String existingEndTime) {
         // Check for date conflict
         if (dateString.compareTo(existingDate)==0) {
             // If the dates are the same, check for time conflict

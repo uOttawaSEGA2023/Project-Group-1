@@ -102,20 +102,19 @@
         app:layout_constraintVertical_bias="0.803" />
 
     <TextView
-        android:layout_width="137dp"
-        android:layout_height="136dp"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
         android:text="Appointment"
         android:textAlignment="center"
         android:textColor="#1F363D"
         android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.848" />
+        app:layout_constraintBottom_toBottomOf="@+id/appointmentBtn"
+        app:layout_constraintEnd_toEndOf="@+id/appointmentBtn"
+        app:layout_constraintStart_toStartOf="@+id/appointmentBtn"
+        app:layout_constraintTop_toTopOf="@+id/appointmentBtn"
+        app:layout_constraintVertical_bias="0.476" />
 
     <ImageButton
         android:id="@+id/shiftBtn"
@@ -130,19 +129,19 @@
         app:layout_constraintVertical_bias="0.803" />
 
     <TextView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
         android:text="Shift"
         android:textAlignment="center"
         android:textColor="#1F363D"
         android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintBottom_toBottomOf="@+id/shiftBtn"
+        app:layout_constraintEnd_toEndOf="@+id/shiftBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/shiftBtn"
+        app:layout_constraintTop_toTopOf="@+id/shiftBtn"
+        app:layout_constraintVertical_bias="0.476" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

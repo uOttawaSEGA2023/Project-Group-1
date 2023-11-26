@@ -11,4 +11,5 @@
     <color name="btn_color">#70A9A1</color>
     <color name="background_color">#40798C</color>
     <color name="dark_green">#1F363D</color>
+    <color name="bg">#F6F6F6</color>
 </resources>
