@@ -86,6 +86,7 @@ public class MainPageDoctor extends AppCompatActivity {
         logOutDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(MainPageDoctor.this, Login.class);
                 startActivity(intent);
                 finish();

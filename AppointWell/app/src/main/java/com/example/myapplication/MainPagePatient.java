@@ -20,6 +20,7 @@ public class MainPagePatient extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
     private ImageButton logOutBtn;
+    private ImageButton bookAppointment;
 
 
     @Override
@@ -30,6 +31,7 @@ public class MainPagePatient extends AppCompatActivity {
         // Initialize the TextView
         welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
         userTypeTextView = findViewById(R.id.logintext);
+        bookAppointment = findViewById(R.id.bookappointment);
 
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -68,6 +70,16 @@ public class MainPagePatient extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(MainPagePatient.this, Login.class);
                 startActivity(intent);
+            }
+        });
+
+
+        bookAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPagePatient.this, AppointmentBookingActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

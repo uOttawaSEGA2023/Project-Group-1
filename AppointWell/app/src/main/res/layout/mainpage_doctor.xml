@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/newbacks"
     tools:context=".MainPageDoctor">
+
     <TextView
         android:id="@+id/myaccount"
         android:layout_width="207dp"
@@ -17,7 +18,7 @@
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logOutDoctor"
         app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,9 +34,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.894"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/myaccount"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049"></ImageButton>
+        app:layout_constraintVertical_bias="0.049"/>
 
     <RelativeLayout
         android:layout_width="315dp"
@@ -95,13 +96,14 @@
         android:background="@drawable/border"
         android:backgroundTint="#DDECD3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintEnd_toStartOf="@id/shiftBtn"
+        app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.803" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
@@ -120,11 +122,12 @@
         android:id="@+id/shiftBtn"
         android:layout_width="155dp"
         android:layout_height="203dp"
-        android:layout_marginEnd="40dp"
         android:background="@drawable/border"
         android:backgroundTint="#DDECD3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.803" />
 

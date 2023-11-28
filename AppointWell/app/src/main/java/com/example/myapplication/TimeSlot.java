@@ -5,15 +5,6 @@ public class TimeSlot {
     private String endTime;
     private String date;
     private String doctorName;
-
-    public String getDoctorID() {
-        return doctorID;
-    }
-
-    public void setDoctorID(String doctorID) {
-        this.doctorID = doctorID;
-    }
-
     private String doctorID;
 
     public TimeSlot(){}
@@ -22,8 +13,8 @@ public class TimeSlot {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
-        this.doctorID=doctorID;
         this.doctorName = doctorName;
+        this.doctorID=doctorID;
     }
 
     public String getStartTime() {
@@ -56,5 +47,13 @@ public class TimeSlot {
 
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
+    }
+
+    public String getDoctorID() {
+        return doctorID;
+    }
+
+    public void setDoctorID(String doctorID) {
+        this.doctorID = doctorID;
     }
 }

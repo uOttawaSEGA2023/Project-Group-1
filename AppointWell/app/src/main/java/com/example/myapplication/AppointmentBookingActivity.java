@@ -1,14 +1,112 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
 
 public class AppointmentBookingActivity extends AppCompatActivity {
+    DatabaseReference timeSlotDB = FirebaseDatabase.getInstance().getReference().child("Available Time Slots");
+    DatabaseReference approvedDB = FirebaseDatabase.getInstance().getReference().child("Users").child("Approved Users");
+    private ArrayList<TimeSlot> timeSlots = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private SearchView searchView;
+    private SearchAppointmentAdapter adapter;
+    private TextView searchForTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_booking);
+        recyclerView = findViewById(R.id.recyclerview);
+        searchView = findViewById(R.id.searchView);
+        searchForTV = findViewById(R.id.searchForText);
+
+        timeSlotDB.keepSynced(true);
+        approvedDB.keepSynced(true);
+
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchForTV.setVisibility(View.GONE);
+                findTimeSlots(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+
+
+
+    }
+
+    private void findTimeSlots(String specialty) {
+        adapter = new SearchAppointmentAdapter(this, timeSlots, specialty, FirebaseAuth.getInstance().getCurrentUser().getUid());
+        recyclerView.setAdapter(adapter);
+
+        timeSlotDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                timeSlots.clear();
+                if(snapshot.exists()) {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        if (child.exists()) {
+                            TimeSlot timeSlot = child.getValue(TimeSlot.class);
+                            if(timeSlot != null) {
+                                approvedDB.child(timeSlot.getDoctorID()).child("specialties").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            for (DataSnapshot child : snapshot.getChildren()) {
+                                                String sp = child.getValue(String.class);
+                                                if (sp.equals(specialty)) {
+                                                    timeSlots.add(timeSlot);
+                                                    break;
+                                                }
+                                            }
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

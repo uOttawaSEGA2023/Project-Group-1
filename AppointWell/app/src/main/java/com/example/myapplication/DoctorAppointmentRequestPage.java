@@ -146,7 +146,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
                     String status = String.valueOf(appointmentSnapshot.child("status").getValue());
                     String patientUID = String.valueOf(appointmentSnapshot.child("patientUID").getValue());
                     String countID = String.valueOf(appointmentSnapshot.child("countID").getValue());
-                    AppointmentRequest request = new AppointmentRequest(patientName,patientUID,status,startTime,endTime,date);
+                    AppointmentRequest request = new AppointmentRequest(patientName,patientUID,status,startTime,endTime,date, FirebaseAuth.getInstance().getCurrentUser().getUid());
                     request.setCountID(Integer.valueOf(countID));
                     if (status.equals("Pending")){
                         list.add(request);
@@ -232,7 +232,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
                     String status = String.valueOf(appointmentSnapshot.child("status").getValue());
                     String patientUID = String.valueOf(appointmentSnapshot.child("patientUID").getValue());
                     String countID = String.valueOf(appointmentSnapshot.child("countID").getValue());
-                    AppointmentRequest request = new AppointmentRequest(patientName,patientUID,status,startTime,endTime,date);
+                    AppointmentRequest request = new AppointmentRequest(patientName,patientUID,status,startTime,endTime,date,FirebaseAuth.getInstance().getCurrentUser().getUid());
                     request.setCountID(Integer.valueOf(countID));
                     if (status.equals(currentStatus)){
                         list.add(request);

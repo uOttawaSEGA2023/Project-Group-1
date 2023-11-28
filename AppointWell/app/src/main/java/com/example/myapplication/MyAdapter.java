@@ -27,8 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
@@ -73,12 +76,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         // Assuming your AppointmentRequest class has getDate() and getStartTime() methods
 //        holder.date.setText(request.getDate());
-        Date last_date_date = null;
-        try {
-            last_date_date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate());
-            holder.date.setText(new SimpleDateFormat("MMM dd yyyy").format(last_date_date));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+//        Date last_date_date = null;
+//        try {
+//            last_date_date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate());
+//            holder.date.setText(new SimpleDateFormat("MMM dd yyyy").format(last_date_date));
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
+            LocalDate date = LocalDate.parse(request.getDate(), formatter);
+            DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("dd      MMM yyyy");
+            String strDate = newFormatter.format(date);
+            holder.date.setText(strDate);
         }
 
         holder.time.setText(request.getStartTime() + " - " + request.getEndTime());

@@ -4,7 +4,7 @@ import com.google.firebase.database.PropertyName;
 
 public class AppointmentRequest {
 
-    private String patientUID, status, startTime, endTime,date, patientName;
+    private String patientUID, status, startTime, endTime,date, patientName, doctorUID;
 
     public int getCountID() {
         return countID;
@@ -15,14 +15,16 @@ public class AppointmentRequest {
     }
 
     private int countID;
+    public AppointmentRequest(){}
 
-    public AppointmentRequest(String patientName, String patientUID, String status, String startTime, String endTime, String date) {
-       setPatientUID(patientUID);
+    public AppointmentRequest(String patientName, String patientUID, String status, String startTime, String endTime, String date, String doctorUID) {
+        setPatientUID(patientUID);
         setStatus(status);
         setPatientName(patientName);
         setStartTime(startTime);
         setEndTime(endTime);
-       setDate(date);
+        setDate(date);
+        setDoctorUID(doctorUID);
     }
 
     @PropertyName("patientName")
@@ -76,5 +78,13 @@ public class AppointmentRequest {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDoctorUID() {
+        return doctorUID;
+    }
+
+    public void setDoctorUID(String doctorUID) {
+        this.doctorUID = doctorUID;
     }
 }
