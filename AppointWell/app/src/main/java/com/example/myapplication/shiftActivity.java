@@ -46,6 +46,7 @@ import java.util.Locale;
 
 public class shiftActivity extends AppCompatActivity {
     private List<Shift> doctorShiftsList;
+    private ArrayList<TimeSlot> availableTimeSlots;
     CalendarView calendarView;
     Spinner spinner1;
     Spinner spinner2;
@@ -295,6 +296,23 @@ public class shiftActivity extends AppCompatActivity {
 
             TimeSlot t = new TimeSlot(timeSlotStart,timeSlotEnd,dateString,docName,uid);
             tDB.child(dateString+"-"+timeSlotStart+"-"+uid).setValue(t);
+
+            //update the doctors available time slots
+            userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        Doctor doctor= snapshot.getValue(Doctor.class);
+                        doctor.addAvailableTimeSlot(uid,t);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
 
     }

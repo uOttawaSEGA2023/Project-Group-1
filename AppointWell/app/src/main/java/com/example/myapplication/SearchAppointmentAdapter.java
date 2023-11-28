@@ -93,6 +93,8 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
                             if(doctor!=null){
                                 AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", timeSlots.get(position).getStartTime(),timeSlots.get(position).getEndTime(),timeSlots.get(position).getDate(),doctorUID);
                                 doctor.addUpcomingAppointment(patientUID, appointmentRequest);
+                                //remove timeslot from doctors list of available timeslots
+                                doctor.removeAvailableTimeSlot(doctorUID,timeSlots.get(position));
                                 //approvedDB.child(doctorUID).setValue(doctor);
                             }
                         }
@@ -109,6 +111,7 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
                 DatabaseReference tsDB =FirebaseDatabase.getInstance().getReference().child("Available Time Slots");
 
                 tsDB.child(timeSlots.get(position).getDate()+"-"+timeSlots.get(position).getStartTime()+"-"+timeSlots.get(position).getDoctorID()).removeValue();
+
             }
         });
     }
