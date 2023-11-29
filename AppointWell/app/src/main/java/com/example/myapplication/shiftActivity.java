@@ -80,7 +80,7 @@ public class shiftActivity extends AppCompatActivity {
                 year = Year;
                 month = Month + 1;
                 day = Day;
-                dateString= (year+"-"+month +"-" + day);
+                dateString = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month, day);
                 Toast.makeText(shiftActivity.this, "You select " + dateString, Toast.LENGTH_SHORT).show();
             }
         });
