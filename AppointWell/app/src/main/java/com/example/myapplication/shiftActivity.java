@@ -34,15 +34,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 
 public class shiftActivity extends AppCompatActivity {
     private List<Shift> doctorShiftsList;
@@ -77,7 +80,8 @@ public class shiftActivity extends AppCompatActivity {
                 year = Year;
                 month = Month + 1;
                 day = Day;
-                Toast.makeText(shiftActivity.this, "You select " + day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+                dateString= (year+"-"+month +"-" + day);
+                Toast.makeText(shiftActivity.this, "You select " + dateString, Toast.LENGTH_SHORT).show();
             }
         });
         backto = findViewById(R.id.backto);
@@ -121,55 +125,49 @@ public class shiftActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 LocalDate currentDate = null;
+                String currentdate;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     currentDate = LocalDate.now();
                 }
-                LocalDate selectedDate = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    selectedDate = LocalDate.of(year, month, day);
-                }
-                // Check if the selected date has passed
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (selectedDate.isBefore(currentDate)) {
+                currentdate = currentDate.toString();
+                    if (dateString.compareTo(currentdate) < 0) {
                         Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
                         return;//avoid the app terminating
-                    }else if ((selectedDate.isEqual(currentDate))){
-                      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                          currentTime = LocalTime.now();
-                          DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                          String currentTimeStr = currentTime.format(dateTimeFormatter);
-                          if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr)<0) {
-                              Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
-                              return;
-                          }
-                      }
-                    } else {
-                        dateString = selectedDate.toString();
+                    } else if (dateString.compareTo(currentdate) == 0) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            currentTime = LocalTime.now();
+                            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                            String currentTimeStr = currentTime.format(dateTimeFormatter);
+                            if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr) < 0) {
+                                Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
                     }
-                }//check if endTime is before startTime
+                //check if endTime is before startTime
                 if (endTime.compareTo(startTime) < 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (startTime.compareTo(endTime)==0) {
+                if (startTime.compareTo(endTime) == 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be equal to StartTime", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // get userId
-               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-               String uID = currentUser.getUid();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                String uID = currentUser.getUid();
 
                 //TRYING TO FIX
                 //GETTING SHIFT LIST FROM DOCTOR
                 userDatabase.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
+                        if (snapshot.exists()) {
                             Doctor doctor = snapshot.getValue(Doctor.class);
-                            if(doctor!=null){
-                                doctorShiftsList =  doctor.getShifts();
-                                if (doctorShiftsList==null){
-                                    doctorShiftsList=new ArrayList<Shift>();
+                            if (doctor != null) {
+                                doctorShiftsList = doctor.getShifts();
+                                if (doctorShiftsList == null) {
+                                    doctorShiftsList = new ArrayList<Shift>();
                                 }
                             }
                         }
@@ -181,9 +179,7 @@ public class shiftActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-               DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
+                DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
 
                 shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -217,12 +213,12 @@ public class shiftActivity extends AppCompatActivity {
                                     userDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.exists()){
-                                                Doctor doctor=snapshot.getValue(Doctor.class);
-                                                if (doctor!=null){
-                                                    docName=doctor.getFirstName()+" "+ doctor.getLastName();
+                                            if (snapshot.exists()) {
+                                                Doctor doctor = snapshot.getValue(Doctor.class);
+                                                if (doctor != null) {
+                                                    docName = doctor.getFirstName() + " " + doctor.getLastName();
                                                     Log.d("NAME1", docName);
-                                                    addTimeSlots(dateString,startTime,endTime,docName,FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                    addTimeSlots(dateString, startTime, endTime, docName, FirebaseAuth.getInstance().getCurrentUser().getUid());
                                                 }
                                             }
                                         }
