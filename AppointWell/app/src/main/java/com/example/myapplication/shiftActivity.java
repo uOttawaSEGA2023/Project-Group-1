@@ -60,6 +60,8 @@ public class shiftActivity extends AppCompatActivity {
     ImageButton backto;
 
     String docName;
+    LocalDate currentDate;
+    String currentdate;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
     DatabaseReference userDatabase = database.child("Users").child("Approved Users");
@@ -78,7 +80,12 @@ public class shiftActivity extends AppCompatActivity {
                 year = Year;
                 month = Month + 1;
                 day = Day;
-                Toast.makeText(shiftActivity.this, "You select " + day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+                dateString = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month, day);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    currentDate = LocalDate.now();
+                }
+                currentdate = currentDate.toString();
+                Toast.makeText(shiftActivity.this, "You select " + dateString, Toast.LENGTH_SHORT).show();
             }
         });
         backto = findViewById(R.id.backto);
@@ -121,31 +128,20 @@ public class shiftActivity extends AppCompatActivity {
         create = findViewById(R.id.create);
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                LocalDate currentDate = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    currentDate = LocalDate.now();
-                }
-                LocalDate selectedDate = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    selectedDate = LocalDate.of(year, month, day);
-                }
-                // Check if the selected date has passed
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (selectedDate.isBefore(currentDate)) {
-                        Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
-                        return;//avoid the app terminating
-                    }else if ((selectedDate.isEqual(currentDate))){
-                      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                          currentTime = LocalTime.now();
-                          DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                          String currentTimeStr = currentTime.format(dateTimeFormatter);
-                          if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr)<0) {
-                              Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
-                              return;
-                          }
-                      }
-                    } else {
-                        dateString = selectedDate.toString();
+                if (dateString.compareTo(currentdate) < 0) {
+                    Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
+                    return;//avoid the app terminating
+                } else if (dateString.compareTo(currentdate) == 0) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        currentTime = LocalTime.now();
+                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                        String currentTimeStr = currentTime.format(dateTimeFormatter);
+                        if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr) < 0) {
+                            Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
+                            return;
+                        }else{
+                            Toast.makeText(shiftActivity.this, "Cannot create shift for the same date", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }//check if endTime is before startTime
                 if (endTime.compareTo(startTime) < 0) {
