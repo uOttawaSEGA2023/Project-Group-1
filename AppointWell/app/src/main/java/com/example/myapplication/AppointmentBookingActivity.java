@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -41,13 +42,14 @@ public class AppointmentBookingActivity extends AppCompatActivity {
         timeSlotDB.keepSynced(true);
         approvedDB.keepSynced(true);
 
-        recyclerView.setHasFixedSize(false);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchForTV.setVisibility(View.GONE);
+                timeSlots.clear();
                 findTimeSlots(query);
                 return true;
             }
@@ -63,9 +65,10 @@ public class AppointmentBookingActivity extends AppCompatActivity {
 
     }
 
-    private void findTimeSlots(String specialty) {
+    public void findTimeSlots(String specialty) {
         adapter = new SearchAppointmentAdapter(this, timeSlots, specialty, FirebaseAuth.getInstance().getCurrentUser().getUid());
         recyclerView.setAdapter(adapter);
+
 
         timeSlotDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,11 +86,21 @@ public class AppointmentBookingActivity extends AppCompatActivity {
                                             for (DataSnapshot child : snapshot.getChildren()) {
                                                 String sp = child.getValue(String.class);
                                                 if (sp.equals(specialty)) {
-                                                    timeSlots.add(timeSlot);
+                                                    boolean alreadyAdded=false;
+                                                    for (int i=0;i<timeSlots.size();i++){
+                                                        if(timeSlot.getDoctorID()==timeSlots.get(i).getDoctorID() && timeSlot.getStartTime()==timeSlots.get(i).getStartTime() && timeSlot.getDate()==timeSlots.get(i).getDate()){
+                                                            alreadyAdded=true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (!alreadyAdded) {
+                                                        timeSlots.add(timeSlot);
+                                                        adapter.notifyDataSetChanged();
+                                                    }
                                                     break;
                                                 }
                                             }
-                                            adapter.notifyDataSetChanged();
+
                                         }
                                     }
 
@@ -99,7 +112,9 @@ public class AppointmentBookingActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    adapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
