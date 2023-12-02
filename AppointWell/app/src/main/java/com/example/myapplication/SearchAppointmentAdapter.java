@@ -92,7 +92,7 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
                             Doctor doctor = snapshot.getValue(Doctor.class);
                             if(doctor!=null){
                                 AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", timeSlots.get(position).getStartTime(),timeSlots.get(position).getEndTime(),timeSlots.get(position).getDate(),doctorUID);
-                                doctor.addUpcomingAppointment(patientUID, appointmentRequest);
+                                doctor.addUpcomingAppointment(doctorUID, appointmentRequest);
                                 //remove timeslot from doctors list of available timeslots
                                 doctor.removeAvailableTimeSlot(doctorUID,timeSlots.get(position));
                                 //approvedDB.child(doctorUID).setValue(doctor);

@@ -91,6 +91,9 @@ public class Doctor extends UserAccount{
     }
 
     public void addAvailableTimeSlot(String doctorUID,TimeSlot ts){
+        if (availableTimeSlots==null){
+            availableTimeSlots=new ArrayList<TimeSlot>();
+        }
         availableTimeSlots.add(ts);
         approvedDB.child(doctorUID).child("availableTimeSlots").setValue(availableTimeSlots);
 

@@ -298,7 +298,9 @@ public class shiftActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
+
                         Doctor doctor= snapshot.getValue(Doctor.class);
+                        Log.d("abc", t.getDate());
                         doctor.addAvailableTimeSlot(uid,t);
                     }
                 }
