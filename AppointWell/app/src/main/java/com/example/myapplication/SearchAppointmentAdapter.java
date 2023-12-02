@@ -108,7 +108,7 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
 
                 //remove time slot from available time slots
 
-                DatabaseReference tsDB =FirebaseDatabase.getInstance().getReference().child("Available Time Slots");
+                DatabaseReference tsDB = FirebaseDatabase.getInstance().getReference().child("Available Time Slots");
 
                 tsDB.child(timeSlots.get(position).getDate()+"-"+timeSlots.get(position).getStartTime()+"-"+timeSlots.get(position).getDoctorID()).removeValue();
 

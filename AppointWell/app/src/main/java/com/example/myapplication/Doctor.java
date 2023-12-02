@@ -86,7 +86,7 @@ public class Doctor extends UserAccount{
         }
         //up to here!!!
         appointmentRequests.add(appointmentRequest);
-        approvedDB.child(doctorUID).child("appointmentRequests").setValue(appointmentRequest);
+        approvedDB.child(doctorUID).child("appointmentRequests").setValue(appointmentRequests);
 
     }
 
