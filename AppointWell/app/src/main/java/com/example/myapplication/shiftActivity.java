@@ -274,6 +274,7 @@ public class shiftActivity extends AppCompatActivity {
         if (Integer.parseInt(endTime.substring(3,5))==30){
             end+=0.5;
         }
+        List<TimeSlot> timeSlots = new ArrayList<>();
         for (float i=start;i<end;i+=0.5){
             if (i-Math.floor(i)!=0){
                 timeSlotStart=String.valueOf((int)Math.floor(i))+":30";
@@ -291,16 +292,35 @@ public class shiftActivity extends AppCompatActivity {
 
             TimeSlot t = new TimeSlot(timeSlotStart,timeSlotEnd,dateString,docName,uid);
             tDB.child(dateString+"-"+timeSlotStart+"-"+uid).setValue(t);
-
+            timeSlots.add(t);
             //update the doctors available time slots
+//            userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (snapshot.exists()){
+//
+//                        Doctor doctor= snapshot.getValue(Doctor.class);
+//                        Log.d("abc", t.getDate());
+//                        doctor.addAvailableTimeSlot(uid,t);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+            // Update the doctor's available time slots
             userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-
-                        Doctor doctor= snapshot.getValue(Doctor.class);
-                        Log.d("abc", t.getDate());
-                        doctor.addAvailableTimeSlot(uid,t);
+                    if (snapshot.exists()) {
+                        Doctor doctor = snapshot.getValue(Doctor.class);
+                        for (TimeSlot timeSlot : timeSlots) {
+                            doctor.addAvailableTimeSlot(uid, timeSlot);
+                        }
+                        // Update the doctor object in the database
+                        userDatabase.child(uid).setValue(doctor);
                     }
                 }
 
