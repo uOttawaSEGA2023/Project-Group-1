@@ -32,7 +32,7 @@ import java.util.Locale;
 public class upcomingShiftActivity extends AppCompatActivity {
     ImageButton addbtn, back;
     String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    ArrayList<Shift>  shiftDB=new ArrayList<Shift>();
+    ArrayList<Shift> shiftDB = new ArrayList<Shift>();
 
 //    String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
 
@@ -64,6 +64,7 @@ public class upcomingShiftActivity extends AppCompatActivity {
         });
 
     }
+
     private void addShift(Shift shift) {
         View shiftView = getLayoutInflater().inflate(R.layout.newshift, null, false);
         TextView Date = shiftView.findViewById(R.id.Date);
@@ -121,7 +122,8 @@ public class upcomingShiftActivity extends AppCompatActivity {
             }
         });
     }
-    private void checkAppointment (Shift shift){
+
+    private void checkAppointment(Shift shift) {
         ArrayList<AppointmentRequest> arr = new ArrayList<>();
         approvedUserDB.child(uID).child("appointmentRequests").addValueEventListener(new ValueEventListener() {
             @Override
@@ -151,6 +153,7 @@ public class upcomingShiftActivity extends AppCompatActivity {
                     if (!cannotDeleteShift) {
                         approvedUserDB.child(uID).child("shifts").setValue(shiftDB);
                         Toast.makeText(upcomingShiftActivity.this, "Shift successfully deleted", Toast.LENGTH_SHORT).show();
+                        removeTimeSlot(shift);
                     }
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -160,6 +163,7 @@ public class upcomingShiftActivity extends AppCompatActivity {
                     }, 500);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle error
@@ -167,7 +171,49 @@ public class upcomingShiftActivity extends AppCompatActivity {
         });
     }
 
-    public void refreshList() {
+        private void removeTimeSlot(Shift shift) {
+            DatabaseReference tDB = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/").child("Available Time Slots");
+
+            String selectedDate = shift.getSelectedDate();
+            String startTime = shift.getStartTime();
+            String endTime = shift.getEndTime();
+
+            approvedUserDB.child(uID).child("availableTimeSlots").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot child : snapshot.getChildren()) {
+                            TimeSlot ts = child.getValue(TimeSlot.class);
+                            if (isTimeSlotWithinShift(ts, startTime, endTime, selectedDate) && ts.getDoctorID().equals(uID)) {
+                                // Remove time slot from both nodes
+                                String key = child.getKey();
+                                Log.d("RemoveTimeSlot", "Removing key from availableTimeSlots: " + key);
+                                Log.d("RemoveTimeSlot", "Removing key from tDB: " + selectedDate + "-" + startTime + "-" + uID);
+                                approvedUserDB.child(uID).child("availableTimeSlots").child(key).removeValue();
+                                tDB.child(selectedDate+"-"+startTime+"-"+uID).removeValue();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle error
+                }
+            });
+        }
+
+        private boolean isTimeSlotWithinShift(TimeSlot ts, String startTime, String endTime, String SelectedDate) {
+            String tsStartTime = ts.getStartTime();
+            String tsEndTime = ts.getEndTime();
+
+            return ts.getDate().equals(SelectedDate) &&
+                    ((tsStartTime.compareTo(startTime) >= 0 && tsStartTime.compareTo(endTime) < 0) ||
+                            (tsEndTime.compareTo(startTime) > 0 && tsEndTime.compareTo(endTime) <= 0));
+        }
+
+
+        public void refreshList() {
 
         DatabaseReference shiftsRef = approvedUserDB.child(uID).child("shifts");
 
