@@ -1,0 +1,402 @@
+[
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_border.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\border.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_group.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\group.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_plusbutton.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\plusbutton.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_circle_button.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\circle_button.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_backbtn.png.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/backbtn.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_tick_svg.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\tick_svg.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_approve.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/approve.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_splashscreen.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\splashscreen.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_list_shift.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\list_shift.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_plus.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\plus.png"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_item_view.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/item_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_time.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\time.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_newshift.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/newshift.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_time.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/time.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\anim_slide_out_dialog.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\anim\\slide_out_dialog.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_addshift.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/addshift.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_listhours.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\listhours.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_calendar.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\calendar.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_activity_patient_page_add_request.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\activity_patient_page_add_request.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_shiftrec.png.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/shiftrec.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_appointmentbkg.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\appointmentbkg.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_appointment_request_bottom_dialogue.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\appointment_request_bottom_dialogue.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_border1.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\border1.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_ic_baseline_lock_24.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\ic_baseline_lock_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_icon.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\icon.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_item_view.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\item_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_requests.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\requests.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_plus.png.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/plus.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_activity_doctor_appointment.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\activity_doctor_appointment.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_left.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\left.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_mainpage_logoff.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\mainpage_logoff.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_plusbutton.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/plusbutton.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_newbacks.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\newbacks.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_mainpage_patient.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\mainpage_patient.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_mainpage_doctor.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\mainpage_doctor.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_rejectbtn.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\rejectbtn.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_mainpage_doctor.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/mainpage_doctor.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_home_btn.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\home_btn.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_completed.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\completed.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_activity_sign_up.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_bin.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\bin.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_backbtn.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\backbtn.png"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_appointment_request_bottom_dialogue.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/appointment_request_bottom_dialogue.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_registration_request.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\registration_request.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_listhours.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/listhours.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_custom_edittext.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\custom_edittext.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_mainpage_logoff.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/mainpage_logoff.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_bin.png.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/bin.png"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_cardview.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/cardview.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_activity_doctor_appointment.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/activity_doctor_appointment.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_backbuttom.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\backbuttom.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_cross_svg.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\cross_svg.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_border.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/border.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_home.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\home.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_toggle.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\toggle.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_slidedialogbox.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\slidedialogbox.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\font_poppins_regular.ttf.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\font\\poppins_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_calender_btn.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\calender_btn.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_ic_baseline_person_24.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\ic_baseline_person_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\font_poppins_light.ttf.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\font\\poppins_light.ttf"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_left.png.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/left.png"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\anim_slide_in_dialog.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\anim\\slide_in_dialog.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_bottom_dialogue.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\bottom_dialogue.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_list_shift.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/list_shift.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_ic_baseline_email_24.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\ic_baseline_email_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_addshift.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\addshift.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_layout_bg.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\layout_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\font_poppins_semibold.ttf.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\font\\poppins_semibold.ttf"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_background_img.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\background_img.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_input_style.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\input_style.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_cardview.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\cardview.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_slidedownline.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\slidedownline.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_activity_splashscreen.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\activity_splashscreen.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_mainpage_admin.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\mainpage_admin.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_shiftrec.png.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\shiftrec.png"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_rejectbtn.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/rejectbtn.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/layout_activity_patient_page_add_request.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/layout/activity_patient_page_add_request.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\font_poppins_bold.ttf.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\font\\poppins_bold.ttf"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_appointmentbkg.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/appointmentbkg.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-merged_res-36:/drawable_completed.xml.flat",
+        "source": "com.example.myapplication.app-main-38:/drawable/completed.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\drawable_approve.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\drawable\\approve.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_activity_sign_up.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-merged_res-36:\\layout_newshift.xml.flat",
+        "source": "C:\\Users\\perbh\\.gradle\\daemon\\8.0\\com.example.myapplication.app-main-38:\\layout\\newshift.xml"
+    }
+]
