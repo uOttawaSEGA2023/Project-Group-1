@@ -32,7 +32,7 @@ import java.util.Locale;
 public class upcomingShiftActivity extends AppCompatActivity {
     ImageButton addbtn, back;
     String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+    ArrayList<Shift>  shiftDB=new ArrayList<Shift>();
 
 //    String uID = "XvxJMNsAE1NNJGXsxZCE6xVz2dL2";
 
@@ -92,58 +92,82 @@ public class upcomingShiftActivity extends AppCompatActivity {
         shiftList.addView(shiftView);
 
 
-
-        ImageButton delete= (ImageButton) shiftView.findViewById(R.id.delete);
+        ImageButton delete = (ImageButton) shiftView.findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 approvedUserDB.child(uID).child("shifts").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList<Shift> arr=new ArrayList<Shift>();
-                        if (snapshot.exists()){
-                            for (DataSnapshot child:snapshot.getChildren()){
-                                Shift s=child.getValue(Shift.class);
-                                if (!(s.getEndTime().equals(shift.getEndTime())&&s.getStartTime().equals(shift.getStartTime())&&s.getSelectedDate().equals(shift.getSelectedDate()))){
-                                    arr.add(s);
+                        if (snapshot.exists()) {
+                            shiftDB.clear(); // Clear the list before using it
+
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                Shift s = child.getValue(Shift.class);
+                                if (!(s.getEndTime().equals(shift.getEndTime()) && s.getStartTime().equals(shift.getStartTime()) && s.getSelectedDate().equals(shift.getSelectedDate()))) {
+                                    shiftDB.add(s);
+                                } else {
+                                    checkAppointment(shift);
                                 }
-
                             }
-
-                                approvedUserDB.child(uID).child("shifts").setValue(arr);
-                                Toast.makeText(upcomingShiftActivity.this, "Shift successfully deleted" ,Toast.LENGTH_SHORT).show();
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        refreshList();
-                                    }
-
-                                }, 500);
-
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        // Handle error
                     }
                 });
-
-//                approvedUserDB.child(uID).child("shifts").child(shiftId).removeValue();
-//                Toast.makeText(upcomingShiftActivity.this, "Shift successfully deleted" ,Toast.LENGTH_SHORT).show();
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        refreshList();
-//                    }
-//
-//                }, 500);
             }
         });
-
-
     }
-    public void refreshList(){
+    private void checkAppointment (Shift shift){
+        ArrayList<AppointmentRequest> arr = new ArrayList<>();
+        approvedUserDB.child(uID).child("appointmentRequests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    boolean cannotDeleteShift = false;
+
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        AppointmentRequest a = child.getValue(AppointmentRequest.class);
+                        arr.add(a);
+                    }
+
+                    int i = 0;
+                    while (!cannotDeleteShift && i < arr.size()) {
+                        if (shift.getSelectedDate().equals(arr.get(i).getDate())) {
+                            if (arr.get(i).getStartTime().compareTo(shift.getStartTime()) >= 0 || arr.get(i).getEndTime().compareTo(shift.getEndTime()) <= 0) {
+                                // cannot delete shift
+                                Toast.makeText(upcomingShiftActivity.this, "Cannot delete shifts", Toast.LENGTH_SHORT).show();
+                                shiftDB.add(shift);
+                                cannotDeleteShift = true;
+                            }
+                        }
+                        i++;
+                    }
+
+                    // Update shifts node
+                    if (!cannotDeleteShift) {
+                        approvedUserDB.child(uID).child("shifts").setValue(shiftDB);
+                        Toast.makeText(upcomingShiftActivity.this, "Shift successfully deleted", Toast.LENGTH_SHORT).show();
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshList();
+                        }
+                    }, 500);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
+
+    public void refreshList() {
 
         DatabaseReference shiftsRef = approvedUserDB.child(uID).child("shifts");
 
@@ -151,19 +175,13 @@ public class upcomingShiftActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 shiftList.removeAllViews();
-                if (snapshot.exists()){
-                    for (DataSnapshot child : snapshot.getChildren()){
-                        if(child!=null){
-                            Shift shift=child.getValue(Shift.class);
+                if (snapshot.exists()) {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        if (child != null) {
+                            Shift shift = child.getValue(Shift.class);
                             addShift(shift);
                         }
                     }
-//                    ArrayList<Shift> shifts = (ArrayList<Shift>)snapshot.getValue();
-//                    if (shifts!=null){
-//                        for (int i=0;i<shifts.size();i++){
-//                            addShift(shifts.get(i));
-//                        }
-//                    }
                 }
             }
 
@@ -172,27 +190,5 @@ public class upcomingShiftActivity extends AppCompatActivity {
 
             }
         });
-
-            // Order the shifts by the "selectedDate" child in ascending order
-//            shiftsRef.orderByChild("selectedDate").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                shiftList.removeAllViews();
-//                if (snapshot.exists()){
-//                    for (DataSnapshot child: snapshot.getChildren()){
-//                        if(child.exists()) {
-//                            Shift shift = child.getValue(Shift.class);
-//                            if (shift!=null){
-//                                addShift(shift, child.getKey());
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 }
