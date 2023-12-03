@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#CFE0C3</color>
+    <color name="secondary">#70A9A1</color>
+    <color name="tertiary">#40798C</color>
+    <color name="toggle">#DDECD3</color>
+    <color name="text">#939393</color>
+    <color name="purple">#CFE0C3</color>
+    <color name="btn_color">#70A9A1</color>
+    <color name="background_color">#40798C</color>
+    <color name="dark_green">#1F363D</color>
+    <color name="bg">#F6F6F6</color>
+</resources>
