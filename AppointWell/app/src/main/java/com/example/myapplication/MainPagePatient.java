@@ -62,7 +62,7 @@ public class MainPagePatient extends AppCompatActivity {
 
 
 
-        logOutBtn = findViewById(R.id.logout);
+        logOutBtn = findViewById(R.id.logOutPatient);
 
         logOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
