@@ -45,8 +45,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class shiftActivity extends AppCompatActivity {
-    private List<Shift> doctorShiftsList;
-    private ArrayList<TimeSlot> availableTimeSlots;
+    List<Shift> doctorShiftsList;
+    ArrayList<TimeSlot> availableTimeSlots;
     CalendarView calendarView;
     Spinner spinner1;
     Spinner spinner2;
@@ -222,8 +222,7 @@ public class shiftActivity extends AppCompatActivity {
                                                     addTimeSlots(dateString,startTime,endTime,docName,FirebaseAuth.getInstance().getCurrentUser().getUid());
                                                 }
                                             }
-                                        }
-
+                                        } 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
 
