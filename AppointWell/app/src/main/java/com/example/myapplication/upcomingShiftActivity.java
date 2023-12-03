@@ -141,7 +141,7 @@ public class upcomingShiftActivity extends AppCompatActivity {
                         if (shift.getSelectedDate().equals(arr.get(i).getDate())) {
                             if (arr.get(i).getStartTime().compareTo(shift.getStartTime()) >= 0 || arr.get(i).getEndTime().compareTo(shift.getEndTime()) <= 0) {
                                 // cannot delete shift
-                                Toast.makeText(upcomingShiftActivity.this, "Cannot delete shifts", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(upcomingShiftActivity.this, "Cannot delete shifts- associated wih patient appointment", Toast.LENGTH_SHORT).show();
                                 shiftDB.add(shift);
                                 cannotDeleteShift = true;
                             }
@@ -190,7 +190,7 @@ public class upcomingShiftActivity extends AppCompatActivity {
                                 Log.d("RemoveTimeSlot", "Removing key from availableTimeSlots: " + key);
                                 Log.d("RemoveTimeSlot", "Removing key from tDB: " + selectedDate + "-" + startTime + "-" + uID);
                                 approvedUserDB.child(uID).child("availableTimeSlots").child(key).removeValue();
-                                tDB.child(selectedDate+"-"+startTime+"-"+uID).removeValue();
+                                tDB.child(ts.getDate()+"-"+ts.getStartTime()+"-"+uID).removeValue();
                             }
                         }
                     }
