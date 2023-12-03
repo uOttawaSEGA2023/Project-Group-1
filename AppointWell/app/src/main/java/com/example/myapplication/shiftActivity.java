@@ -139,8 +139,6 @@ public class shiftActivity extends AppCompatActivity {
                         if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr) < 0) {
                             Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
                             return;
-                        }else{
-                            Toast.makeText(shiftActivity.this, "Cannot create shift for the same date", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }//check if endTime is before startTime
