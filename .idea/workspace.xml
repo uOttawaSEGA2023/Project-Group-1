@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="Shift Activity CurrentTime">
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/mainpage_doctor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/mainpage_doctor.xml" afterDir="false" />
-    </list>
+    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="Shift Activity CurrentTime" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,16 +85,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Git.Branch.Popup.ShowAllRemotes": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/Users/kchankwouottawa.ca/Documents/Project-Group-1"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kchankwouottawa.ca/Documents/Project-Group-1&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="My_Application.app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="My_Application.app.main" />
