@@ -6,10 +6,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +32,7 @@ public class AppointmentBookingActivity extends AppCompatActivity {
     private SearchView searchView;
     private SearchAppointmentAdapter adapter;
     private TextView searchForTV;
+    private ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,13 @@ public class AppointmentBookingActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         searchView = findViewById(R.id.searchView);
         searchForTV = findViewById(R.id.searchForText);
+        back = findViewById(R.id.backtomainpage);
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(AppointmentBookingActivity.this, MainPagePatient.class);
+                startActivity(intent);
+            }
+        });
 
         timeSlotDB.keepSynced(true);
         approvedDB.keepSynced(true);
