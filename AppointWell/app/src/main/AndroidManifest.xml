@@ -33,6 +33,11 @@
         <activity android:name=".shiftActivity" />
         <activity android:name=".upcomingShiftActivity" />
         <activity android:name=".PatientUpcomingAppointments" />
+        <activity android:name=".PastAppointmentPatient" />
+        <activity
+            android:name=".PopUpActivity"
+            android:theme="@style/AppTheme.PopMe"
+            android:exported="false" />
     </application>
 
 </manifest>

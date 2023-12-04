@@ -89,64 +89,110 @@
 
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/bookappointment"
-        android:layout_width="155dp"
-        android:layout_height="203dp"
-        android:background="@drawable/border"
-        android:backgroundTint="#DDECD3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/manageAppointment"
-        app:layout_constraintHorizontal_bias="0.132"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        app:layout_constraintVertical_bias="0.268" />
 
-    <TextView
-        android:id="@+id/updatepersonalinfo"
-        android:layout_width="155dp"
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Book                   Appointment"
-        android:textAlignment="center"
-        android:textColor="#1F363D"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/bookappointment"
-        app:layout_constraintEnd_toEndOf="@+id/bookappointment"
-        app:layout_constraintStart_toStartOf="@+id/bookappointment"
-        app:layout_constraintTop_toTopOf="@+id/bookappointment" />
-
-
-    <ImageButton
-        android:id="@+id/manageAppointment"
-        android:layout_width="155dp"
-        android:layout_height="203dp"
-        android:background="@drawable/border"
-        android:backgroundTint="#DDECD3"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toEndOf="@+id/bookappointment"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-    <TextView
-        android:id="@+id/manage"
-        android:layout_width="155dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:textAlignment="center"
-        android:textColor="#1F363D"
-        android:text="Manage Appointments"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/manageAppointment"
-        app:layout_constraintEnd_toEndOf="@+id/manageAppointment"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/manageAppointment"
-        app:layout_constraintTop_toTopOf="@+id/manageAppointment"
-        app:layout_constraintVertical_bias="0.509" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageButton
+                android:id="@+id/bookappointment"
+                android:layout_width="155dp"
+                android:layout_height="203dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/border"
+                android:backgroundTint="#DDECD3"
+                app:layout_constraintEnd_toStartOf="@id/manageAppointment"
+                app:layout_constraintHorizontal_bias="0.132"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/updatepersonalinfo"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Book                   Appointment"
+                android:textAlignment="center"
+                android:textColor="#1F363D"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/bookappointment"
+                app:layout_constraintEnd_toEndOf="@+id/bookappointment"
+                app:layout_constraintStart_toStartOf="@+id/bookappointment"
+                app:layout_constraintTop_toTopOf="@+id/bookappointment" />
+
+            <ImageButton
+                android:id="@+id/manageAppointment"
+                android:layout_width="155dp"
+                android:layout_height="203dp"
+                android:background="@drawable/border"
+                android:backgroundTint="#DDECD3"
+                app:layout_constraintEnd_toStartOf="@id/pastAppointment"
+                app:layout_constraintHorizontal_bias="0.902"
+                app:layout_constraintStart_toEndOf="@+id/bookappointment"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.268"
+                android:layout_marginRight="30dp"/>
+
+            <TextView
+                android:id="@+id/manage"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Manage Appointments"
+                android:textAlignment="center"
+                android:textColor="#1F363D"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/manageAppointment"
+                app:layout_constraintEnd_toEndOf="@+id/manageAppointment"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/manageAppointment"
+                app:layout_constraintTop_toTopOf="@+id/manageAppointment"
+                app:layout_constraintVertical_bias="0.509" />
+
+            <Button
+                android:id="@+id/pastAppointment"
+                android:layout_width="155dp"
+                android:layout_height="203dp"
+                android:background="@drawable/border"
+                android:backgroundTint="#DDECD3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/manageAppointment"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteX="334dp" />
+
+            <TextView
+                android:id="@+id/past"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Past Appointments"
+                android:textAlignment="center"
+                android:textColor="#1F363D"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/pastAppointment"
+                app:layout_constraintEnd_toEndOf="@+id/pastAppointment"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/pastAppointment"
+                app:layout_constraintTop_toTopOf="@+id/pastAppointment"
+                app:layout_constraintVertical_bias="0.509" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

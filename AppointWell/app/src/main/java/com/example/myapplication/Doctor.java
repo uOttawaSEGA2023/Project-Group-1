@@ -11,6 +11,9 @@ public class Doctor extends UserAccount {
     private DatabaseReference approvedDB = FirebaseDatabase.getInstance().getReference().child("Users").child("Approved Users");
 
     private List<String> specialties;
+
+    private float rating;
+    private int numRating;
     private List<Shift> shifts;
     private boolean autoAcceptsRequests;
     private ArrayList<AppointmentRequest> appointmentRequests;
@@ -36,6 +39,8 @@ public class Doctor extends UserAccount {
         shifts = new ArrayList<Shift>();
         appointmentRequests = new ArrayList<AppointmentRequest>();
         availableTimeSlots=new ArrayList<TimeSlot>();
+        rating=0;
+        numRating=0;
     }
 
     public List<Shift> getShifts() {
@@ -81,6 +86,23 @@ public class Doctor extends UserAccount {
     public void setAutoAcceptsRequests(boolean autoAcceptsRequests) {
         this.autoAcceptsRequests = autoAcceptsRequests;
     }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public int getNumRating() {
+        return numRating;
+    }
+
+    public void setNumRating(int numRating) {
+        this.numRating = numRating;
+    }
+
 
     public void addUpcomingAppointment(String doctorUID, AppointmentRequest appointmentRequest) {
 //        //remove this!!!!
@@ -151,7 +173,16 @@ public class Doctor extends UserAccount {
         approvedDB.child(doctorUID).child("availableTimeSlots").setValue(availableTimeSlots);
     }
 
+    public float getAvgRating(){
+        if (numRating==0){
+            return 0;
+        }
+        return rating/numRating;
+    }
 
+    public void incrementNumRating(){
+        numRating++;
+    }
 
 
 }

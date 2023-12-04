@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class MainPagePatient extends AppCompatActivity {
     private ImageButton bookAppointment;
     private ImageButton manageAppointment;
 
+    private Button pastAppointment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class MainPagePatient extends AppCompatActivity {
         userTypeTextView = findViewById(R.id.logintext);
         bookAppointment = findViewById(R.id.bookappointment);
         manageAppointment = findViewById(R.id.manageAppointment);
+        pastAppointment = findViewById(R.id.pastAppointment);
 
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -89,6 +93,15 @@ public class MainPagePatient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainPagePatient.this, PatientUpcomingAppointments.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        pastAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPagePatient.this, PastAppointmentPatient.class);
                 startActivity(intent);
                 finish();
             }
