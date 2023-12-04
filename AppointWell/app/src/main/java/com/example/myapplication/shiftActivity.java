@@ -128,7 +128,10 @@ public class shiftActivity extends AppCompatActivity {
         create = findViewById(R.id.create);
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (dateString!=null) {
+                if (dateString==null) {
+                    Toast.makeText(shiftActivity.this, "No date selected- Select a date", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
                     if (dateString.compareTo(currentdate) < 0) {
                         Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
                         return;//avoid the app terminating
@@ -143,7 +146,8 @@ public class shiftActivity extends AppCompatActivity {
                             }
                         }
                     }
-                }//check if endTime is before startTime
+                }
+                //check if endTime is before startTime
                 if (endTime.compareTo(startTime) < 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
                     return;
