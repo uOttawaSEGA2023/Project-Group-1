@@ -72,7 +72,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         String databaseUrl = "https://new-database-b712b-default-rtdb.firebaseio.com/";
 
         // Reference to the "Appointments" node
-        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("Appointments");
+        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("appointmentRequests");
 
         DatabaseReference db =  FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("AutoApprove");
         db.addValueEventListener(new ValueEventListener() {
@@ -215,7 +215,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         String databaseUrl = "https://new-database-b712b-default-rtdb.firebaseio.com/";
 
         // Reference to the "Appointments" node
-        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("Appointments");
+        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("appointmentRequests");
 
 
         // Add a ValueEventListener to retrieve data
