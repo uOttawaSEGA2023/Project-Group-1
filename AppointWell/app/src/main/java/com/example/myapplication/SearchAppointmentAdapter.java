@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAppointmentAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAppointmentAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.setIsRecyclable(false);
         holder.timeTV.setText(timeSlots.get(position).getStartTime() + " - " + timeSlots.get(position).getEndTime());
         holder.dateTV.setText(timeSlots.get(position).getDate());

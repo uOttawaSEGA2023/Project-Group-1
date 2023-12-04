@@ -9,18 +9,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="Shift Activity CurrentTime">
-      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/PatientUpcomingAppointments.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/drawable/cancel.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/approved_patient_appointment_card.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/patient_upcoming_appointments.xml" afterDir="false" />
+    <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="updated deliv 4">
       <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Doctor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/DoctorAppointmentRequestPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/DoctorAppointmentRequestPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MainPagePatient.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MainPagePatient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/mainpage_patient.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/mainpage_patient.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,11 +219,19 @@
       <option name="project" value="LOCAL" />
       <updated>1699933668704</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="updated deliv 4">
+      <created>1701708851349</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701708851349</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Shift Activity CurrentTime" />
-    <option name="LAST_COMMIT_MESSAGE" value="Shift Activity CurrentTime" />
+    <MESSAGE value="updated deliv 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated deliv 4" />
   </component>
 </project>
