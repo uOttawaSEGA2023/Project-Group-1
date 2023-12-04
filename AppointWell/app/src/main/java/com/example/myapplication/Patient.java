@@ -65,5 +65,21 @@ public class Patient extends UserAccount{
         approvedDB.child(patientUID).child("upcomingAppointments").setValue(upcomingAppointments);
     }
 
+    public void completeAppointment(String patientUID, AppointmentRequest appointmentRequest){
+        for (AppointmentRequest request: upcomingAppointments){
+            if (request.getDate().equals(appointmentRequest.getDate()) && request.getStartTime().equals(appointmentRequest.getStartTime()) &&  request.getPatientUID().equals(appointmentRequest.getPatientUID()) &&
+                    request.getDoctorUID().equals(appointmentRequest.getDoctorUID())){
+//                AppointmentRequest temp = request;
+//                appointmentRequests.remove(request);
+//                temp.setStatus("Approved");
+//                appointmentRequests.add(temp);
+                request.setStatus("Completed");
+                break;
+
+            }
+        }
+        approvedDB.child(patientUID).child("appointmentRequests").setValue(upcomingAppointments);
+    }
+
 }
 

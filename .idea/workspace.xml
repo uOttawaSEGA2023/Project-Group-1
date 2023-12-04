@@ -10,7 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="updated deliv 4">
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Patient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,16 +90,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Git.Branch.Popup.ShowAllRemotes": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/Users/rhadeshluchmun/Desktop/Rhadesh Luchmun/UOTTAWA/Project-group/AppointWell/app/src/main/res/layout"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/rhadeshluchmun/Desktop/Rhadesh Luchmun/UOTTAWA/Project-group/AppointWell/app/src/main/res/layout&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/AppointWell/app/src/main/res/layout" />
@@ -226,7 +228,28 @@
       <option name="project" value="LOCAL" />
       <updated>1701708851349</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="updated deliv 4">
+      <created>1701709195022</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701709195022</updated>
+    </task>
+    <task id="LOCAL-00008" summary="updated deliv 4">
+      <created>1701709237324</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701709237324</updated>
+    </task>
+    <task id="LOCAL-00009" summary="updated deliv 4">
+      <created>1701709327551</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701709327551</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
