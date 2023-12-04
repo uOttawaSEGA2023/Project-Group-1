@@ -21,9 +21,8 @@ public class MainPagePatient extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
     private ImageButton logOutBtn;
-    private ImageButton bookAppointment;
-    private ImageButton manageAppointment;
-
+    private Button bookAppointment;
+    private Button manageAppointment;
     private Button pastAppointment;
 
 
@@ -38,7 +37,6 @@ public class MainPagePatient extends AppCompatActivity {
         bookAppointment = findViewById(R.id.bookappointment);
         manageAppointment = findViewById(R.id.manageAppointment);
         pastAppointment = findViewById(R.id.pastAppointment);
-
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);

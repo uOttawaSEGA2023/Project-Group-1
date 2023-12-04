@@ -46,8 +46,11 @@ public class AppointmentBookingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AppointmentBookingActivity.this, MainPagePatient.class);
                 startActivity(intent);
+                finish();
             }
         });
+
+
 
         timeSlotDB.keepSynced(true);
         approvedDB.keepSynced(true);
