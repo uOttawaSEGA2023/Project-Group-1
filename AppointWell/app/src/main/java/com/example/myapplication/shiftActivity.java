@@ -128,20 +128,26 @@ public class shiftActivity extends AppCompatActivity {
         create = findViewById(R.id.create);
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (dateString.compareTo(currentdate) < 0) {
-                    Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
-                    return;//avoid the app terminating
-                } else if (dateString.compareTo(currentdate) == 0) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        currentTime = LocalTime.now();
-                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                        String currentTimeStr = currentTime.format(dateTimeFormatter);
-                        if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr) < 0) {
-                            Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
-                            return;
+                if (dateString==null) {
+                    Toast.makeText(shiftActivity.this, "No date selected- Select a date", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    if (dateString.compareTo(currentdate) < 0) {
+                        Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
+                        return;//avoid the app terminating
+                    } else if (dateString.compareTo(currentdate) == 0) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            currentTime = LocalTime.now();
+                            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                            String currentTimeStr = currentTime.format(dateTimeFormatter);
+                            if (endTime.compareTo(currentTimeStr) < 0 || startTime.compareTo(currentTimeStr) < 0) {
+                                Toast.makeText(shiftActivity.this, "The current time is " + currentTimeStr + " the day has already passed- select another date", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                         }
                     }
-                }//check if endTime is before startTime
+                }
+                //check if endTime is before startTime
                 if (endTime.compareTo(startTime) < 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
                     return;
