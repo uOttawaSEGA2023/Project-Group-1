@@ -307,14 +307,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
                             //getting patient object from DB
-                            approvedDB.child(patientUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            approvedDB.child(request.getPatientUID()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if(snapshot.exists()){
                                         Patient patient = snapshot.getValue(Patient.class);
                                         if(patient!=null){
                                             AppointmentRequest appointmentRequest = new AppointmentRequest(request.getPatientName(),patientUID,"Pending", request.getStartTime(),request.getEndTime(),request.getDate(),doctorUID);
-                                            patient.completeAppointment(patientUID, appointmentRequest);
+                                            patient.completeAppointment(request.getPatientUID(), appointmentRequest);
 
                                         }
                                     }

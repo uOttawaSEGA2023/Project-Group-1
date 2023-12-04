@@ -78,7 +78,7 @@ public class Patient extends UserAccount{
 
             }
         }
-        approvedDB.child(patientUID).child("appointmentRequests").setValue(upcomingAppointments);
+        approvedDB.child(patientUID).child("upcomingAppointments").setValue(upcomingAppointments);
     }
 
 }
