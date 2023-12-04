@@ -15,6 +15,17 @@ public class Doctor extends UserAccount {
     private boolean autoAcceptsRequests;
     private ArrayList<AppointmentRequest> appointmentRequests;
 
+
+    private ArrayList<TimeSlot> availableTimeSlots;
+
+    public ArrayList<TimeSlot> getAvailableTimeSlots() {
+        return availableTimeSlots;
+    }
+
+    public void setAvailableTimeSlots(ArrayList<TimeSlot> availableTimeSlots) {
+        this.availableTimeSlots = availableTimeSlots;
+    }
+
     public Doctor() {
     }
 
@@ -24,6 +35,7 @@ public class Doctor extends UserAccount {
         this.specialties = specialties;
         shifts = new ArrayList<Shift>();
         appointmentRequests = new ArrayList<AppointmentRequest>();
+        availableTimeSlots=new ArrayList<TimeSlot>();
     }
 
     public List<Shift> getShifts() {
@@ -124,6 +136,22 @@ public class Doctor extends UserAccount {
         }
         approvedDB.child(doctorUID).child("appointmentRequests").setValue(appointmentRequests);
     }
+
+    public void addAvailableTimeSlot(String doctorUID,TimeSlot ts){
+        if (availableTimeSlots==null){
+            availableTimeSlots=new ArrayList<TimeSlot>();
+        }
+        availableTimeSlots.add(ts);
+        approvedDB.child(doctorUID).child("availableTimeSlots").setValue(availableTimeSlots);
+
+    }
+
+    public void removeAvailableTimeSlot(String doctorUID,TimeSlot ts){
+        availableTimeSlots.remove(ts);
+        approvedDB.child(doctorUID).child("availableTimeSlots").setValue(availableTimeSlots);
+    }
+
+
 
 
 }
