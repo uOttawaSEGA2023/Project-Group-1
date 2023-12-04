@@ -42,7 +42,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/patientName"
+                    android:id="@+id/doctorName"
                     android:layout_width="210dp"
                     android:layout_height="50dp"
                     android:gravity="center"
@@ -50,7 +50,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/dark_green"
                     android:fontFamily="@font/poppins_bold"
-                   />
+                    />
 
                 <TextView
                     android:layout_width="210dp"
@@ -85,21 +85,13 @@
             android:orientation="vertical"
 
             >
+
             <ImageButton
-                android:id="@+id/approveRequestBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/approve"
-                android:visibility="visible"
-                >
-            </ImageButton>
-            <ImageButton
-                android:id="@+id/rejectRequestBtn"
+                android:id="@+id/cancelBtn"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/rejectbtn"
+                android:background="@drawable/cancel"
                 >
             </ImageButton>
 

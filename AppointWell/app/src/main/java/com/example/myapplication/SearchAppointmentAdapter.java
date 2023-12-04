@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,7 +48,7 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAppointmentAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAppointmentAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.timeTV.setText(timeSlots.get(position).getStartTime() + " - " + timeSlots.get(position).getEndTime());
         holder.dateTV.setText(timeSlots.get(position).getDate());
         holder.nameTV.setText("Dr " + timeSlots.get(position).getDoctorName());
@@ -92,7 +93,7 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
                             Doctor doctor = snapshot.getValue(Doctor.class);
                             if(doctor!=null){
                                 AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", timeSlots.get(position).getStartTime(),timeSlots.get(position).getEndTime(),timeSlots.get(position).getDate(),doctorUID);
-                                doctor.addUpcomingAppointment(patientUID, appointmentRequest);
+                                doctor.addUpcomingAppointment(doctorUID, appointmentRequest);
                                 //approvedDB.child(doctorUID).setValue(doctor);
                             }
                         }

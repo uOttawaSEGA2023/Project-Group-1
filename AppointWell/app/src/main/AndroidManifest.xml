@@ -32,6 +32,7 @@
         <activity android:name=".MainPageAdmin" />
         <activity android:name=".shiftActivity" />
         <activity android:name=".upcomingShiftActivity" />
+        <activity android:name=".PatientUpcomingAppointments" />
     </application>
 
 </manifest>

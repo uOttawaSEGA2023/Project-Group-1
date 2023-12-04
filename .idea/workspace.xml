@@ -10,15 +10,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09dab924-6a96-41af-bcad-d688736b5df2" name="Changes" comment="Shift Activity CurrentTime">
+      <change afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/PatientUpcomingAppointments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/tested.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/drawable/cancel.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/approved_patient_appointment_card.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/patient_upcoming_appointments.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/shiftActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/shiftActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/DoctorAppointmentRequestPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/DoctorAppointmentRequestPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MainPagePatient.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MainPagePatient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/MyAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/SearchAppointmentAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/java/com/example/myapplication/SearchAppointmentAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/item_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/item_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/mainpage_patient.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppointWell/app/src/main/res/layout/mainpage_patient.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/kchankwouottawa.ca/.android/avd/Pixel_7_API_29.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/rhadeshluchmun/.android/avd/Pixel_3a_API_34_extension_level_7_arm64-v8a.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/AppointWell">
       <ProjectState />
@@ -66,6 +82,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
         <option value="Class" />
       </list>
     </option>
@@ -76,6 +93,7 @@
         <entry key="$PROJECT_DIR$" value="Deliv_3" />
       </map>
     </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -84,20 +102,22 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2XmqA2Dw9B4AJVYbPTOf6Xh0P85" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kchankwouottawa.ca/Documents/Project-Group-1&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/Users/kchankwouottawa.ca/Documents/Project-Group-1"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="My_Application.app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="My_Application.app.main" />
