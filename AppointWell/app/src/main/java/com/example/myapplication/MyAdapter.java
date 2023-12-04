@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,20 +25,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
+
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     Context context;
-    Dialog dialog;
+    private DatabaseReference approvedDB = FirebaseDatabase.getInstance().getReference().child("Users").child("Approved Users");
     String nameMsg, emailMsg, addressMsg, phoneNumMsg, typeMsg, healthCardMsg;
+
 
     ArrayList<AppointmentRequest> list;
     private OnItemClickListener listener;
@@ -71,71 +71,155 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         AppointmentRequest request = list.get(position);
-        holder.name.setText(request.getPatientName());
+
+        // get doctor name from data base using doctor uID
+        String doctorUID = request.getDoctorUID();
+
+        // get patient uID
+        String patientUID = request.getPatientUID();
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
+        DatabaseReference reference = database.child("Users").child("Approved Users").child(patientUID);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String docFirstName = String.valueOf(snapshot.child("firstName").getValue());
+                String docLastName = String.valueOf(snapshot.child("lastName").getValue());
+                holder.name.setText(docFirstName+ " " + docLastName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         String countID = String.valueOf(request.getCountID());
 
-        // Assuming your AppointmentRequest class has getDate() and getStartTime() methods
-//        holder.date.setText(request.getDate());
-//        Date last_date_date = null;
-//        try {
-//            last_date_date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate());
-//            holder.date.setText(new SimpleDateFormat("MMM dd yyyy").format(last_date_date));
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
-            LocalDate date = LocalDate.parse(request.getDate(), formatter);
-            DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("dd      MMM yyyy");
-            String strDate = newFormatter.format(date);
-            holder.date.setText(strDate);
+
+            try {
+                LocalDate date = LocalDate.parse(request.getDate(), formatter);
+                DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+                String strDate = newFormatter.format(date);
+                holder.date.setText(strDate);
+            } catch (DateTimeParseException e) {
+                e.printStackTrace();
+                // Handle the exception or log an error message
+            }
         }
 
         holder.time.setText(request.getStartTime() + " - " + request.getEndTime());
 
-        // Reject button on click
-        holder.rejectbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-                DatabaseReference reference = database.child("Users").child("Approved Users").child(uID).child("Appointments");
 
-                reference.child(countID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // If the removal from Firebase is successful, remove the item from the local list
-                        list.remove(request);
-                        notifyDataSetChanged(); // Notify the adapter that the data set has changed
-                    }
-                });
+
+        // Reject btn
+        holder.rejectbtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                    //getting patient object from DB
+                    approvedDB.child(patientUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                Patient patient = snapshot.getValue(Patient.class);
+                                if(patient!=null){
+                                    String patientName = patient.getFirstName() + " " + patient.getLastName();
+                                    AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", request.getStartTime(),request.getEndTime(),request.getDate(),doctorUID);
+                                    patient.removeUpcomingAppointment(patientUID,appointmentRequest);
+                                    list.remove(request);
+                                    notifyDataSetChanged(); // Notify the adapter that the data set has changed
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    //getting doctor object from DB
+                    approvedDB.child(doctorUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                Doctor doctor = snapshot.getValue(Doctor.class);
+                                if(doctor!=null){
+                                    AppointmentRequest appointmentRequest = new AppointmentRequest(request.getPatientName(),patientUID,"Pending", request.getStartTime(),request.getEndTime(),request.getDate(),doctorUID);
+                                    doctor.removeUpcomingAppointment(doctorUID, appointmentRequest);
+                                    //approvedDB.child(doctorUID).setValue(doctor);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
             }
         });
 
-        if(request.getStatus().equals("Approved") || request.getStatus().equals("Completed")){
-            holder.approveRequestBtn.setVisibility(View.GONE);
-        }
+        // end - reject btn
 
-        if (request.getStatus().equals("Pending")){
-            holder.approveRequestBtn.setVisibility(View.VISIBLE);
-            // Approve button on click
-            holder.approveRequestBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-                    DatabaseReference reference = database.child("Users").child("Approved Users").child(uID).child("Appointments");
-                    reference.child(countID).child("status").getRef().setValue("Approved").addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            list.remove(request);
-                            notifyDataSetChanged(); // Notify the adapter that the data set has changed
+
+        // start - approve btn
+        holder.approveRequestBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //getting patient object from DB
+                approvedDB.child(patientUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            Patient patient = snapshot.getValue(Patient.class);
+                            if(patient!=null){
+                                String patientName = patient.getFirstName() + " " + patient.getLastName();
+                                AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", request.getStartTime(),request.getEndTime(),request.getDate(),doctorUID);
+                                patient.approveAppointment(patientUID,appointmentRequest);
+                                list.remove(request);
+                                notifyDataSetChanged(); // Notify the adapter that the data set has changed
+                            }
                         }
-                    });
-                }
-            });
+                    }
 
-        }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
+                    }
+                });
+
+                //getting doctor object from DB
+                approvedDB.child(doctorUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            Doctor doctor = snapshot.getValue(Doctor.class);
+                            if(doctor!=null){
+                                AppointmentRequest appointmentRequest = new AppointmentRequest(request.getPatientName(),patientUID,"Pending", request.getStartTime(),request.getEndTime(),request.getDate(),doctorUID);
+                                doctor.approveAppointment(doctorUID, appointmentRequest);
+                                //approvedDB.child(doctorUID).setValue(doctor);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        // end - approve btn
 
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -162,28 +246,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                                     Patient patient=snapshot.getValue(Patient.class);
 
-                                   nameMsg = patient.getFirstName()+" "+patient.getLastName();
+                                    nameMsg = patient.getFirstName()+" "+patient.getLastName();
 
                                     addressMsg = "Address: "+patient.getAddress();
 
-                                   healthCardMsg = "Health Card Number: " + patient.getHealthCardNumber();
+                                    healthCardMsg = "Health Card Number: " + patient.getHealthCardNumber();
 
-                                  emailMsg = "Email: "+patient.getEmail();
+                                    emailMsg = "Email: "+patient.getEmail();
 
-                                  phoneNumMsg = "Phone Number: " + patient.getPhoneNumber();
+                                    phoneNumMsg = "Phone Number: " + patient.getPhoneNumber();
 
-                                 typeMsg = patient.getType();
+                                    typeMsg = patient.getType();
                                 }
-                                }
-                                name.setText(nameMsg);
-                                address.setText(addressMsg);
-                                healthCard.setText(healthCardMsg);
-                                email.setText(emailMsg);
-                                phoneNum.setText(phoneNumMsg);
-                                type.setText(typeMsg);
-
                             }
+                            name.setText(nameMsg);
+                            address.setText(addressMsg);
+                            healthCard.setText(healthCardMsg);
+                            email.setText(emailMsg);
+                            phoneNum.setText(phoneNumMsg);
+                            type.setText(typeMsg);
+
                         }
+                    }
 
 
                     @Override
@@ -199,19 +283,32 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     completedBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
-                            DatabaseReference reference = database.child("Users").child("Approved Users").child(uID).child("Appointments");
-                            reference.child(countID).child("status").getRef().setValue("Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            //getting doctor object from DB
+                            approvedDB.child(doctorUID).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onSuccess(Void unused) {
-                                    notifyDataSetChanged(); // Notify the adapter that the data set has changed
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()){
+                                        Doctor doctor = snapshot.getValue(Doctor.class);
+                                        if(doctor!=null){
+                                            AppointmentRequest appointmentRequest = new AppointmentRequest(request.getPatientName(),patientUID,"Pending", request.getStartTime(),request.getEndTime(),request.getDate(),doctorUID);
+                                            doctor.completeAppointment(doctorUID, appointmentRequest);
+                                            list.remove(request);
+                                            notifyDataSetChanged(); // Notify the adapter that the data set has changed
+                                            //approvedDB.child(doctorUID).setValue(doctor);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
                                 }
                             });
                         }
                     });
                 }
 
-                dialog = new Dialog(context);
+                Dialog dialog = new Dialog(context);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(slideView);
                 dialog.show();
@@ -221,6 +318,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
@@ -246,5 +357,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         }
     }
+
 
 }

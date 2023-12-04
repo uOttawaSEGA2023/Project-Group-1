@@ -96,7 +96,7 @@
         android:background="@drawable/border"
         android:backgroundTint="#DDECD3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/logout"
+        app:layout_constraintEnd_toStartOf="@id/manageAppointment"
         app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
@@ -119,7 +119,7 @@
 
 
     <ImageButton
-        android:id="@+id/logout"
+        android:id="@+id/manageAppointment"
         android:layout_width="155dp"
         android:layout_height="203dp"
         android:background="@drawable/border"
@@ -141,11 +141,11 @@
         android:text="Manage Appointments"
         android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/logout"
-        app:layout_constraintEnd_toEndOf="@+id/logout"
+        app:layout_constraintBottom_toBottomOf="@+id/manageAppointment"
+        app:layout_constraintEnd_toEndOf="@+id/manageAppointment"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/logout"
-        app:layout_constraintTop_toTopOf="@+id/logout"
+        app:layout_constraintStart_toStartOf="@+id/manageAppointment"
+        app:layout_constraintTop_toTopOf="@+id/manageAppointment"
         app:layout_constraintVertical_bias="0.509" />
 
 
