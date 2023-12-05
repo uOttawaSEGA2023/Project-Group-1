@@ -18,30 +18,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="126dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
-                    android:gravity="left"
                     android:layout_marginTop="50dp"
+                    android:layout_marginRight="10dp"
                     android:fontFamily="@font/poppins_bold"
+                    android:gravity="left"
                     android:text="Past Appointments"
                     android:textColor="@color/primary"
                     android:textSize="30dp"
-                    android:layout_marginRight="10dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <ImageButton
-                    android:layout_marginTop="50dp"
                     android:id="@+id/logOutPatient"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/circle_button"
                     android:fontFamily="@font/poppins_bold"
-                    android:src="@drawable/group"
-                    android:background="@drawable/circle_button">
-                </ImageButton>
+                    android:src="@drawable/group"></ImageButton>
             </LinearLayout>
 
 
@@ -55,8 +56,9 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview3"
+                    android:layout_marginTop="25dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="593dp"
                     android:gravity="left"
 
                     >
