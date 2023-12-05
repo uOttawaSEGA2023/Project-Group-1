@@ -52,13 +52,15 @@ public class PopUpActivity extends AppCompatActivity {
     }
     protected void updateRatingInFirebase(float rating) {
           String doctorUID = getIntent().getStringExtra("doctorUID");
-          appUsers.child(doctorUID).addListenerForSingleValueEvent(new ValueEventListener() {
+          DatabaseReference docRef=appUsers.child(doctorUID);
+          docRef.keepSynced(true);
+          docRef.addListenerForSingleValueEvent(new ValueEventListener() {
               @Override
               public void onDataChange(@NonNull DataSnapshot snapshot) {
                   if (snapshot.exists()){
                       Doctor doctor =snapshot.getValue(Doctor.class);
                       if (doctor!=null){
-                          doctor.setRating(rating);
+                          doctor.increaseTotalRating(rating);
                           doctor.incrementNumRating();
                           appUsers.child(doctorUID).setValue(doctor);
                       }

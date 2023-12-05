@@ -90,7 +90,7 @@ public class MyAdapter3 extends RecyclerView.Adapter<MyAdapter3.MyViewHolder> {
                     if (doc!=null){
                         holder.name.setText(doc.getFirstName()+" "+doc.getLastName());
 
-                        holder.rating.setText(String.valueOf(doc.getAvgRating()));
+                        holder.rating.setText(String.valueOf(doc.avgRating()));
                     }
 
 //                    String docFirstName = String.valueOf(snapshot.child("firstName").getValue());
