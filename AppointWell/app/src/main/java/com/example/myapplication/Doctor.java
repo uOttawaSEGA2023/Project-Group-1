@@ -173,7 +173,7 @@ public class Doctor extends UserAccount {
         approvedDB.child(doctorUID).child("availableTimeSlots").setValue(availableTimeSlots);
     }
 
-    public float getAvgRating(){
+    public float avgRating(){
         if (numRating==0){
             return 0;
         }
@@ -182,6 +182,9 @@ public class Doctor extends UserAccount {
 
     public void incrementNumRating(){
         numRating++;
+    }
+    public void increaseTotalRating(float r){
+        rating+=r;
     }
 
 
