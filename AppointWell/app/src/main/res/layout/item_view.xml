@@ -67,7 +67,7 @@
                     android:layout_height="70dp"
                     android:text="10:00 - 11:00"
                     android:paddingLeft="10dp"
-                    android:textSize="30dp"
+                    android:textSize="26dp"
                     android:textColor="@color/tertiary"
                     android:fontFamily="@font/poppins_bold"
 
@@ -85,15 +85,21 @@
             android:orientation="vertical"
 
             >
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatButton
+
                 android:id="@+id/approveRequestBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="66dp"
+                android:layout_height="70dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/approve"
+                android:text="Approve"
+                android:layout_marginStart="5dp"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_bold"
+                android:background="@drawable/border"
                 android:visibility="visible"
+                android:textSize="13dp"
                 >
-            </ImageButton>
+            </androidx.appcompat.widget.AppCompatButton>
             <ImageButton
                 android:id="@+id/rejectRequestBtn"
                 android:layout_width="75dp"

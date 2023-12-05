@@ -21,7 +21,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeoutException;
 
 public class AppointmentBookingActivity extends AppCompatActivity {
@@ -92,36 +96,58 @@ public class AppointmentBookingActivity extends AppCompatActivity {
                         if (child.exists()) {
                             TimeSlot timeSlot = child.getValue(TimeSlot.class);
                             if(timeSlot != null) {
-                                approvedDB.child(timeSlot.getDoctorID()).child("specialties").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.exists()) {
-                                            for (DataSnapshot child : snapshot.getChildren()) {
-                                                String sp = child.getValue(String.class);
-                                                if (sp.equals(specialty)) {
-                                                    boolean alreadyAdded=false;
-                                                    for (int i=0;i<timeSlots.size();i++){
-                                                        if(timeSlot.getDoctorID()==timeSlots.get(i).getDoctorID() && timeSlot.getStartTime()==timeSlots.get(i).getStartTime() && timeSlot.getDate()==timeSlots.get(i).getDate()){
-                                                            alreadyAdded=true;
-                                                            break;
+                                boolean timeDiff = false;
+                                boolean dateDiff = false;
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                    LocalTime timeNow = LocalTime.now();
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                                    LocalTime timeslotTime = LocalTime.parse(timeSlot.getStartTime(), formatter);
+                                    timeDiff = timeNow.isAfter(timeslotTime);
+                                }
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+                                    String strDate = timeSlot.getDate();
+                                    LocalDate date = LocalDate.parse(strDate, formatter);
+                                    LocalDate dateNow = LocalDate.now();
+                                    dateDiff = date.isEqual(dateNow);
+                                }
+
+                                //if when finding appointments it finds an appointment that has already passed it removes it from the database
+                                if(dateDiff && timeDiff){
+                                    timeSlotDB.child(timeSlot.getDate()+"-"+timeSlot.getStartTime()+"-"+timeSlot.getDoctorID()).removeValue();
+                                }
+                                else {
+                                    approvedDB.child(timeSlot.getDoctorID()).child("specialties").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                for (DataSnapshot child : snapshot.getChildren()) {
+                                                    String sp = child.getValue(String.class);
+                                                    if (sp.equals(specialty)) {
+                                                        boolean alreadyAdded = false;
+                                                        for (int i = 0; i < timeSlots.size(); i++) {
+                                                            if (timeSlot.getDoctorID() == timeSlots.get(i).getDoctorID() && timeSlot.getStartTime() == timeSlots.get(i).getStartTime() && timeSlot.getDate() == timeSlots.get(i).getDate()) {
+                                                                alreadyAdded = true;
+                                                                break;
+                                                            }
                                                         }
+                                                        if (!alreadyAdded) {
+                                                            timeSlots.add(timeSlot);
+                                                            adapter.notifyDataSetChanged();
+                                                        }
+                                                        break;
                                                     }
-                                                    if (!alreadyAdded) {
-                                                        timeSlots.add(timeSlot);
-                                                        adapter.notifyDataSetChanged();
-                                                    }
-                                                    break;
                                                 }
+
                                             }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
                                         }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
+                                    });
+                                }
                             }
                         }
                     }

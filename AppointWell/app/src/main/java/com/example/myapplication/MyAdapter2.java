@@ -3,9 +3,12 @@ package com.example.myapplication;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +40,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
     String nameMsg, emailMsg, addressMsg, phoneNumMsg, typeMsg, healthCardMsg;
     boolean timeDiff = false;
 
+    boolean dateDiff = false;
 
     ArrayList<AppointmentRequest> list;
     private OnItemClickListener listener;
@@ -113,11 +117,11 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
 //        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 
             try {
                 LocalDate date = LocalDate.parse(request.getDate(), formatter);
-                DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+                DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
                 String strDate = newFormatter.format(date);
                 holder.date.setText(strDate);
             } catch (DateTimeParseException e) {
@@ -129,27 +133,11 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
         holder.time.setText(request.getStartTime() + " - " + request.getEndTime());
 
 
-        // Get the current time
-        LocalTime currentTime = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            currentTime = LocalTime.now();
-        }
 
-// Parse the start time from the appointment request
-        String startTimeString = request.getStartTime();
-        LocalTime startTime = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startTime = LocalTime.parse(startTimeString, DateTimeFormatter.ofPattern("HH:mm"));
-        }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(currentTime.compareTo(startTime.minusHours(1)) > 0){
-                timeDiff = true;
-            }
-            else{
-                timeDiff= false;
-            }
-        }
+
+
+
 
 
         // new cancel btn
@@ -157,8 +145,36 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
 
             @Override
             public void onClick(View v) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+                    String strDate = request.getDate();
+                    LocalDate date = LocalDate.parse(strDate, formatter);
+                    LocalDate dateNow = LocalDate.now();
+                    dateDiff = date.isEqual(dateNow);
+                }
+                // Get the current time
+                LocalTime currentTime = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    currentTime = LocalTime.now();
+                }
 
-                if ( timeDiff == true){
+                // Parse the start time from the appointment request
+                String startTimeString = request.getStartTime();
+                LocalTime startTime = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startTime = LocalTime.parse(startTimeString, DateTimeFormatter.ofPattern("HH:mm"));
+                }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if(currentTime.compareTo(startTime.minusHours(1)) > 0){
+                        timeDiff = true;
+                    }
+                    else{
+                        timeDiff= false;
+                    }
+                }
+
+                if ( timeDiff  && dateDiff){
                     Toast.makeText(context,  "The appointment is less than 1 hour away from the start time", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -220,7 +236,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView date, name, time;
-        ImageButton cancelBtn;
+        Button cancelBtn;
         LinearLayout linearLayout;
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);

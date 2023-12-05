@@ -59,6 +59,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         autoApproveText = findViewById(R.id.autoApproveTextid);
         logoutDoctor = findViewById(R.id.logOutDoctor);
 
+
         logoutDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +181,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
             // changes color on click
             @Override
             public void onClick(View v) {
+
                 switchAutoApprove.setVisibility(View.INVISIBLE);
                 autoApproveText.setVisibility(View.INVISIBLE);
                 pendingSelected = false;

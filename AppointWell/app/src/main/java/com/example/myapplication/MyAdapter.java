@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -99,11 +100,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 
             try {
                 LocalDate date = LocalDate.parse(request.getDate(), formatter);
-                DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+                DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
                 String strDate = newFormatter.format(date);
                 holder.date.setText(strDate);
             } catch (DateTimeParseException e) {
@@ -169,6 +170,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // end - reject btn
 
 
+
+        if (!request.getStatus().equals("Pending")){
+            holder.approveRequestBtn.setVisibility(View.GONE);
+        }
+
+
         // start - approve btn
         holder.approveRequestBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -181,11 +188,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         if(snapshot.exists()){
                             Patient patient = snapshot.getValue(Patient.class);
                             if(patient!=null){
-                                String patientName = patient.getFirstName() + " " + patient.getLastName();
-                                AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", request.getStartTime(),request.getEndTime(),request.getDate(),doctorUID);
-                                patient.approveAppointment(patientUID,appointmentRequest);
-                                list.remove(request);
-                                notifyDataSetChanged(); // Notify the adapter that the data set has changed
+                                    String patientName = patient.getFirstName() + " " + patient.getLastName();
+                                    AppointmentRequest appointmentRequest = new AppointmentRequest(patientName, patientUID, "Pending", request.getStartTime(), request.getEndTime(), request.getDate(), doctorUID);
+                                    patient.approveAppointment(patientUID, appointmentRequest);
+                                    list.remove(request);
+                                    notifyDataSetChanged(); // Notify the adapter that the data set has changed
+
                             }
                         }
                     }
@@ -368,7 +376,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView date, name, time;
-        ImageButton approveRequestBtn, rejectbtn;
+        ImageButton  rejectbtn;
+        Button approveRequestBtn;
         LinearLayout linearLayout;
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
