@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,7 +21,9 @@ public class MainPagePatient extends AppCompatActivity {
     private TextView welcomeMessageTextView;
     private TextView userTypeTextView;
     private ImageButton logOutBtn;
-    private ImageButton bookAppointment;
+    private Button bookAppointment;
+    private Button manageAppointment;
+    private Button pastAppointment;
 
 
     @Override
@@ -32,7 +35,8 @@ public class MainPagePatient extends AppCompatActivity {
         welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
         userTypeTextView = findViewById(R.id.logintext);
         bookAppointment = findViewById(R.id.bookappointment);
-
+        manageAppointment = findViewById(R.id.manageAppointment);
+        pastAppointment = findViewById(R.id.pastAppointment);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference accountRef = FirebaseDatabase.getInstance().getReference("Users").child("Approved Users").child(userID);
@@ -62,7 +66,7 @@ public class MainPagePatient extends AppCompatActivity {
 
 
 
-        logOutBtn = findViewById(R.id.logout);
+        logOutBtn = findViewById(R.id.logOutPatient);
 
         logOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +86,26 @@ public class MainPagePatient extends AppCompatActivity {
                 finish();
             }
         });
+
+        manageAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPagePatient.this, PatientUpcomingAppointments.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        pastAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPagePatient.this, PastAppointmentPatient.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
     }
 }
 

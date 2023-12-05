@@ -42,7 +42,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/patientName"
+                    android:id="@+id/doctorName"
                     android:layout_width="210dp"
                     android:layout_height="50dp"
                     android:gravity="center"
@@ -50,7 +50,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/dark_green"
                     android:fontFamily="@font/poppins_bold"
-                   />
+                    />
 
                 <TextView
                     android:layout_width="210dp"
@@ -85,29 +85,23 @@
             android:orientation="vertical"
 
             >
-            <androidx.appcompat.widget.AppCompatButton
 
-                android:id="@+id/approveRequestBtn"
-                android:layout_width="66dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="5dp"
-                android:text="Approve"
-                android:layout_marginStart="5dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginTop="45dp"
+                android:id="@+id/cancelBtn"
+                android:text="Cancel"
                 android:textAllCaps="false"
-                android:fontFamily="@font/poppins_bold"
-                android:background="@drawable/border"
-                android:visibility="visible"
-                android:textSize="13dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="12dp"
+                android:layout_width="66dp"
+                android:layout_marginStart="5dp"
+                android:layout_height="66dp"
+                android:background="@drawable/border_red"
                 >
             </androidx.appcompat.widget.AppCompatButton>
-            <ImageButton
-                android:id="@+id/rejectRequestBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rejectbtn"
-                >
-            </ImageButton>
+
+
+
 
         </LinearLayout>
     </LinearLayout>

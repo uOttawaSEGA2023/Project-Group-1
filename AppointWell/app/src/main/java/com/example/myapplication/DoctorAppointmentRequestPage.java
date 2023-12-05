@@ -59,6 +59,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         autoApproveText = findViewById(R.id.autoApproveTextid);
         logoutDoctor = findViewById(R.id.logOutDoctor);
 
+
         logoutDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +73,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         String databaseUrl = "https://new-database-b712b-default-rtdb.firebaseio.com/";
 
         // Reference to the "Appointments" node
-        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("Appointments");
+        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("appointmentRequests");
 
         DatabaseReference db =  FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("AutoApprove");
         db.addValueEventListener(new ValueEventListener() {
@@ -180,6 +181,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
             // changes color on click
             @Override
             public void onClick(View v) {
+
                 switchAutoApprove.setVisibility(View.INVISIBLE);
                 autoApproveText.setVisibility(View.INVISIBLE);
                 pendingSelected = false;
@@ -215,7 +217,7 @@ public class DoctorAppointmentRequestPage extends AppCompatActivity {
         String databaseUrl = "https://new-database-b712b-default-rtdb.firebaseio.com/";
 
         // Reference to the "Appointments" node
-        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("Appointments");
+        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users").child("Approved Users").child(uID).child("appointmentRequests");
 
 
         // Add a ValueEventListener to retrieve data

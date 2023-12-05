@@ -37,5 +37,49 @@ public class Patient extends UserAccount{
         upcomingAppointments.add(appointmentRequest);
         approvedDB.child(patientUID).child("upcomingAppointments").setValue(upcomingAppointments);
     }
+
+    public void removeUpcomingAppointment(String patientUID, AppointmentRequest appointmentRequest){
+        for (AppointmentRequest request : upcomingAppointments){
+            if (request.getDate().equals(appointmentRequest.getDate()) && request.getStartTime().equals(appointmentRequest.getStartTime()) &&
+                    request.getPatientUID().equals(appointmentRequest.getPatientUID()) && request.getDoctorUID().equals(appointmentRequest.getDoctorUID())){
+                upcomingAppointments.remove(request);
+                break;
+            }
+        }
+            approvedDB.child(patientUID).child("upcomingAppointments").setValue(upcomingAppointments);
+
+    }
+
+    public void approveAppointment(String patientUID, AppointmentRequest appointmentRequest){
+        for (AppointmentRequest request: upcomingAppointments){
+            if (request.getDate().equals(appointmentRequest.getDate()) && request.getStartTime().equals(appointmentRequest.getStartTime()) &&  request.getPatientUID().equals(appointmentRequest.getPatientUID()) &&
+                    request.getDoctorUID().equals(appointmentRequest.getDoctorUID())){
+//                AppointmentRequest temp = request;
+//                upcomingAppointments.remove(request);
+//                temp.setStatus("Approved");
+//                upcomingAppointments.add(temp);
+                request.setStatus("Approved");
+                break;
+            }
+        }
+        approvedDB.child(patientUID).child("upcomingAppointments").setValue(upcomingAppointments);
+    }
+
+    public void completeAppointment(String patientUID, AppointmentRequest appointmentRequest){
+        for (AppointmentRequest request: upcomingAppointments){
+            if (request.getDate().equals(appointmentRequest.getDate()) && request.getStartTime().equals(appointmentRequest.getStartTime()) &&  request.getPatientUID().equals(appointmentRequest.getPatientUID()) &&
+                    request.getDoctorUID().equals(appointmentRequest.getDoctorUID())){
+//                AppointmentRequest temp = request;
+//                appointmentRequests.remove(request);
+//                temp.setStatus("Approved");
+//                appointmentRequests.add(temp);
+                request.setStatus("Completed");
+                break;
+
+            }
+        }
+        approvedDB.child(patientUID).child("upcomingAppointments").setValue(upcomingAppointments);
+    }
+
 }
 

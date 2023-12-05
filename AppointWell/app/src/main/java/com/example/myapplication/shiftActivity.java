@@ -34,21 +34,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
 public class shiftActivity extends AppCompatActivity {
-    private List<Shift> doctorShiftsList;
+    List<Shift> doctorShiftsList;
+    ArrayList<TimeSlot> availableTimeSlots;
     CalendarView calendarView;
     Spinner spinner1;
     Spinner spinner2;
@@ -62,6 +60,8 @@ public class shiftActivity extends AppCompatActivity {
     ImageButton backto;
 
     String docName;
+    LocalDate currentDate;
+    String currentdate;
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://new-database-b712b-default-rtdb.firebaseio.com/");
     DatabaseReference userDatabase = database.child("Users").child("Approved Users");
@@ -81,6 +81,10 @@ public class shiftActivity extends AppCompatActivity {
                 month = Month + 1;
                 day = Day;
                 dateString = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month, day);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    currentDate = LocalDate.now();
+                }
+                currentdate = currentDate.toString();
                 Toast.makeText(shiftActivity.this, "You select " + dateString, Toast.LENGTH_SHORT).show();
             }
         });
@@ -124,12 +128,10 @@ public class shiftActivity extends AppCompatActivity {
         create = findViewById(R.id.create);
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                LocalDate currentDate = null;
-                String currentdate;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    currentDate = LocalDate.now();
-                }
-                currentdate = currentDate.toString();
+                if (dateString==null) {
+                    Toast.makeText(shiftActivity.this, "No date selected- Select a date", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
                     if (dateString.compareTo(currentdate) < 0) {
                         Toast.makeText(shiftActivity.this, "The day has already passed- select another date", Toast.LENGTH_SHORT).show();
                         return;//avoid the app terminating
@@ -144,30 +146,31 @@ public class shiftActivity extends AppCompatActivity {
                             }
                         }
                     }
+                }
                 //check if endTime is before startTime
                 if (endTime.compareTo(startTime) < 0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be before StartTime", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (startTime.compareTo(endTime) == 0) {
+                if (startTime.compareTo(endTime)==0) {
                     Toast.makeText(shiftActivity.this, "EndTime can't be equal to StartTime", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // get userId
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String uID = currentUser.getUid();
+               FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+               String uID = currentUser.getUid();
 
                 //TRYING TO FIX
                 //GETTING SHIFT LIST FROM DOCTOR
                 userDatabase.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
+                        if(snapshot.exists()){
                             Doctor doctor = snapshot.getValue(Doctor.class);
-                            if (doctor != null) {
-                                doctorShiftsList = doctor.getShifts();
-                                if (doctorShiftsList == null) {
-                                    doctorShiftsList = new ArrayList<Shift>();
+                            if(doctor!=null){
+                                doctorShiftsList =  doctor.getShifts();
+                                if (doctorShiftsList==null){
+                                    doctorShiftsList=new ArrayList<Shift>();
                                 }
                             }
                         }
@@ -179,7 +182,9 @@ public class shiftActivity extends AppCompatActivity {
                     }
                 });
 
-                DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
+
+
+               DatabaseReference shiftsRef = userDatabase.child(uID).child("shifts");
 
                 shiftsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -213,16 +218,15 @@ public class shiftActivity extends AppCompatActivity {
                                     userDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.exists()) {
-                                                Doctor doctor = snapshot.getValue(Doctor.class);
-                                                if (doctor != null) {
-                                                    docName = doctor.getFirstName() + " " + doctor.getLastName();
+                                            if (snapshot.exists()){
+                                                Doctor doctor=snapshot.getValue(Doctor.class);
+                                                if (doctor!=null){
+                                                    docName=doctor.getFirstName()+" "+ doctor.getLastName();
                                                     Log.d("NAME1", docName);
-                                                    addTimeSlots(dateString, startTime, endTime, docName, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                    addTimeSlots(dateString,startTime,endTime,docName,FirebaseAuth.getInstance().getCurrentUser().getUid());
                                                 }
                                             }
-                                        }
-
+                                        } 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
 
@@ -274,6 +278,7 @@ public class shiftActivity extends AppCompatActivity {
         if (Integer.parseInt(endTime.substring(3,5))==30){
             end+=0.5;
         }
+        List<TimeSlot> timeSlots = new ArrayList<>();
         for (float i=start;i<end;i+=0.5){
             if (i-Math.floor(i)!=0){
                 timeSlotStart=String.valueOf((int)Math.floor(i))+":30";
@@ -291,6 +296,44 @@ public class shiftActivity extends AppCompatActivity {
 
             TimeSlot t = new TimeSlot(timeSlotStart,timeSlotEnd,dateString,docName,uid);
             tDB.child(dateString+"-"+timeSlotStart+"-"+uid).setValue(t);
+            timeSlots.add(t);
+            //update the doctors available time slots
+//            userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (snapshot.exists()){
+//
+//                        Doctor doctor= snapshot.getValue(Doctor.class);
+//                        Log.d("abc", t.getDate());
+//                        doctor.addAvailableTimeSlot(uid,t);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+            // Update the doctor's available time slots
+            userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Doctor doctor = snapshot.getValue(Doctor.class);
+                        for (TimeSlot timeSlot : timeSlots) {
+                            doctor.addAvailableTimeSlot(uid, timeSlot);
+                        }
+                        // Update the doctor object in the database
+                        userDatabase.child(uid).setValue(doctor);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
 
     }

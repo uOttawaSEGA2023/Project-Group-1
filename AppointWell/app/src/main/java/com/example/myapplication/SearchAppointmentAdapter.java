@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +29,6 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
     private DatabaseReference approvedDB = FirebaseDatabase.getInstance().getReference().child("Users").child("Approved Users");
     private String specialty;
     private List<AppointmentRequest> appointmentRequestList;
-
     private Context context;
     private ArrayList<TimeSlot> timeSlots;
     private String patientUID;
@@ -47,7 +48,8 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAppointmentAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAppointmentAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        holder.setIsRecyclable(false);
         holder.timeTV.setText(timeSlots.get(position).getStartTime() + " - " + timeSlots.get(position).getEndTime());
         holder.dateTV.setText(timeSlots.get(position).getDate());
         holder.nameTV.setText("Dr " + timeSlots.get(position).getDoctorName());
@@ -71,8 +73,6 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
                                 patientName = patient.getFirstName() + " " + patient.getLastName();
                                 AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", timeSlots.get(position).getStartTime(),timeSlots.get(position).getEndTime(),timeSlots.get(position).getDate(),doctorUID);
                                 patient.addUpcomingAppointment(patientUID, appointmentRequest);
-
-
                             }
                         }
                     }
@@ -92,7 +92,9 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
                             Doctor doctor = snapshot.getValue(Doctor.class);
                             if(doctor!=null){
                                 AppointmentRequest appointmentRequest = new AppointmentRequest(patientName,patientUID,"Pending", timeSlots.get(position).getStartTime(),timeSlots.get(position).getEndTime(),timeSlots.get(position).getDate(),doctorUID);
-                                doctor.addUpcomingAppointment(patientUID, appointmentRequest);
+                                doctor.addUpcomingAppointment(doctorUID, appointmentRequest);
+                                //remove timeslot from doctors list of available timeslots
+                                doctor.removeAvailableTimeSlot(doctorUID,timeSlots.get(position));
                                 //approvedDB.child(doctorUID).setValue(doctor);
                             }
                         }
@@ -106,7 +108,7 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
 
                 //remove time slot from available time slots
 
-                DatabaseReference tsDB =FirebaseDatabase.getInstance().getReference().child("Available Time Slots");
+                DatabaseReference tsDB = FirebaseDatabase.getInstance().getReference().child("Available Time Slots");
 
                 tsDB.child(timeSlots.get(position).getDate()+"-"+timeSlots.get(position).getStartTime()+"-"+timeSlots.get(position).getDoctorID()).removeValue();
             }
