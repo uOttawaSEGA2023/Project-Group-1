@@ -77,7 +77,10 @@ public class PatientUpcomingAppointments extends AppCompatActivity {
                     String countID = String.valueOf(appointmentSnapshot.child("countID").getValue());
                     AppointmentRequest request = new AppointmentRequest(patientName,patientUID,status,startTime,endTime,date, doctorUID);
                     request.setCountID(Integer.valueOf(countID));
+                    //MON ADD SA
+                    if (status.equals("Approved")) {
                         list.add(request);
+                    }
 
                 }
                 myAdapter.notifyDataSetChanged();

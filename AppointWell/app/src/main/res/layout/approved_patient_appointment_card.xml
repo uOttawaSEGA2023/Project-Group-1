@@ -87,6 +87,7 @@
             >
 
             <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginTop="45dp"
                 android:id="@+id/cancelBtn"
                 android:text="Cancel"
                 android:textAllCaps="false"
@@ -95,22 +96,11 @@
                 android:layout_width="66dp"
                 android:layout_marginStart="5dp"
                 android:layout_height="66dp"
-                android:layout_marginBottom="20dp"
                 android:background="@drawable/border_red"
                 >
             </androidx.appcompat.widget.AppCompatButton>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:fontFamily="@font/poppins_semibold"
-                android:textAllCaps="false"
-                android:textSize="12dp"
-                android:text="Complete"
-                android:layout_marginStart="5dp"
-                android:id="@+id/completed"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/border"/>
+
 
 
         </LinearLayout>

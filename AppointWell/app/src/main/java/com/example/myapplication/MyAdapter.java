@@ -173,6 +173,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         if (!request.getStatus().equals("Pending")){
             holder.approveRequestBtn.setVisibility(View.GONE);
+        } else {
+            holder.approveRequestBtn.setVisibility(View.VISIBLE);
+        }
+
+        if(request.getStatus().equals("Completed")){
+            holder.rejectbtn.setVisibility(View.GONE);
+        } else {
+            holder.rejectbtn.setVisibility(View.VISIBLE);
         }
 
 
